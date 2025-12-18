@@ -1,0 +1,30 @@
+# My Local Preferences
+
+<!--
+  This file is for YOUR personal preferences on this project.
+  Rename to CLAUDE.local.md to activate (it's auto-gitignored).
+
+  Use this for:
+  - Personal workflow preferences
+  - Machine-specific paths
+  - Your own shortcuts and reminders
+-->
+
+## My Preferences
+
+### Communication Style
+- I prefer concise explanations
+- Show me the code first, then explain
+
+### My Environment
+- My editor is VS Code
+- I use zsh with oh-my-zsh
+- Node version: 20.x
+
+### Personal Reminders
+- Remember to update JIRA tickets
+- Run e2e tests locally before pushing large changes
+
+### My Reference Files
+<!-- Import your global preferences -->
+<!-- @~/.claude/my-preferences.md -->

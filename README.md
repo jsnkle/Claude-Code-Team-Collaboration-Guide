@@ -2,11 +2,11 @@
 
 ## Executive Summary
 
-This guide provides a comprehensive game plan for deploying Claude Code across a small team. It covers the latest feature sets (as of December 2025), recommended directory structures, project rules, slash commands, and configurations that support effective team collaboration.
+This guide provides a comprehensive game plan for deploying Claude Code across a small team. It covers the latest feature sets (as of v2.0.72), recommended directory structures, project rules, slash commands, and configurations that support effective team collaboration.
 
 ---
 
-## Part 1: Claude Code Feature Overview (December 2025)
+## Part 1: Claude Code Feature Overview (v2.0.72)
 
 ### Core Features
 
@@ -31,7 +31,7 @@ This guide provides a comprehensive game plan for deploying Claude Code across a
 |---------|-------------|
 | **Checkpoints & /rewind** | Automatically saves code state before each edit. Use `Esc+Esc` or `/rewind` to restore code, conversation, or both to any previous point. |
 | **Plan Mode** | Toggle with `Shift+Tab`. Claude creates a plan before executing, allowing review and feedback. |
-| **Extended Thinking** | Toggle with `Tab` (sticky across sessions). Claude shows reasoning process. Say "think" or "ultrathink" for deeper reasoning. |
+| **Extended Thinking** | Toggle with `Alt+T` (sticky across sessions). Claude shows reasoning process. Say "think" or "ultrathink" for deeper reasoning. Enabled by default for Opus 4.5. |
 | **History Search** | `Ctrl+R` to search through prompt history across sessions. |
 | **Output Styles** | `/output-style` to switch between Default, Explanatory (educational insights), or Learning (collaborative coding). |
 | **VS Code Extension** | Native extension with sidebar panel, inline diffs, plan mode editing, and auto-accept. |
@@ -43,6 +43,9 @@ This guide provides a comprehensive game plan for deploying Claude Code across a
 | **Sandbox Mode** | Bash sandboxing on Linux/Mac for safer command execution. |
 | **Web Search** | Claude can search the web for current information. |
 | **Image Support** | Paste images directly into prompt (`Ctrl+V` or drag-and-drop). |
+| **Chrome Extension** | Control your browser directly from Claude Code with Claude in Chrome (Beta). |
+| **Prompt Suggestions** | Claude suggests follow-up prompts. Press `Enter` to accept immediately, `Tab` to edit first. |
+| **Model Switching** | Switch models while typing with `Alt+P` (Option+P on Mac). |
 | **/usage** | Check subscription plan usage limits (% remaining). |
 | **/stats** | View usage statistics, graphs, and streaks. |
 | **/export** | Export conversation for sharing. |
@@ -1000,7 +1003,7 @@ echo "# My local settings" > CLAUDE.local.md
 - [ ] Project rules load correctly (`/memory` shows all rule files)
 - [ ] Permissions work correctly (can't read .env files)
 - [ ] Git workflow commands function properly
-- [ ] Developer knows how to use `#` to add memories
+- [ ] Developer knows how to ask Claude to edit CLAUDE.md for persistent memories
 - [ ] Developer knows how to create personal preferences
 
 ---
@@ -1018,7 +1021,7 @@ echo "# My local settings" > CLAUDE.local.md
 ### CLAUDE.md Best Practices
 
 1. **Keep it lean** - Move detailed rules to `.claude/rules/`
-2. **Use `#` key** - Have Claude add instructions during sessions
+2. **Ask Claude to edit** - Have Claude add instructions to CLAUDE.md during sessions
 3. **Use imports** - Reference other docs with `@path/to/file`
 4. **Review periodically** - Remove outdated instructions
 5. **Commit changes** - Include CLAUDE.md updates in PRs
@@ -1448,9 +1451,10 @@ Enable bash sandboxing for safer command execution:
 
 ### Prompt Suggestions
 
-Claude can suggest follow-up prompts. Configure in `/config`:
+Claude can suggest follow-up prompts. Configure in `/config` (or `/settings`):
 - Press `Enter` to accept and submit immediately
 - Press `Tab` to accept for editing
+- Toggle on/off in `/config`
 
 ---
 
@@ -1460,7 +1464,7 @@ Claude can suggest follow-up prompts. Configure in `/config`:
 
 | Shortcut | Action |
 |----------|--------|
-| `Tab` | Toggle extended thinking mode (sticky across sessions) |
+| `Alt+T` | Toggle extended thinking mode (sticky across sessions) |
 | `Shift+Tab` | Toggle plan mode / cycle permission modes |
 | `Ctrl+R` | Search prompt history |
 | `Ctrl+C` | Cancel current operation |
@@ -1471,7 +1475,6 @@ Claude can suggest follow-up prompts. Configure in `/config`:
 | `Ctrl+O` | Toggle transcript mode |
 | `Alt+P` / `Option+P` | Switch models while typing |
 | `Esc + Esc` | Open rewind menu |
-| `#` text | Quick add to memory (CLAUDE.md) |
 | `@` path | File/folder autocomplete and reference |
 | `!` command | Direct bash execution |
 | `&` message | Send as background task |
@@ -1512,7 +1515,7 @@ paths:
 | `/help` | Show all commands |
 | `/init` | Initialize/update CLAUDE.md |
 | `/memory` | View/edit all loaded memories and rules |
-| `/config` | View and modify settings |
+| `/config` or `/settings` | View and modify settings |
 | `/permissions` | Manage tool permissions with search |
 | `/clear` | Clear conversation history |
 | `/rewind` | Restore code/conversation to checkpoint |
@@ -1598,5 +1601,5 @@ paths:
 
 ---
 
-*Document Version: 2.2 | Last Updated: December 2025*
-*Includes: Project Rules, Path-Scoped Rules, Memory Imports, Checkpoints/Rewind, Output Styles, Plugins, VS Code Extension, Background Agents, Named Sessions, Sandbox Mode, Complete Configuration Examples*
+*Document Version: 2.3 | Compatible with Claude Code v2.0.72*
+*Includes: Project Rules, Path-Scoped Rules, Memory Imports, Checkpoints/Rewind, Output Styles, Plugins, VS Code Extension, Background Agents, Named Sessions, Sandbox Mode, Chrome Extension, Prompt Suggestions, Complete Configuration Examples*

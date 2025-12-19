@@ -2,11 +2,11 @@
 
 ## Executive Summary
 
-This guide provides a comprehensive game plan for deploying Claude Code across a small team. It covers the latest feature sets (as of v2.0.73), recommended directory structures, project rules, slash commands, and configurations that support effective team collaboration.
+This guide provides a comprehensive game plan for deploying Claude Code across a small team. It covers the latest feature sets (as of v2.0.74), recommended directory structures, project rules, slash commands, and configurations that support effective team collaboration.
 
 ---
 
-## Part 1: Claude Code Feature Overview (v2.0.73)
+## Part 1: Claude Code Feature Overview (v2.0.74)
 
 ### Core Features
 
@@ -25,40 +25,17 @@ This guide provides a comprehensive game plan for deploying Claude Code across a
 | **Output Styles** | Modify Claude's behavior (Default, Explanatory, Learning) | Project/User |
 | **VS Code Extension** | Native IDE integration with inline diffs and plan mode | IDE |
 
-### Key v2.0+ Features
+### Key v2.0+ Features (Team-Relevant)
 
-| Feature | Description |
-|---------|-------------|
-| **Checkpoints & /rewind** | Automatically saves code state before each edit. Use `Esc+Esc` or `/rewind` to restore code, conversation, or both to any previous point. |
-| **Plan Mode** | Toggle with `Shift+Tab`. Claude creates a plan before executing, allowing review and feedback. |
-| **Extended Thinking** | Toggle with `Alt+T` (sticky across sessions). Claude shows reasoning process. Say "think" or "ultrathink" for deeper reasoning. Enabled by default for Opus 4.5. |
-| **History Search** | `Ctrl+R` to search through prompt history across sessions. |
-| **Output Styles** | `/output-style` to switch between Default, Explanatory (educational insights), or Learning (collaborative coding). |
-| **VS Code Extension** | Native extension with sidebar panel, inline diffs, plan mode editing, and auto-accept. |
-| **Named Sessions** | `/rename` to name sessions, `/resume <n>` or `claude --resume <n>` to resume specific sessions. |
-| **Background Agents** | Start messages with `&` to send background tasks. Agents run while you work. |
-| **Background Commands** | `Ctrl+B` to run any bash command in background (great for dev servers, log tailing). |
-| **Explore Subagent** | Powered by Haiku, efficiently searches codebase to save context. |
-| **Plugin System** | `/plugin install`, `/plugin marketplace` - Extend with custom commands, agents, hooks, MCP servers. |
-| **Sandbox Mode** | Bash sandboxing on Linux/Mac for safer command execution. |
-| **Web Search** | Claude can search the web for current information. |
-| **Image Support** | Paste images directly into prompt (`Ctrl+V` or drag-and-drop). Clickable image links open in default viewer. |
-| **Chrome Extension** | Control your browser directly from Claude Code with Claude in Chrome (Beta). |
-| **Prompt Suggestions** | Claude suggests follow-up prompts. Press `Enter` to accept immediately, `Tab` to edit first. Toggle in `/config`. |
-| **Model Switching** | Switch models while typing with `Alt+P` (Option+P on Mac). |
-| **Yank-Pop (Kill Ring)** | `Alt+Y` cycles through previously deleted text (readline-style kill ring). |
-| **Plugin Search** | Search and filter plugins in the discovery screen (`/plugin`). |
-| **Custom Session IDs** | Fork sessions with custom IDs using `--fork-session` flag. |
-| **/usage** | Check subscription plan usage limits (% remaining). |
-| **/stats** | View usage statistics, graphs, and streaks. |
-| **/export** | Export conversation for sharing. |
-| **/doctor** | Diagnose and fix configuration issues. |
-| **/context** | Visualize current context usage. |
-| **/compact** | Compress conversation to save context space. |
-| **/permissions** | Manage tool permissions with search and filtering. |
-| **/add-dir** | Add additional working directories to session. |
-| **/todos** | List all TODO items Claude is tracking. |
-| **/statusline** | Customize terminal status line display. |
+| Feature | Description | Team Relevance |
+|---------|-------------|----------------|
+| **Plan Mode** | Toggle with `Shift+Tab`. Claude creates a plan before executing, allowing review and feedback. | Encourages thoughtful changes |
+| **Plugin System** | `/plugin install`, `/plugin marketplace` - Extend with custom commands, agents, hooks, MCP servers. | Distribute team plugins |
+| **Sandbox Mode** | Bash sandboxing on Linux/Mac for safer command execution. | Configurable in project settings.json |
+| **Output Styles** | Custom output styles can be distributed in `.claude/output-styles/`. | Team-wide behavior customization |
+| **Checkpoints & /rewind** | Automatically saves code state before each edit. Developers can restore to any checkpoint. | Safety net for team members |
+
+**Note:** Claude Code includes many individual productivity features (extended thinking, background commands, vim mode, etc.) documented in the [official docs](https://code.claude.com/docs). This guide focuses on team-configurable features.
 
 ### Memory & Configuration Hierarchy
 
@@ -1597,49 +1574,13 @@ MCP tools follow pattern: `mcp__<server>__<tool>`
 
 ---
 
-## Part 11: Checkpoints, Rewind & Session Management
+## Part 11: Checkpoints & Recovery
 
-### Checkpoints (Automatic)
+Claude Code automatically captures snapshots before each edit, providing a safety net for developers. Team members can use `Esc + Esc` or `/rewind` to restore code, conversation, or both to any checkpoint.
 
-Claude Code automatically captures snapshots of your code **before each edit**. This creates a safety net for ambitious refactoring and exploration.
+**Team Relevance:** This built-in feature requires no configuration but is worth mentioning during onboarding so developers know they can experiment safely.
 
-**What's Tracked:**
-- All file edits made through Claude's editing tools
-- Conversation history at each checkpoint
-
-**What's NOT Tracked:**
-- Files modified by bash commands (e.g., `npm run build`)
-- Manual edits you make outside Claude Code
-- External service state (APIs, databases)
-
-### Using /rewind
-
-Access via `Esc + Esc` or `/rewind` command.
-
-**Restore Options:**
-
-| Option | What It Restores | Best For |
-|--------|------------------|----------|
-| **Conversation only** | Conversation history to prior point | Re-phrasing a prompt without losing code |
-| **Code only** | File changes to prior state | Undoing bad edits while keeping context |
-| **Both** | Code AND conversation | Full rollback after major wrong turn |
-
-**Best Practices:**
-- Use `/rewind` liberally for experimentation
-- Combine with Git for permanent history
-- Use Plan Mode (`Shift+Tab`) first for risky operations
-- Think of checkpoints as "local undo" and Git as "permanent history"
-
-### Session Commands
-
-| Command | Description |
-|---------|-------------|
-| `/clear` | Clear conversation history, start fresh |
-| `/compact` | Compress conversation to save context |
-| `/context` | Visualize current context usage |
-| `/export` | Export conversation for sharing |
-| `claude -c` | Continue most recent session |
-| `claude -r` | Resume specific previous conversation |
+For full details, see the [official checkpointing documentation](https://code.claude.com/docs/en/checkpointing).
 
 ---
 
@@ -1712,33 +1653,13 @@ When team members trust the folder, they'll be prompted to install the marketpla
 
 ---
 
-## Part 13: Output Styles
+## Part 13: Custom Output Styles
 
-Output styles modify Claude's system prompt to adapt behavior for different use cases.
+Output styles modify Claude's behavior. While Claude Code includes built-in styles (Default, Explanatory, Learning), teams can create and distribute **custom output styles**.
 
-### Built-in Styles
+### Creating Team Output Styles
 
-| Style | Description |
-|-------|-------------|
-| **Default** | Standard software engineering assistance |
-| **Explanatory** | Provides educational "Insights" between tasks, helps understand implementation choices |
-| **Learning** | Collaborative mode where Claude adds `TODO(human)` markers for you to implement |
-
-### Switching Styles
-
-```bash
-# Interactive menu
-/output-style
-
-# Direct switch
-/output-style explanatory
-/output-style learning
-/output-style default
-```
-
-### Custom Output Styles
-
-Create custom styles in `~/.claude/output-styles/` or `.claude/output-styles/`:
+Place custom styles in `.claude/output-styles/` to distribute with your project:
 
 ```markdown
 ---
@@ -1758,144 +1679,31 @@ You are a security-focused code assistant. For every change:
 Always prioritize security over convenience.
 ```
 
-### When to Use Output Styles
+### Team Use Cases
 
-- **Explanatory**: Onboarding new team members, learning a codebase
-- **Learning**: Training junior developers, educational contexts
-- **Custom**: Specialized workflows (security audits, documentation focus, etc.)
+- **Security Auditor**: Enforce security-first reviews
+- **Documentation Focus**: Ensure thorough documentation
+- **Strict Code Review**: Enforce team coding standards
+
+Developers switch styles with `/output-style`. For full details, see the [official output styles documentation](https://code.claude.com/docs/en/output-styles).
 
 ---
 
 ## Part 14: VS Code Extension
 
-### Overview
+The Claude Code VS Code extension provides a graphical interface alternative to the CLI.
 
-The native VS Code extension (beta) provides a graphical interface integrated directly into your IDE.
+**Team Relevance:** Project `.claude/` configurations (rules, commands, agents, settings) work identically in both the CLI and extension. Teams can standardize on either interface - the configuration is shared.
 
-### Key Features
-
-| Feature | Description |
-|---------|-------------|
-| **Sidebar Panel** | Dedicated Claude Code panel in VS Code sidebar |
-| **Inline Diffs** | See proposed changes with accept/reject buttons |
-| **Plan Mode** | Review and edit Claude's plans before accepting |
-| **Auto-Accept** | Automatically apply trusted changes |
-| **Extended Thinking** | Toggle reasoning visibility |
-| **Selection Context** | Current selection/tab automatically shared |
-| **Diagnostic Sharing** | Lint and syntax errors auto-shared with Claude |
-| **Drag & Drop** | Drop files and folders into chat |
-| **Tab Icon Badges** | Visual indicators for pending permissions and unread completions |
-
-### Installation
-
-1. Open VS Code Extensions (`Ctrl+Shift+X`)
-2. Search "Claude Code"
-3. Install the official Anthropic extension
-4. Click the Spark icon in sidebar
-
-### File Reference Shortcuts
-
-- **Mac**: `Cmd+Option+K` to insert file references like `@File#L1-99`
-- **Windows/Linux**: `Alt+Ctrl+K`
-
-### VS Code vs CLI
-
-| Use CLI When... | Use Extension When... |
-|-----------------|----------------------|
-| Terminal-native workflows | Visual interface preferred |
-| Keyboard-first efficiency | Plan mode with editing needed |
-| Resource-constrained environments | Inline diffs helpful |
-| Advanced permission control needed | Real-time visual feedback wanted |
-
-### Configuration
-
-In VS Code settings or `.vscode/settings.json`:
-```json
-{
-  "claudeCode.disableLoginPrompt": true,
-  "claudeCode.respectGitIgnore": true,
-  "env": {
-    "CLAUDE_CODE_USE_BEDROCK": "1",
-    "AWS_REGION": "us-east-2"
-  }
-}
-```
+For installation and feature details, see the [official VS Code extension documentation](https://code.claude.com/docs).
 
 ---
 
-## Part 15: Advanced Features
+## Part 15: Additional Team-Configurable Features
 
-### Background Commands (`Ctrl+B`)
+### Sandbox Mode
 
-Run any bash command in the background while Claude continues working:
-- Great for dev servers, log tailing, long-running builds
-- Claude can check on background processes as needed
-
-### Background Agents
-
-Start a message with `&` to send it as a background task:
-```
-& Run the full test suite and fix any failures
-```
-The agent works in the background while you continue other tasks.
-
-### Named Sessions
-
-```bash
-# Name the current session
-/rename my-feature-work
-
-# Resume a named session (in REPL)
-/resume my-feature-work
-
-# Resume from terminal
-claude --resume my-feature-work
-```
-
-### Thinking Mode Triggers
-
-Trigger deeper reasoning with keywords in your prompt:
-- "think" - Enable thinking mode
-- "think harder" - More thorough analysis
-- "ultrathink" - Maximum reasoning depth
-
-### Web Search
-
-Claude can search the web for current information. Just ask questions about recent events, documentation, or anything requiring up-to-date information.
-
-### Image Support
-
-Multiple ways to include images:
-- **Paste**: `Ctrl+V` (or `Cmd+V` on Mac in VS Code)
-- **Drag & Drop**: Drag image files into the prompt
-- **@-mention**: `@path/to/image.png`
-
-### Custom Status Line
-
-Customize your terminal status line with `/statusline`:
-```json
-{
-  "statusLine": {
-    "type": "command",
-    "command": "~/.claude/statusline.sh"
-  }
-}
-```
-
-The status line can include `current_usage` field for context window calculations.
-
-### Shell Override
-
-Use the `CLAUDE_CODE_SHELL` environment variable to override the default shell:
-
-```bash
-export CLAUDE_CODE_SHELL=/bin/zsh
-claude
-```
-
-### Sandbox Mode (Linux/Mac)
-
-Enable bash sandboxing for safer command execution:
+Enable bash sandboxing for safer command execution in your project's `settings.json`:
 
 ```json
 {
@@ -1910,44 +1718,32 @@ Enable bash sandboxing for safer command execution:
 }
 ```
 
-### Vim Mode
+This provides an additional layer of security for team environments.
 
-Enable vim-style editing with `/vim` command or configure via `/config`:
+### Environment Variables
 
-**Mode Switching:**
-- `Esc` → Enter NORMAL mode
-- `i` / `I` → Insert before cursor / at beginning of line
-- `a` / `A` → Insert after cursor / at end of line
-- `o` / `O` → Open line below / above
+Set project-wide environment variables in `settings.json`:
 
-**Navigation (NORMAL mode):**
-- `h/j/k/l` → Move left/down/up/right
-- `w/e/b` → Next word / end of word / previous word
-- `0/$` → Beginning / end of line
-- `gg/G` → Beginning / end of input
+```json
+{
+  "env": {
+    "NODE_ENV": "development",
+    "API_URL": "https://dev-api.example.com"
+  }
+}
+```
 
-**Editing (NORMAL mode):**
-- `x` → Delete character
-- `dd/D` → Delete line / to end of line
-- `cc/C` → Change line / to end of line
-- `.` → Repeat last change
+### Model Override
 
-### Session Management
+Specify a default model for the project:
 
-| Command | Description |
-|---------|-------------|
-| `claude -c` | Continue most recent session |
-| `claude -r` | Resume specific conversation |
-| `claude --resume <name>` | Resume named session |
-| `/resume` | Switch conversations within REPL |
-| `/rename` | Name current session |
+```json
+{
+  "model": "claude-sonnet-4-5-20250929"
+}
+```
 
-### Prompt Suggestions
-
-Claude can suggest follow-up prompts. Configure in `/config` (or `/settings`):
-- Press `Enter` to accept and submit immediately
-- Press `Tab` to accept for editing
-- Toggle on/off in `/config`
+**Note:** Claude Code includes many individual productivity features (background commands, vim mode, session management, etc.) documented in the [official docs](https://code.claude.com/docs).
 
 ---
 
@@ -2013,101 +1809,17 @@ paths:
 @~/.claude/my-preferences.md         # Home directory
 ```
 
-### Essential Slash Commands
+### Useful Verification Commands
 
-| Command | Description |
-|---------|-------------|
-| `/help` | Show all commands |
-| `/init` | Initialize/update CLAUDE.md |
-| `/memory` | View/edit all loaded memories and rules |
-| `/config` or `/settings` | View and modify settings |
-| `/permissions` | Manage tool permissions with search (`/` to search) |
-| `/clear` | Clear conversation history |
-| `/rewind` | Restore code/conversation to checkpoint |
-| `/compact` | Compress conversation to save context |
-| `/context` | Visualize context usage |
-| `/usage` | Check plan usage limits |
-| `/cost` | Check session API token usage |
-| `/stats` | View usage statistics and streaks |
-| `/export` | Export conversation |
+These built-in commands help verify team configurations are loaded correctly:
+
+| Command | Purpose |
+|---------|---------|
+| `/memory` | View all loaded memories and rules - verify team configs loaded |
+| `/help` | Show all commands including custom team commands |
 | `/doctor` | Diagnose configuration issues |
-| `/model` | Change or configure model |
-| `/output-style` | Change output style |
-| `/review` | Request code review |
-| `/security-review` | Complete security review of pending branch changes |
-| `/todos` | List tracked TODO items |
-| `/add-dir` | Add working directory |
-| `/status` | Show version and connectivity |
-| `/resume` | Switch to another conversation |
-| `/rename` | Name current session |
-| `/plugin` | Manage plugins (with search filtering) |
-| `/mcp` | Manage MCP servers |
-| `/statusline` | Customize status line |
-| `/terminal-setup` | Configure terminal integration |
-| `/bashes` | List and manage background tasks |
-| `/sandbox` | Enable sandboxed bash tool |
-| `/hooks` | Manage hook configurations |
-| `/ide` | Manage IDE integrations and status |
-| `/agents` | Manage custom AI subagents |
-| `/vim` | Enter vim editing mode |
-| `/privacy-settings` | View and update privacy settings |
-| `/release-notes` | View release notes |
-| `/install-github-app` | Set up Claude GitHub Actions |
-| `/bug` | Report bugs (sends conversation to Anthropic) |
-| `/login` | Switch Anthropic accounts |
-| `/logout` | Sign out from your Anthropic account |
-| `/exit` | Exit the REPL |
 
-### CLI Flags
-
-| Flag | Description |
-|------|-------------|
-| `claude -c` | Continue most recent session |
-| `claude -r` | Resume specific previous conversation |
-| `claude --resume <n>` | Resume named session |
-| `claude -p "prompt"` | Headless mode with prompt |
-| `claude --model <model>` | Set model (alias: sonnet, opus, haiku) |
-| `claude --agents` | Dynamically add subagents via JSON |
-| `claude --system-prompt` | Replace entire default system prompt |
-| `claude --system-prompt-file` | Load system prompt from file (print mode only) |
-| `claude --append-system-prompt` | Add to system prompt |
-| `claude --tools` | Specify available tools (`"Bash,Edit,Read"` or `"default"`) |
-| `claude --allowedTools` | Tools that execute without prompting |
-| `claude --disallowedTools` | Tools removed from context |
-| `claude --mcp-config <file>` | Load MCP servers from config |
-| `claude --strict-mcp-config` | Only use specified MCP servers |
-| `claude --mcp-debug` | Debug MCP server issues |
-| `claude --add-dir <path>` | Add working directory |
-| `claude --dangerously-skip-permissions` | Skip all permission checks |
-| `claude --permission-mode` | Begin in specified permission mode |
-| `claude --max-turns` | Limit agentic turns (non-interactive mode) |
-| `claude --fork-session` | Create new session ID when resuming |
-| `claude --session-id` | Use specific session ID (must be valid UUID) |
-| `claude --output-format` | Specify output format (`text`, `json`, `stream-json`) |
-| `claude --input-format` | Specify input format (`text`, `stream-json`) |
-| `claude --json-schema` | Get validated JSON output matching schema (print mode) |
-| `claude --chrome` | Enable Chrome browser integration |
-| `claude --no-chrome` | Disable Chrome integration |
-| `claude --ide` | Auto-connect to IDE if available |
-| `claude --fallback-model` | Auto-fallback to specified model when overloaded |
-| `claude --debug` | Enable debug mode with optional filtering |
-| `claude --verbose` | Enable verbose logging |
-| `claude --settings` | Load settings from JSON file or string |
-| `claude --plugin-dir` | Load plugins from directories |
-| `claude update` | Update to latest version |
-| `claude mcp` | Configure MCP servers |
-
-### MCP Commands
-
-| Command | Description |
-|---------|-------------|
-| `/mcp` | View MCP server status and tools |
-| `/mcp enable <server>` | Enable an MCP server |
-| `/mcp disable <server>` | Disable an MCP server |
-| `claude mcp add` | Interactive MCP setup wizard |
-| `claude mcp add-json <n> <json>` | Add MCP server from JSON |
-| `claude mcp list` | List configured MCP servers |
-| `@server-name` | Toggle MCP server on/off |
+For the complete list of built-in slash commands and CLI flags, see the [official CLI reference](https://code.claude.com/docs/en/cli-reference).
 
 ### Permission Patterns
 - `Bash(npm run:*)` - All npm run commands
@@ -2153,5 +1865,5 @@ paths:
 
 ---
 
-*Document Version: 2.4 | Compatible with Claude Code v2.0.73*
+*Document Version: 2.5 | Compatible with Claude Code v2.0.74*
 *Includes: Project Rules, Path-Scoped Rules, Memory Imports, Checkpoints/Rewind, Output Styles, Plugins, VS Code Extension, Background Agents, Named Sessions, Sandbox Mode, Chrome Extension, Prompt Suggestions, Complete Configuration Examples*

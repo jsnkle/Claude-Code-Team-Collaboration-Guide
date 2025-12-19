@@ -2,7 +2,7 @@
 
 A practical template repository for deploying Claude Code across development teams. Copy these templates into your projects to establish consistent AI-assisted development workflows.
 
-**Compatible with Claude Code v2.0.73**
+**Compatible with Claude Code v2.0.74**
 
 ## Documentation
 
@@ -15,8 +15,8 @@ A practical template repository for deploying Claude Code across development tea
 | Part | Section | Description |
 |------|---------|-------------|
 | 1 | [Feature Overview](docs/full-guide.md#part-1-claude-code-feature-overview-v2073) | Core features, v2.0+ additions, memory hierarchy |
-| 2 | [Project Rules System](docs/full-guide.md#part-2-project-rules-system) | Modular rules, path-scoped activation, user-level rules |
-| 3 | [Directory Structure](docs/full-guide.md#part-3-recommended-directory-structure) | Complete project and user-level layouts |
+| 2 | [Project Rules System](docs/full-guide.md#part-2-project-rules-system) | Modular rules, path-scoped activation |
+| 3 | [Directory Structure](docs/full-guide.md#part-3-recommended-directory-structure) | Complete project layout |
 | 4 | [Configuration Files](docs/full-guide.md#part-4-essential-configuration-files) | CLAUDE.md, rules, settings.json, commands, agents |
 | 5 | [Agent Skills](docs/full-guide.md#part-5-agent-skills) | Model-invoked capabilities, SKILL.md format, examples |
 | 6 | [CLAUDE.md Imports](docs/full-guide.md#part-6-claudemd-imports) | Import syntax, recursive imports, viewing loaded memories |
@@ -24,12 +24,12 @@ A practical template repository for deploying Claude Code across development tea
 | 8 | [Best Practices](docs/full-guide.md#part-8-best-practices-for-team-collaboration) | Rules strategy, permissions, commands, hooks |
 | 9 | [Security](docs/full-guide.md#part-9-security-considerations) | Permission deny rules, security best practices |
 | 10 | [Troubleshooting](docs/full-guide.md#part-10-troubleshooting) | Common issues, useful commands |
-| 11 | [Checkpoints & Rewind](docs/full-guide.md#part-11-checkpoints-rewind--session-management) | Automatic snapshots, /rewind options, sessions |
-| 12 | [Plugin System](docs/full-guide.md#part-12-plugin-system) | Installing, configuring, distributing plugins |
-| 13 | [Output Styles](docs/full-guide.md#part-13-output-styles) | Built-in styles, custom styles |
-| 14 | [VS Code Extension](docs/full-guide.md#part-14-vs-code-extension) | Features, installation, CLI vs extension |
-| 15 | [Advanced Features](docs/full-guide.md#part-15-advanced-features) | Background commands, named sessions, web search |
-| 16 | [Quick Reference](docs/full-guide.md#part-16-quick-reference-card) | Keyboard shortcuts, locations, CLI flags |
+| 11 | [Checkpoints & Recovery](docs/full-guide.md#part-11-checkpoints--recovery) | Brief overview of checkpoint feature |
+| 12 | [Plugin System](docs/full-guide.md#part-12-plugin-system) | Installing, configuring, distributing team plugins |
+| 13 | [Custom Output Styles](docs/full-guide.md#part-13-custom-output-styles) | Team-distributed output styles |
+| 14 | [VS Code Extension](docs/full-guide.md#part-14-vs-code-extension) | Brief note on extension compatibility |
+| 15 | [Team-Configurable Features](docs/full-guide.md#part-15-additional-team-configurable-features) | Sandbox mode, environment variables, model override |
+| 16 | [Quick Reference](docs/full-guide.md#part-16-quick-reference-card) | Keyboard shortcuts, locations, permission patterns |
 
 ## Quick Start
 
@@ -119,21 +119,6 @@ claude-code-guide/
 │       │       └── security-scanner.md
 │       ├── CLAUDE.md               # Root-level alternative
 │       └── CLAUDE.local.md.example # Personal overrides template
-│
-└── examples/
-    └── user-level/           # Personal ~/.claude/ setup
-        ├── CLAUDE.md
-        ├── settings.json
-        ├── rules/
-        │   ├── preferences.md
-        │   └── workflows.md
-        ├── skills/
-        │   └── daily-standup/
-        │       └── SKILL.md
-        ├── commands/
-        │   └── standup.md
-        └── agents/
-            └── personal-assistant.md
 ```
 
 ## Available Templates
@@ -175,19 +160,6 @@ Model-invoked capabilities that Claude uses automatically based on context:
 - Pre-configured permissions (allow common dev tools, deny sensitive files)
 - Prettier hook for auto-formatting
 
-## User-Level Setup
-
-For personal preferences that apply to ALL your projects:
-
-```bash
-# Copy user-level examples to your home directory
-cp -r examples/user-level/* ~/.claude/
-
-# Customize with your preferences
-# Edit ~/.claude/CLAUDE.md
-# Edit ~/.claude/rules/preferences.md
-```
-
 ## Team Onboarding
 
 ### For DevOps/Team Leads
@@ -203,7 +175,6 @@ cp -r examples/user-level/* ~/.claude/
 1. Pull the project with `.claude/` directory
 2. Run `claude` in the project
 3. Verify with `/memory` and `/help`
-4. Optionally set up personal `~/.claude/` preferences
 
 ## Customization Notes
 
@@ -235,6 +206,6 @@ Adjust based on your security requirements.
 
 ---
 
-*Template Version: 1.1 | Compatible with Claude Code v2.0.73*
+*Template Version: 1.1 | Compatible with Claude Code v2.0.74*
 
 **Created by Jason Kellie | MIT License**

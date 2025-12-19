@@ -4,6 +4,33 @@ A practical template repository for deploying Claude Code across development tea
 
 **Compatible with Claude Code v2.0.72**
 
+## Documentation
+
+- **[Full Guide](docs/full-guide.md)** - Comprehensive reference with all Claude Code features
+- **[Claude Code Docs](https://code.claude.com/docs)** - Official documentation
+- **[Changelog](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)** - Latest features
+
+### Full Guide Contents
+
+| Part | Section | Description |
+|------|---------|-------------|
+| 1 | [Feature Overview](docs/full-guide.md#part-1-claude-code-feature-overview-v2072) | Core features, v2.0+ additions, memory hierarchy |
+| 2 | [Project Rules System](docs/full-guide.md#part-2-project-rules-system) | Modular rules, path-scoped activation, user-level rules |
+| 3 | [Directory Structure](docs/full-guide.md#part-3-recommended-directory-structure) | Complete project and user-level layouts |
+| 4 | [Configuration Files](docs/full-guide.md#part-4-essential-configuration-files) | CLAUDE.md, rules, settings.json, commands, agents |
+| 5 | [Agent Skills](docs/full-guide.md#part-5-agent-skills) | Model-invoked capabilities, SKILL.md format, examples |
+| 6 | [CLAUDE.md Imports](docs/full-guide.md#part-6-claudemd-imports) | Import syntax, recursive imports, viewing loaded memories |
+| 7 | [Team Onboarding](docs/full-guide.md#part-7-team-onboarding-checklist) | Pre-onboarding setup, developer steps, verification |
+| 8 | [Best Practices](docs/full-guide.md#part-8-best-practices-for-team-collaboration) | Rules strategy, permissions, commands, hooks |
+| 9 | [Security](docs/full-guide.md#part-9-security-considerations) | Permission deny rules, security best practices |
+| 10 | [Troubleshooting](docs/full-guide.md#part-10-troubleshooting) | Common issues, useful commands |
+| 11 | [Checkpoints & Rewind](docs/full-guide.md#part-11-checkpoints-rewind--session-management) | Automatic snapshots, /rewind options, sessions |
+| 12 | [Plugin System](docs/full-guide.md#part-12-plugin-system) | Installing, configuring, distributing plugins |
+| 13 | [Output Styles](docs/full-guide.md#part-13-output-styles) | Built-in styles, custom styles |
+| 14 | [VS Code Extension](docs/full-guide.md#part-14-vs-code-extension) | Features, installation, CLI vs extension |
+| 15 | [Advanced Features](docs/full-guide.md#part-15-advanced-features) | Background commands, named sessions, web search |
+| 16 | [Quick Reference](docs/full-guide.md#part-16-quick-reference-card) | Keyboard shortcuts, locations, CLI flags |
+
 ## Quick Start
 
 ### 1. Copy the Template to Your Project
@@ -69,6 +96,11 @@ claude-code-guide/
 │       │   │   ├── security.md         # Path-scoped
 │       │   │   ├── api-rules.md        # Path-scoped
 │       │   │   └── frontend-rules.md   # Path-scoped
+│       │   ├── skills/              # Agent skills (model-invoked)
+│       │   │   ├── commit-helper/
+│       │   │   │   └── SKILL.md
+│       │   │   └── code-reviewer/
+│       │   │       └── SKILL.md
 │       │   ├── commands/           # Slash commands
 │       │   │   ├── dev/
 │       │   │   │   ├── start.md
@@ -95,6 +127,9 @@ claude-code-guide/
         ├── rules/
         │   ├── preferences.md
         │   └── workflows.md
+        ├── skills/
+        │   └── daily-standup/
+        │       └── SKILL.md
         ├── commands/
         │   └── standup.md
         └── agents/
@@ -115,6 +150,11 @@ claude-code-guide/
 ### Rules (`.claude/rules/`)
 - **Always loaded**: `code-style.md`, `git-workflow.md`, `testing.md`
 - **Path-scoped**: `security.md`, `api-rules.md`, `frontend-rules.md` - only activate for matching files
+
+### Skills (`.claude/skills/`)
+Model-invoked capabilities that Claude uses automatically based on context:
+- `commit-helper` - Generates commit messages from diffs
+- `code-reviewer` - Read-only code review (restricted tools)
 
 ### Commands (`.claude/commands/`)
 - `/dev/start` - Initialize development session
@@ -147,12 +187,6 @@ cp -r examples/user-level/* ~/.claude/
 # Edit ~/.claude/CLAUDE.md
 # Edit ~/.claude/rules/preferences.md
 ```
-
-## Documentation
-
-- **[Full Guide](docs/full-guide.md)** - Comprehensive reference with all Claude Code features
-- **[Claude Code Docs](https://code.claude.com/docs)** - Official documentation
-- **[Changelog](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)** - Latest features
 
 ## Team Onboarding
 

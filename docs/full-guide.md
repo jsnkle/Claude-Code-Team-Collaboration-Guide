@@ -1772,6 +1772,7 @@ Specify a default model for the project:
 | `Ctrl+Y` | Paste deleted text (readline-style yank) |
 | `Alt+Y` | Cycle through kill ring history (yank-pop) |
 | `Ctrl+O` | Toggle verbose output mode |
+| `Ctrl+T` (in `/theme`) | Toggle syntax highlighting |
 | `Alt+P` / `Option+P` | Switch models while typing |
 | `Alt+V` (Windows) | Paste image from clipboard |
 | `Esc + Esc` | Open rewind menu |
@@ -1783,6 +1784,10 @@ Specify a default model for the project:
 | `#` at start | Add to CLAUDE.md memory shortcut |
 | `!` command | Direct bash execution |
 | `&` message | Send as background task |
+
+**Note:** On macOS, keyboard shortcuts display 'opt' instead of 'alt' (e.g., `Option+T` instead of `Alt+T`).
+
+**Terminal Setup:** Run `/terminal-setup` to configure your terminal for optimal Claude Code experience. Supported terminals include iTerm2, Kitty, Alacritty, Zed, Warp, WezTerm, and Ghostty.
 
 ### Memory & Rules Locations
 

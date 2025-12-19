@@ -2,7 +2,7 @@
 
 A practical template repository for deploying Claude Code across development teams. Copy these templates into your projects to establish consistent AI-assisted development workflows.
 
-**Compatible with Claude Code v2.0.72**
+**Compatible with Claude Code v2.0.73**
 
 ## Documentation
 
@@ -14,7 +14,7 @@ A practical template repository for deploying Claude Code across development tea
 
 | Part | Section | Description |
 |------|---------|-------------|
-| 1 | [Feature Overview](docs/full-guide.md#part-1-claude-code-feature-overview-v2072) | Core features, v2.0+ additions, memory hierarchy |
+| 1 | [Feature Overview](docs/full-guide.md#part-1-claude-code-feature-overview-v2073) | Core features, v2.0+ additions, memory hierarchy |
 | 2 | [Project Rules System](docs/full-guide.md#part-2-project-rules-system) | Modular rules, path-scoped activation, user-level rules |
 | 3 | [Directory Structure](docs/full-guide.md#part-3-recommended-directory-structure) | Complete project and user-level layouts |
 | 4 | [Configuration Files](docs/full-guide.md#part-4-essential-configuration-files) | CLAUDE.md, rules, settings.json, commands, agents |
@@ -235,6 +235,6 @@ Adjust based on your security requirements.
 
 ---
 
-*Template Version: 1.0 | Compatible with Claude Code v2.0.72*
+*Template Version: 1.1 | Compatible with Claude Code v2.0.73*
 
 **Created by Jason Kellie | MIT License**

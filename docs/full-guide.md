@@ -2,11 +2,11 @@
 
 ## Executive Summary
 
-This guide provides a comprehensive game plan for deploying Claude Code across a small team. It covers the latest feature sets (as of v2.0.72), recommended directory structures, project rules, slash commands, and configurations that support effective team collaboration.
+This guide provides a comprehensive game plan for deploying Claude Code across a small team. It covers the latest feature sets (as of v2.0.73), recommended directory structures, project rules, slash commands, and configurations that support effective team collaboration.
 
 ---
 
-## Part 1: Claude Code Feature Overview (v2.0.72)
+## Part 1: Claude Code Feature Overview (v2.0.73)
 
 ### Core Features
 
@@ -42,10 +42,13 @@ This guide provides a comprehensive game plan for deploying Claude Code across a
 | **Plugin System** | `/plugin install`, `/plugin marketplace` - Extend with custom commands, agents, hooks, MCP servers. |
 | **Sandbox Mode** | Bash sandboxing on Linux/Mac for safer command execution. |
 | **Web Search** | Claude can search the web for current information. |
-| **Image Support** | Paste images directly into prompt (`Ctrl+V` or drag-and-drop). |
+| **Image Support** | Paste images directly into prompt (`Ctrl+V` or drag-and-drop). Clickable image links open in default viewer. |
 | **Chrome Extension** | Control your browser directly from Claude Code with Claude in Chrome (Beta). |
-| **Prompt Suggestions** | Claude suggests follow-up prompts. Press `Enter` to accept immediately, `Tab` to edit first. |
+| **Prompt Suggestions** | Claude suggests follow-up prompts. Press `Enter` to accept immediately, `Tab` to edit first. Toggle in `/config`. |
 | **Model Switching** | Switch models while typing with `Alt+P` (Option+P on Mac). |
+| **Yank-Pop (Kill Ring)** | `Alt+Y` cycles through previously deleted text (readline-style kill ring). |
+| **Plugin Search** | Search and filter plugins in the discovery screen (`/plugin`). |
+| **Custom Session IDs** | Fork sessions with custom IDs using `--fork-session` flag. |
 | **/usage** | Check subscription plan usage limits (% remaining). |
 | **/stats** | View usage statistics, graphs, and streaks. |
 | **/export** | Export conversation for sharing. |
@@ -605,6 +608,57 @@ paths:
 }
 ```
 
+### 4.3.1 Complete Settings Reference
+
+| Setting | Description | Example |
+|---------|-------------|---------|
+| `apiKeyHelper` | Custom script to generate auth value | `"/bin/generate_temp_api_key.sh"` |
+| `cleanupPeriodDays` | Days before inactive sessions are deleted (default: 30) | `20` |
+| `env` | Environment variables for every session | `{"NODE_ENV": "development"}` |
+| `attribution` | Customize git commit and PR attribution | See attribution section below |
+| `permissions` | Configure allow/ask/deny rules for tools | See permissions section |
+| `hooks` | Custom commands before/after tool executions | See hooks section |
+| `disableAllHooks` | Disable all hooks | `true` |
+| `model` | Override default model | `"claude-sonnet-4-5-20250929"` |
+| `statusLine` | Configure custom status line | `{"type": "command", "command": "..."}` |
+| `fileSuggestion` | Custom script for `@` file autocomplete | `{"type": "command", "command": "..."}` |
+| `outputStyle` | Configure output style | `"Explanatory"` |
+| `forceLoginMethod` | Restrict to `claudeai` or `console` | `"claudeai"` |
+| `forceLoginOrgUUID` | Auto-select organization during login | `"uuid-here"` |
+| `enableAllProjectMcpServers` | Auto-approve all MCP servers in `.mcp.json` | `true` |
+| `enabledMcpjsonServers` | List of specific MCP servers to approve | `["memory", "github"]` |
+| `disabledMcpjsonServers` | List of MCP servers to reject | `["filesystem"]` |
+| `alwaysThinkingEnabled` | Enable extended thinking by default | `true` |
+| `awsAuthRefresh` | Custom script to refresh AWS credentials | `"aws sso login --profile myprofile"` |
+| `awsCredentialExport` | Script outputting AWS credentials as JSON | `"/bin/generate_aws_grant.sh"` |
+| `includeCoAuthoredBy` | Include co-author line in commits | `true` |
+
+#### Attribution Settings
+
+Customize git commit and PR attribution:
+
+```json
+{
+  "attribution": {
+    "commit": "Generated with AI\n\nCo-Authored-By: AI <ai@company.com>",
+    "pr": "Generated with AI"
+  }
+}
+```
+
+#### File Suggestion Settings
+
+Custom `@` file autocomplete:
+
+```json
+{
+  "fileSuggestion": {
+    "type": "command",
+    "command": "~/.claude/file-suggestion.sh"
+  }
+}
+```
+
 ### 4.4 Sample Slash Commands
 
 #### `/dev/start` - Initialize Development Session
@@ -785,6 +839,17 @@ List possible causes ranked by likelihood:
 
 ### 4.5 Sample Subagents
 
+#### Subagent Configuration Fields
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `name` | Yes | Unique identifier (lowercase, hyphens) |
+| `description` | Yes | Natural language purpose - helps Claude decide when to use |
+| `tools` | No | Comma-separated tool list (inherits all if omitted) |
+| `model` | No | Model alias: `sonnet`, `opus`, `haiku`, or `inherit` |
+| `permissionMode` | No | Permission handling: `default`, `acceptEdits`, `bypassPermissions`, `plan`, `ignore` |
+| `skills` | No | Comma-separated skill names to auto-load |
+
 #### Code Reviewer Agent
 **File:** `.claude/agents/code-reviewer.md`
 
@@ -794,6 +859,7 @@ name: code-reviewer
 description: Specialist for thorough code reviews focusing on quality, security, and best practices. Invoke when reviewing PRs or code changes.
 tools: Read, Grep, Glob
 model: sonnet
+permissionMode: default
 ---
 
 You are a senior code reviewer with expertise in identifying code quality issues, security vulnerabilities, and performance problems.
@@ -895,6 +961,26 @@ Report findings with:
 - **Recommendation**: How to fix it
 - **Reference**: OWASP or CWE identifier if applicable
 ```
+
+#### Built-in Subagents
+
+Claude Code includes several built-in subagents:
+
+| Subagent | Model | Purpose |
+|----------|-------|---------|
+| **General-Purpose** | Sonnet | Complex multi-step tasks requiring exploration and modification |
+| **Plan** | Sonnet | Research codebase in plan mode (read-only) |
+| **Explore** | Haiku | Fast codebase exploration with thoroughness levels: quick, medium, very thorough |
+
+#### Resumable Subagents
+
+Subagents can be resumed to continue previous work:
+
+```bash
+> Resume agent abc123 and now analyze the authorization logic as well
+```
+
+Each execution gets a unique `agentId` stored in `agent-{agentId}.jsonl`. Full context is preserved when resumed, making this useful for long-running research or analysis tasks.
 
 ---
 
@@ -1234,11 +1320,30 @@ Run `/memory` command to see all loaded memory files.
 ### Developer Onboarding Steps
 
 #### Step 1: Install Claude Code
-```bash
-# Install Node.js 18+ if not already installed
-# Then install Claude Code globally
-npm install -g @anthropic-ai/claude-code
 
+**Native Install (Recommended):**
+```bash
+# macOS, Linux, WSL
+curl -fsSL https://claude.ai/install.sh | bash
+
+# Windows PowerShell
+irm https://claude.ai/install.ps1 | iex
+
+# Windows CMD
+curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd
+```
+
+**Homebrew:**
+```bash
+brew install --cask claude-code
+```
+
+**NPM (Node.js 18+):**
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+
+```bash
 # Verify installation
 claude --version
 ```
@@ -1350,13 +1455,30 @@ echo "# My local settings" > CLAUDE.local.md
 
 ### Hook Usage
 
+#### Available Hook Events
+
+| Event | Purpose |
+|-------|---------|
+| `PreToolUse` | Before tool execution; can allow/deny/ask permission |
+| `PostToolUse` | After tool completes; provide feedback to Claude |
+| `PermissionRequest` | When permission dialog shown; allow/deny on behalf of user |
+| `UserPromptSubmit` | Before Claude processes user prompt; validate/add context |
+| `Stop` | When main agent finishes; control continuation |
+| `SubagentStop` | When subagent finishes; control continuation |
+| `Notification` | When notifications sent; filter by type |
+| `PreCompact` | Before compacting context (manual/auto) |
+| `SessionStart` | Session begins; load context/setup environment |
+| `SessionEnd` | Session ends; cleanup tasks |
+
+#### Command Hooks (Bash)
+
 ```json
 {
   "hooks": {
     "PostToolUse": [
       {
         "matcher": "Write(*.py)",
-        "hooks": [{"type": "command", "command": "black \"$CLAUDE_FILE_PATH\""}]
+        "hooks": [{"type": "command", "command": "black \"$CLAUDE_FILE_PATH\"", "timeout": 60}]
       }
     ],
     "PreToolUse": [
@@ -1366,6 +1488,44 @@ echo "# My local settings" > CLAUDE.local.md
       }
     ]
   }
+}
+```
+
+#### Prompt-Based Hooks (LLM)
+
+For events: `Stop`, `SubagentStop`, `UserPromptSubmit`, `PreToolUse`, `PermissionRequest`
+
+```json
+{
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": ".*",
+        "hooks": [{
+          "type": "prompt",
+          "prompt": "Evaluate if Claude should stop: $ARGUMENTS",
+          "timeout": 30
+        }]
+      }
+    ]
+  }
+}
+```
+
+#### Environment Variables in Hooks
+
+- `CLAUDE_PROJECT_DIR`: Project root directory
+- `CLAUDE_FILE_PATH`: Path of file being operated on
+- `CLAUDE_CODE_REMOTE`: Whether running in remote environment
+- `CLAUDE_ENV_FILE`: (SessionStart only) Path to persist environment variables
+- `CLAUDE_PLUGIN_ROOT`: (Plugin hooks) Root directory of the plugin
+
+#### MCP Tool Matching in Hooks
+
+MCP tools follow pattern: `mcp__<server>__<tool>`
+```json
+{
+  "matcher": "mcp__memory__.*"
 }
 ```
 
@@ -1624,6 +1784,7 @@ The native VS Code extension (beta) provides a graphical interface integrated di
 | **Selection Context** | Current selection/tab automatically shared |
 | **Diagnostic Sharing** | Lint and syntax errors auto-shared with Claude |
 | **Drag & Drop** | Drop files and folders into chat |
+| **Tab Icon Badges** | Visual indicators for pending permissions and unread completions |
 
 ### Installation
 
@@ -1721,6 +1882,17 @@ Customize your terminal status line with `/statusline`:
 }
 ```
 
+The status line can include `current_usage` field for context window calculations.
+
+### Shell Override
+
+Use the `CLAUDE_CODE_SHELL` environment variable to override the default shell:
+
+```bash
+export CLAUDE_CODE_SHELL=/bin/zsh
+claude
+```
+
 ### Sandbox Mode (Linux/Mac)
 
 Enable bash sandboxing for safer command execution:
@@ -1737,6 +1909,28 @@ Enable bash sandboxing for safer command execution:
   }
 }
 ```
+
+### Vim Mode
+
+Enable vim-style editing with `/vim` command or configure via `/config`:
+
+**Mode Switching:**
+- `Esc` → Enter NORMAL mode
+- `i` / `I` → Insert before cursor / at beginning of line
+- `a` / `A` → Insert after cursor / at end of line
+- `o` / `O` → Open line below / above
+
+**Navigation (NORMAL mode):**
+- `h/j/k/l` → Move left/down/up/right
+- `w/e/b` → Next word / end of word / previous word
+- `0/$` → Beginning / end of line
+- `gg/G` → Beginning / end of input
+
+**Editing (NORMAL mode):**
+- `x` → Delete character
+- `dd/D` → Delete line / to end of line
+- `cc/C` → Change line / to end of line
+- `.` → Repeat last change
 
 ### Session Management
 
@@ -1767,14 +1961,24 @@ Claude can suggest follow-up prompts. Configure in `/config` (or `/settings`):
 | `Shift+Tab` | Toggle plan mode / cycle permission modes |
 | `Ctrl+R` | Search prompt history |
 | `Ctrl+C` | Cancel current operation |
+| `Ctrl+D` | Exit Claude Code session |
+| `Ctrl+L` | Clear terminal screen (keeps conversation) |
 | `Ctrl+Z` | Suspend Claude Code (resume with `fg`) |
 | `Ctrl+B` | Run bash command in background |
 | `Ctrl+G` | Edit prompt in system text editor |
-| `Ctrl+Y` | Paste deleted text (readline-style) |
-| `Ctrl+O` | Toggle transcript mode |
+| `Ctrl+J` | Insert newline (control sequence) |
+| `Ctrl+Y` | Paste deleted text (readline-style yank) |
+| `Alt+Y` | Cycle through kill ring history (yank-pop) |
+| `Ctrl+O` | Toggle verbose output mode |
 | `Alt+P` / `Option+P` | Switch models while typing |
+| `Alt+V` (Windows) | Paste image from clipboard |
 | `Esc + Esc` | Open rewind menu |
+| `\` + `Enter` | Insert newline (quick escape) |
+| `Option+Enter` (Mac) | Insert newline (macOS default) |
+| `Shift+Enter` | Insert newline (after `/terminal-setup`) |
+| `Alt+M` | Toggle permission modes (alternative to Shift+Tab) |
 | `@` path | File/folder autocomplete and reference |
+| `#` at start | Add to CLAUDE.md memory shortcut |
 | `!` command | Direct bash execution |
 | `&` message | Send as background task |
 
@@ -1817,7 +2021,7 @@ paths:
 | `/init` | Initialize/update CLAUDE.md |
 | `/memory` | View/edit all loaded memories and rules |
 | `/config` or `/settings` | View and modify settings |
-| `/permissions` | Manage tool permissions with search |
+| `/permissions` | Manage tool permissions with search (`/` to search) |
 | `/clear` | Clear conversation history |
 | `/rewind` | Restore code/conversation to checkpoint |
 | `/compact` | Compress conversation to save context |
@@ -1830,15 +2034,29 @@ paths:
 | `/model` | Change or configure model |
 | `/output-style` | Change output style |
 | `/review` | Request code review |
+| `/security-review` | Complete security review of pending branch changes |
 | `/todos` | List tracked TODO items |
 | `/add-dir` | Add working directory |
 | `/status` | Show version and connectivity |
 | `/resume` | Switch to another conversation |
 | `/rename` | Name current session |
-| `/plugin` | Manage plugins |
+| `/plugin` | Manage plugins (with search filtering) |
 | `/mcp` | Manage MCP servers |
 | `/statusline` | Customize status line |
 | `/terminal-setup` | Configure terminal integration |
+| `/bashes` | List and manage background tasks |
+| `/sandbox` | Enable sandboxed bash tool |
+| `/hooks` | Manage hook configurations |
+| `/ide` | Manage IDE integrations and status |
+| `/agents` | Manage custom AI subagents |
+| `/vim` | Enter vim editing mode |
+| `/privacy-settings` | View and update privacy settings |
+| `/release-notes` | View release notes |
+| `/install-github-app` | Set up Claude GitHub Actions |
+| `/bug` | Report bugs (sends conversation to Anthropic) |
+| `/login` | Switch Anthropic accounts |
+| `/logout` | Sign out from your Anthropic account |
+| `/exit` | Exit the REPL |
 
 ### CLI Flags
 
@@ -1848,12 +2066,36 @@ paths:
 | `claude -r` | Resume specific previous conversation |
 | `claude --resume <n>` | Resume named session |
 | `claude -p "prompt"` | Headless mode with prompt |
-| `claude --agents` | Dynamically add subagents |
+| `claude --model <model>` | Set model (alias: sonnet, opus, haiku) |
+| `claude --agents` | Dynamically add subagents via JSON |
+| `claude --system-prompt` | Replace entire default system prompt |
+| `claude --system-prompt-file` | Load system prompt from file (print mode only) |
 | `claude --append-system-prompt` | Add to system prompt |
+| `claude --tools` | Specify available tools (`"Bash,Edit,Read"` or `"default"`) |
+| `claude --allowedTools` | Tools that execute without prompting |
+| `claude --disallowedTools` | Tools removed from context |
 | `claude --mcp-config <file>` | Load MCP servers from config |
+| `claude --strict-mcp-config` | Only use specified MCP servers |
 | `claude --mcp-debug` | Debug MCP server issues |
 | `claude --add-dir <path>` | Add working directory |
 | `claude --dangerously-skip-permissions` | Skip all permission checks |
+| `claude --permission-mode` | Begin in specified permission mode |
+| `claude --max-turns` | Limit agentic turns (non-interactive mode) |
+| `claude --fork-session` | Create new session ID when resuming |
+| `claude --session-id` | Use specific session ID (must be valid UUID) |
+| `claude --output-format` | Specify output format (`text`, `json`, `stream-json`) |
+| `claude --input-format` | Specify input format (`text`, `stream-json`) |
+| `claude --json-schema` | Get validated JSON output matching schema (print mode) |
+| `claude --chrome` | Enable Chrome browser integration |
+| `claude --no-chrome` | Disable Chrome integration |
+| `claude --ide` | Auto-connect to IDE if available |
+| `claude --fallback-model` | Auto-fallback to specified model when overloaded |
+| `claude --debug` | Enable debug mode with optional filtering |
+| `claude --verbose` | Enable verbose logging |
+| `claude --settings` | Load settings from JSON file or string |
+| `claude --plugin-dir` | Load plugins from directories |
+| `claude update` | Update to latest version |
+| `claude mcp` | Configure MCP servers |
 
 ### MCP Commands
 
@@ -1872,23 +2114,32 @@ paths:
 - `Read(src/**)` - All files in src recursively
 - `Edit(*.ts)` - All TypeScript files
 - `WebFetch(domain:github.com)` - Specific domain
+- `mcp__server__*` - All tools from a specific MCP server (wildcard)
+- `mcp__github__*` - All GitHub MCP tools
+- `mcp__memory__create_entities` - Specific MCP tool
 
 ---
 
 ## Appendix: Additional Resources
 
 ### Official Documentation
-- [Claude Code Documentation](https://code.claude.com/docs)
+- [Claude Code Documentation](https://code.claude.com/docs/en/overview)
 - [Memory Management](https://code.claude.com/docs/en/memory)
 - [Settings Reference](https://code.claude.com/docs/en/settings)
+- [CLI Reference](https://code.claude.com/docs/en/cli-reference)
+- [Interactive Mode](https://code.claude.com/docs/en/interactive-mode)
+- [Slash Commands](https://code.claude.com/docs/en/slash-commands)
 - [Checkpointing](https://code.claude.com/docs/en/checkpointing)
 - [Output Styles](https://code.claude.com/docs/en/output-styles)
 - [Plugins](https://code.claude.com/docs/en/plugins)
+- [Plugins Reference](https://code.claude.com/docs/en/plugins-reference)
 - [Subagents](https://code.claude.com/docs/en/sub-agents)
 - [Skills](https://code.claude.com/docs/en/skills)
 - [Hooks](https://code.claude.com/docs/en/hooks)
 - [MCP Integration](https://code.claude.com/docs/en/mcp)
 - [Sandboxing](https://code.claude.com/docs/en/sandboxing)
+- [Common Workflows](https://code.claude.com/docs/en/common-workflows)
+- [Headless Mode](https://code.claude.com/docs/en/headless)
 
 ### Best Practices & Guides
 - [Claude Code Best Practices](https://www.anthropic.com/engineering/claude-code-best-practices)
@@ -1902,5 +2153,5 @@ paths:
 
 ---
 
-*Document Version: 2.3 | Compatible with Claude Code v2.0.72*
+*Document Version: 2.4 | Compatible with Claude Code v2.0.73*
 *Includes: Project Rules, Path-Scoped Rules, Memory Imports, Checkpoints/Rewind, Output Styles, Plugins, VS Code Extension, Background Agents, Named Sessions, Sandbox Mode, Chrome Extension, Prompt Suggestions, Complete Configuration Examples*

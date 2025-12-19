@@ -24,6 +24,7 @@ This guide provides a comprehensive game plan for deploying Claude Code across a
 | **Checkpoints** | Automatic code state snapshots for `/rewind` recovery | Session |
 | **Output Styles** | Modify Claude's behavior (Default, Explanatory, Learning) | Project/User |
 | **VS Code Extension** | Native IDE integration with inline diffs and plan mode | IDE |
+| **LSP Code Intelligence** | Go-to-definition, find references, hover documentation | IDE |
 
 ### Key v2.0+ Features (Team-Relevant)
 
@@ -1692,6 +1693,11 @@ Developers switch styles with `/output-style`. For full details, see the [offici
 ## Part 14: VS Code Extension
 
 The Claude Code VS Code extension provides a graphical interface alternative to the CLI.
+
+**Key Features:**
+- **LSP Code Intelligence**: Go-to-definition, find references, and hover documentation powered by Language Server Protocol
+- Inline diffs and plan mode
+- Native IDE integration
 
 **Team Relevance:** Project `.claude/` configurations (rules, commands, agents, settings) work identically in both the CLI and extension. Teams can standardize on either interface - the configuration is shared.
 

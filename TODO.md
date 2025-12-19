@@ -45,7 +45,7 @@ Track refinements and improvements needed for this template repository.
 - [ ] **MCP server examples** - Add .mcp.json examples for common integrations
 - [ ] **Output styles** - Add custom output style examples
 - [ ] **Hooks examples** - More hook examples for different scenarios
-- [ ] **Skills examples** - Add example skill files
+- [x] **Skills examples** - Add example skill files (commit-helper, code-reviewer, daily-standup)
 
 ## Documentation
 

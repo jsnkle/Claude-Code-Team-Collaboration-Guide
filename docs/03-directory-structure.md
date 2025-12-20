@@ -18,8 +18,10 @@ your-project/
 │   │   └── react.md                 # React patterns (from react/)
 │   │
 │   ├── skills/                      # Agent skills
-│   │   └── commit-helper/
-│   │       └── SKILL.md             # Conventional commits (from common/)
+│   │   ├── commit-helper/
+│   │   │   └── SKILL.md             # Conventional commits (from common/)
+│   │   └── component-scaffolder/
+│   │       └── SKILL.md             # Component scaffolding (from react/)
 │   │
 │   ├── commands/                    # Slash commands
 │   │   ├── git/                     # Git commands (from common/)

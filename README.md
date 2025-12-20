@@ -123,8 +123,11 @@ templates/react/.claude/
 │       ├── start.md             # /dev/start
 │       ├── test.md              # /dev/test
 │       └── lint.md              # /dev/lint
-└── agents/
-    └── test-writer.md           # React Testing Library specialist
+├── agents/
+│   └── test-writer.md           # React Testing Library specialist
+└── skills/
+    └── component-scaffolder/
+        └── SKILL.md             # Feature-based component scaffolding
 ```
 
 ## Documentation

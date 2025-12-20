@@ -1,0 +1,35 @@
+{
+  "$schema": "https://code.claude.com/settings.schema.json",
+  "permissions": {
+    "allow": [
+      "Bash(git:*)",
+      "Bash(gh:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Read(src/**)",
+      "Read(test/**)",
+      "Read(tests/**)",
+      "Read(docs/**)",
+      "Edit(src/**)",
+      "Edit(test/**)",
+      "Edit(tests/**)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:stackoverflow.com)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Read(./config/credentials.*)",
+      "Read(./**/*.key)",
+      "Read(./**/*.pem)",
+      "Read(./**/*.p12)",
+      "Bash(rm -rf:*)",
+      "Bash(sudo:*)",
+      "Bash(chmod 777:*)"
+    ]
+  },
+  "includeCoAuthoredBy": true
+}

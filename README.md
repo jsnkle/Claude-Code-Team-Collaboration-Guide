@@ -1,6 +1,6 @@
 # Claude Code Team Collaboration Templates
 
-A practical template repository for deploying Claude Code across development teams. Copy these templates into your projects to establish consistent AI-assisted development workflows.
+A practical template repository for deploying Claude Code across development teams. Templates are **composable** — mix and match common foundations with stack-specific configurations.
 
 **Compatible with Claude Code v2.0.74**
 
@@ -14,6 +14,118 @@ Claude Code uses a [hierarchical configuration system](docs/01-feature-overview.
 | **Team with Enterprise tier** | Your organization's `managed-settings.json` handles org-wide policies. Use this guide for *project-specific* context, commands, and agents that sit beneath those guardrails. |
 
 Both scenarios benefit from project-level configuration — the difference is whether you have an additional enterprise layer above it.
+
+## Quick Start
+
+Templates are **composable**. Start with `common/` for universal best practices, then add stack-specific templates.
+
+### 1. Copy Templates to Your Project
+
+```bash
+# Always start with common
+cp -r templates/common/.claude /path/to/your-project/
+
+# Add stack-specific template (merges with common)
+cp -r templates/react/.claude /path/to/your-project/
+```
+
+### 2. Customize Placeholders
+
+Edit `.claude/CLAUDE.md` and replace placeholders:
+
+| Placeholder | Description |
+|-------------|-------------|
+| `{{PROJECT_NAME}}` | Your project's name |
+| `{{PROJECT_DESCRIPTION}}` | Brief project description |
+| `{{TECH_STACK}}` | Your technology stack |
+| `{{KEY_DIRECTORIES}}` | Important directories in your project |
+| `{{TECH_LEAD}}` | Tech lead contact |
+| `{{DEVOPS_CONTACT}}` | DevOps contact |
+| `{{TICKET_PREFIX}}` | JIRA/ticket prefix (in git-workflow.md) |
+
+### 3. Commit and Use
+
+```bash
+git add .claude/
+git commit -m "chore: add Claude Code team configuration"
+
+# Start using
+claude
+/memory    # Verify rules loaded
+/help      # See available commands
+```
+
+## Available Templates
+
+| Template | Purpose | Status |
+|----------|---------|--------|
+| `common/` | Universal best practices (git, code style, testing) | Available |
+| `react/` | React + TypeScript + Vite + Vitest | Available |
+| `express/` | Express.js API development | Planned |
+| `hono/` | Hono API framework | Planned |
+| `nestjs/` | NestJS framework | Planned |
+| `python/` | Python development | Planned |
+
+### Composing Templates
+
+```bash
+# React SPA
+cp -r templates/common/.claude ./
+cp -r templates/react/.claude ./
+
+# Full-stack (when express is available)
+cp -r templates/common/.claude ./
+cp -r templates/react/.claude ./
+cp -r templates/express/.claude ./
+
+# API only (when express is available)
+cp -r templates/common/.claude ./
+cp -r templates/express/.claude ./
+```
+
+## Template Contents
+
+### `common/` — Universal Best Practices
+
+```
+templates/common/.claude/
+├── CLAUDE.md                    # Project context template
+├── settings.json                # Base permissions (git, file operations)
+├── rules/
+│   ├── code-style.md            # Formatting, naming conventions
+│   ├── git-workflow.md          # Branch naming, commits, PRs
+│   └── testing.md               # Testing philosophy
+├── commands/
+│   ├── git/
+│   │   ├── branch.md            # /git/branch
+│   │   ├── commit.md            # /git/commit
+│   │   └── pr.md                # /git/pr
+│   ├── review.md                # /review
+│   ├── debug.md                 # /debug
+│   └── docs.md                  # /docs
+├── agents/
+│   └── code-reviewer.md         # Generic code review agent
+└── skills/
+    └── commit-helper/
+        └── SKILL.md             # Conventional commits helper
+```
+
+### `react/` — React-Specific
+
+```
+templates/react/.claude/
+├── CLAUDE.md                    # React project context
+├── settings.json                # React tooling (vite, vitest, etc.)
+├── rules/
+│   └── react.md                 # React patterns, hooks, components
+├── commands/
+│   └── dev/
+│       ├── start.md             # /dev/start
+│       ├── test.md              # /dev/test
+│       └── lint.md              # /dev/lint
+└── agents/
+    └── test-writer.md           # React Testing Library specialist
+```
 
 ## Documentation
 
@@ -30,211 +142,38 @@ Both scenarios benefit from project-level configuration — the difference is wh
 | 4 | [Configuration Files](docs/04-configuration.md) | CLAUDE.md, rules, settings.json examples |
 | 5 | [Slash Commands](docs/05-slash-commands.md) | Team slash commands for common workflows |
 | 6 | [Subagents](docs/06-subagents.md) | Specialized AI assistants for delegation |
-| 7 | [Agent Skills](docs/07-skills.md) | Model-invoked capabilities, SKILL.md format, examples |
-| 8 | [CLAUDE.md Imports](docs/08-imports.md) | Import syntax, recursive imports, viewing loaded memories |
-| 9 | [Team Onboarding](docs/09-onboarding.md) | Pre-onboarding setup, developer steps, verification |
-| 10 | [Best Practices](docs/10-best-practices.md) | Rules strategy, permissions, commands, hooks |
+| 7 | [Agent Skills](docs/07-skills.md) | Model-invoked capabilities, SKILL.md format |
+| 8 | [CLAUDE.md Imports](docs/08-imports.md) | Import syntax, recursive imports |
+| 9 | [Team Onboarding](docs/09-onboarding.md) | Pre-onboarding setup, developer steps |
+| 10 | [Best Practices](docs/10-best-practices.md) | Rules strategy, permissions, commands |
 | 11 | [Security](docs/11-security.md) | Permission deny rules, security best practices |
 | 12 | [Troubleshooting](docs/12-troubleshooting.md) | Common issues, useful commands |
-| 13 | [Checkpoints & Recovery](docs/13-checkpoints.md) | Brief overview of checkpoint feature |
-| 14 | [Plugin System](docs/14-plugins.md) | Installing, configuring, distributing team plugins |
+| 13 | [Checkpoints & Recovery](docs/13-checkpoints.md) | Code state snapshots |
+| 14 | [Plugin System](docs/14-plugins.md) | Installing and distributing plugins |
 | 15 | [Custom Output Styles](docs/15-output-styles.md) | Team-distributed output styles |
-| 16 | [VS Code Extension](docs/16-vscode-extension.md) | Brief note on extension compatibility |
-| 17 | [Team-Configurable Features](docs/17-additional-features.md) | Sandbox mode, environment variables, model override |
-| 18 | [Quick Reference](docs/18-quick-reference.md) | Keyboard shortcuts, locations, permission patterns |
-| 19 | [Resources](docs/19-resources.md) | Official docs, best practices, community resources |
-
-## Quick Start
-
-### 1. Copy the Template to Your Project
-
-```bash
-# Copy the React template to your project
-cp -r templates/react/.claude /path/to/your-project/
-```
-
-### 2. Customize Placeholders
-
-Search for `{{PLACEHOLDER}}` in the copied files and replace with your project values:
-
-| Placeholder | Location | Description |
-|-------------|----------|-------------|
-| `{{PROJECT_NAME}}` | `.claude/CLAUDE.md` | Your project's name |
-| `{{PROJECT_DESCRIPTION}}` | `.claude/CLAUDE.md` | Brief project description |
-| `{{DATABASE}}` | `.claude/CLAUDE.md` | Database type (PostgreSQL, MongoDB, etc.) |
-| `{{INFRASTRUCTURE}}` | `.claude/CLAUDE.md` | Cloud provider (AWS, GCP, Azure) |
-| `{{TECH_LEAD}}` | `.claude/CLAUDE.md` | Tech lead contact |
-| `{{DEVOPS_CONTACT}}` | `.claude/CLAUDE.md` | DevOps contact |
-| `{{TICKET_PREFIX}}` | `.claude/rules/git-workflow.md` | JIRA/ticket prefix (e.g., PROJ, TEAM) |
-
-### 3. Commit to Your Project
-
-```bash
-git add .claude/ CLAUDE.md
-git commit -m "chore: add Claude Code team configuration"
-```
-
-### 4. Start Using Claude Code
-
-```bash
-cd /path/to/your-project
-claude
-
-# Verify configuration loaded
-/memory    # Should show your rules
-/help      # Should show custom commands
-```
-
-## Repository Structure
-
-```
-claude-code-guide/
-├── README.md                 # This file (quick start)
-├── LICENSE
-├── TODO.md                   # Track refinements needed
-│
-├── docs/
-│   ├── 01-feature-overview.md    # Core features & memory hierarchy
-│   ├── 02-project-rules.md       # Modular rules system
-│   ├── 03-directory-structure.md # Project layout
-│   ├── 04-configuration.md       # CLAUDE.md & settings.json
-│   ├── 05-slash-commands.md      # Team commands
-│   ├── 06-subagents.md           # AI assistants
-│   ├── 07-skills.md              # Model-invoked capabilities
-│   ├── 08-imports.md             # CLAUDE.md imports
-│   ├── 09-onboarding.md          # Team onboarding
-│   ├── 10-best-practices.md      # Collaboration strategies
-│   ├── 11-security.md            # Security considerations
-│   ├── 12-troubleshooting.md     # Common issues
-│   ├── 13-checkpoints.md         # Code recovery
-│   ├── 14-plugins.md             # Plugin system
-│   ├── 15-output-styles.md       # Custom output styles
-│   ├── 16-vscode-extension.md    # IDE integration
-│   ├── 17-additional-features.md # Sandbox, env vars
-│   ├── 18-quick-reference.md     # Shortcuts & patterns
-│   └── 19-resources.md           # Links & resources
-│
-├── templates/
-│   └── react/                # React/TypeScript stack template
-│       ├── .claude/
-│       │   ├── CLAUDE.md           # Project context
-│       │   ├── settings.json       # Permissions & hooks
-│       │   ├── rules/              # Modular rule files
-│       │   │   ├── code-style.md       # Always loaded
-│       │   │   ├── git-workflow.md     # Always loaded
-│       │   │   ├── testing.md          # Always loaded
-│       │   │   ├── security.md         # Path-scoped
-│       │   │   ├── api-rules.md        # Path-scoped
-│       │   │   └── frontend-rules.md   # Path-scoped
-│       │   ├── skills/              # Agent skills (model-invoked)
-│       │   │   ├── commit-helper/
-│       │   │   │   └── SKILL.md
-│       │   │   └── code-reviewer/
-│       │   │       └── SKILL.md
-│       │   ├── commands/           # Slash commands
-│       │   │   ├── dev/
-│       │   │   │   ├── start.md
-│       │   │   │   ├── test.md
-│       │   │   │   └── lint.md
-│       │   │   ├── git/
-│       │   │   │   ├── branch.md
-│       │   │   │   ├── commit.md
-│       │   │   │   └── pr.md
-│       │   │   ├── review.md
-│       │   │   ├── debug.md
-│       │   │   └── docs.md
-│       │   └── agents/             # Subagents
-│       │       ├── code-reviewer.md
-│       │       ├── test-writer.md
-│       │       └── security-scanner.md
-│       └── CLAUDE.local.md.example # Personal overrides template
-```
-
-## Available Templates
-
-| Stack | Directory | Status |
-|-------|-----------|--------|
-| React/TypeScript | `templates/react/` | Available |
-| Python | `templates/python/` | Planned |
-| Go | `templates/go/` | Planned |
-| Node.js | `templates/node/` | Planned |
-
-## Key Features
-
-### Rules (`.claude/rules/`)
-- **Always loaded**: `code-style.md`, `git-workflow.md`, `testing.md`
-- **Path-scoped**: `security.md`, `api-rules.md`, `frontend-rules.md` - only activate for matching files
-
-### Skills (`.claude/skills/`)
-Model-invoked capabilities that Claude uses automatically based on context:
-- `commit-helper` - Generates commit messages from diffs
-- `code-reviewer` - Read-only code review (restricted tools)
-
-### Commands (`.claude/commands/`)
-- `/dev/start` - Initialize development session
-- `/dev/test` - Run tests with analysis
-- `/dev/lint` - Run linters
-- `/git/branch` - Create feature branches
-- `/git/commit` - Smart commits with conventional format
-- `/git/pr` - Create pull requests
-- `/review` - Comprehensive code review
-- `/debug` - Systematic debugging
-
-### Agents (`.claude/agents/`)
-- `code-reviewer` - Thorough code reviews
-- `test-writer` - Generate tests
-- `security-scanner` - Security analysis
-
-### Settings (`.claude/settings.json`)
-- Pre-configured permissions (allow common dev tools, deny sensitive files)
-- Prettier hook for auto-formatting
+| 16 | [VS Code Extension](docs/16-vscode-extension.md) | IDE integration |
+| 17 | [Team-Configurable Features](docs/17-additional-features.md) | Sandbox mode, env vars |
+| 18 | [Quick Reference](docs/18-quick-reference.md) | Keyboard shortcuts, patterns |
+| 19 | [Resources](docs/19-resources.md) | Official docs, community resources |
 
 ## Team Onboarding
 
 ### For DevOps/Team Leads
 
-1. Copy template to your project
-2. Customize placeholders
-3. Adjust rules for your team's standards
-4. Test with `claude` and `/memory`
+1. Copy `common/` + stack template(s) to your project
+2. Customize `.claude/CLAUDE.md` with project details
+3. Review and adjust rules for your team's standards
+4. Test with `claude` and verify with `/memory`
 5. Commit and share with team
 
 ### For Developers
 
-1. Pull the project with `.claude/` directory
+1. Pull the project (includes `.claude/` directory)
 2. Run `claude` in the project
 3. Verify with `/memory` and `/help`
 
-## Customization Notes
-
-All template files include `<!-- TODO: ... -->` comments indicating areas to customize. Review these after copying to your project.
-
-### Path-Scoped Rules
-
-Rules with `paths:` frontmatter only load when working on matching files:
-
-```markdown
----
-paths:
-  - src/auth/**/*
-  - src/payments/**/*
 ---
 
-# These rules only apply to auth and payments code
-```
-
-### Permissions
-
-The default `settings.json` allows common dev tools and denies access to:
-- `.env` files and secrets
-- Private keys (`.pem`, `.key`, `.p12`)
-- Production configuration
-- Dangerous bash commands (`rm -rf`, `sudo`)
-
-Adjust based on your security requirements.
-
----
-
-*Template Version: 1.1 | Compatible with Claude Code v2.0.74*
+*Template Version: 2.0 | Compatible with Claude Code v2.0.74*
 
 **Created by Jason Kellie | MIT License**

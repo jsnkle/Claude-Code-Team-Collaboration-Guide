@@ -1,73 +1,82 @@
 # Part 3: Recommended Directory Structure
 
-## Complete Project Structure
+## Project Structure
+
+After copying templates, your project will have this structure:
 
 ```
 your-project/
 ├── .claude/
-│   ├── CLAUDE.md                    # Core project overview (keep lean)
-│   ├── settings.json                # Team permissions & config (commit to git)
-│   ├── settings.local.json          # Personal overrides (auto-gitignored)
+│   ├── CLAUDE.md                    # Project context and overview
+│   ├── settings.json                # Permissions, hooks, environment
+│   ├── settings.local.json          # Personal overrides (gitignored)
 │   │
-│   ├── rules/                       # Modular project rules
-│   │   ├── code-style.md            # Always loaded - formatting standards
-│   │   ├── git-workflow.md          # Always loaded - branching, commits
-│   │   ├── testing.md               # Always loaded - test requirements
-│   │   ├── api-rules.md             # paths: src/api/**/*
-│   │   ├── frontend-rules.md        # paths: src/components/**/*
-│   │   ├── database-rules.md        # paths: src/models/**/*
-│   │   └── security.md              # paths: src/auth/**, src/payments/**
+│   ├── rules/                       # Coding standards (from templates)
+│   │   ├── code-style.md            # Formatting, naming (from common/)
+│   │   ├── git-workflow.md          # Branching, commits (from common/)
+│   │   ├── testing.md               # Test requirements (from common/)
+│   │   └── react.md                 # React patterns (from react/)
 │   │
-│   ├── skills/                      # Agent skills (model-invoked)
-│   │   ├── commit-helper/           # Each skill in its own folder
-│   │   │   └── SKILL.md
-│   │   └── code-reviewer/
-│   │       └── SKILL.md
+│   ├── skills/                      # Agent skills
+│   │   └── commit-helper/
+│   │       └── SKILL.md             # Conventional commits (from common/)
 │   │
-│   ├── commands/                    # Team slash commands
-│   │   ├── dev/
-│   │   │   ├── start.md             # /dev/start - Initialize dev session
-│   │   │   ├── test.md              # /dev/test - Run test suite
-│   │   │   └── lint.md              # /dev/lint - Run linters
-│   │   ├── git/
-│   │   │   ├── branch.md            # /git/branch - Create feature branch
-│   │   │   ├── commit.md            # /git/commit - Smart commit
-│   │   │   └── pr.md                # /git/pr - Create pull request
-│   │   ├── review.md                # /review - Code review checklist
-│   │   ├── debug.md                 # /debug - Systematic debugging
-│   │   └── docs.md                  # /docs - Generate documentation
+│   ├── commands/                    # Slash commands
+│   │   ├── git/                     # Git commands (from common/)
+│   │   │   ├── branch.md
+│   │   │   ├── commit.md
+│   │   │   └── pr.md
+│   │   ├── dev/                     # Dev commands (from react/)
+│   │   │   ├── start.md
+│   │   │   ├── test.md
+│   │   │   └── lint.md
+│   │   ├── review.md                # Code review (from common/)
+│   │   ├── debug.md                 # Debugging (from common/)
+│   │   └── docs.md                  # Documentation (from common/)
 │   │
-│   └── agents/                      # Team subagents
-│       ├── code-reviewer.md         # Code review specialist
-│       ├── test-writer.md           # Unit test generation
-│       ├── security-scanner.md      # Security analysis
-│       └── documenter.md            # Documentation generator
+│   └── agents/                      # Subagents
+│       ├── code-reviewer.md         # Generic reviewer (from common/)
+│       └── test-writer.md           # React tests (from react/)
 │
-├── .mcp.json                        # MCP server configurations (optional)
-├── CLAUDE.md                        # Alternative location for main instructions
 ├── CLAUDE.local.md                  # Personal additions (gitignored)
 └── ... (your project files)
 ```
 
-## User-Level Structure (Each Developer)
+## Template Composition
+
+Templates are designed to be **composable**. The structure above results from:
+
+```bash
+cp -r templates/common/.claude ./    # Universal best practices
+cp -r templates/react/.claude ./     # React-specific (merges with common)
+```
+
+Adding more stack templates adds their rules, commands, and agents:
+
+```bash
+cp -r templates/express/.claude ./   # Would add express.md, api-security.md, etc.
+```
+
+## User-Level Structure
+
+Each developer can have personal preferences in `~/.claude/`:
 
 ```
 ~/.claude/
 ├── CLAUDE.md                   # Personal preferences across all projects
 ├── settings.json               # Personal global settings
-├── settings.local.json         # Machine-specific overrides
-├── rules/                      # Personal rules for all projects
-│   ├── preferences.md
-│   └── workflows.md
+├── rules/                      # Personal rules
 ├── skills/                     # Personal skills
-│   └── my-workflow/
-│       └── SKILL.md
 ├── commands/                   # Personal slash commands
-│   ├── my-workflow.md
-│   └── standup.md
 └── agents/                     # Personal subagents
-    └── personal-assistant.md
 ```
+
+## Key Points
+
+- **Project-level** (`.claude/`) is committed to git and shared with team
+- **User-level** (`~/.claude/`) is personal and applies to all projects
+- **settings.local.json** and **CLAUDE.local.md** are gitignored for personal overrides
+- Templates **merge** - later copies add to earlier ones
 
 ---
 

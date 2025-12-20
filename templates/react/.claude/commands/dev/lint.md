@@ -9,4 +9,5 @@ Run linters and fix any issues: $ARGUMENTS
 3. Auto-fix what can be auto-fixed
 4. List remaining manual fixes needed
 
-!npm run lint
+Run linting with: `npm run lint` or `npx eslint src/`
+Auto-fix with: `npm run lint:fix` or `npx eslint src/ --fix`

@@ -2,12 +2,14 @@
 model: haiku
 ---
 
-Run linters and fix any issues: $ARGUMENTS
+Run linting and type checking: $ARGUMENTS
 
-1. Run ESLint and Prettier
-2. Report any issues found
-3. Auto-fix what can be auto-fixed
-4. List remaining manual fixes needed
+1. Run ESLint on React/TypeScript files
+2. Run Prettier to check formatting
+3. Run TypeScript compiler for type errors
+4. Report issues and auto-fix what's possible
 
-Run linting with: `npm run lint` or `npx eslint src/`
-Auto-fix with: `npm run lint:fix` or `npx eslint src/ --fix`
+Lint: `npm run lint` or `npx eslint src/`
+Fix: `npm run lint:fix` or `npx eslint src/ --fix`
+Types: `npx tsc --noEmit`
+Format: `npx prettier --check src/`

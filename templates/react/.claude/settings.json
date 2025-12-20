@@ -5,72 +5,23 @@
       "Bash(npm ci)",
       "Bash(npm run dev)",
       "Bash(npm run build)",
+      "Bash(npm run preview)",
       "Bash(npm run lint)",
       "Bash(npm run lint:fix)",
-      "Bash(npm run format)",
-      "Bash(npm run typecheck)",
       "Bash(npm test:*)",
+      "Bash(npx vite:*)",
+      "Bash(npx vitest:*)",
       "Bash(npx prettier:*)",
       "Bash(npx eslint:*)",
       "Bash(npx tsc:*)",
-      "Bash(npx vitest:*)",
-      "Bash(git:*)",
-      "Bash(gh:*)",
-      "Bash(docker build:*)",
-      "Bash(docker run:*)",
-      "Bash(docker ps:*)",
-      "Bash(docker logs:*)",
-      "Bash(docker-compose up:*)",
-      "Bash(docker-compose down:*)",
-      "Bash(docker-compose logs:*)",
-      "Bash(ls:*)",
-      "Bash(cat:*)",
-      "Bash(grep:*)",
-      "Bash(find:*)",
-      "Bash(node:*)",
-      "Bash(curl:*)",
-      "Read(src/**)",
-      "Read(test/**)",
-      "Read(tests/**)",
-      "Read(docs/**)",
-      "Read(scripts/**)",
-      "Edit(src/**)",
-      "Edit(test/**)",
-      "Edit(tests/**)",
-      "WebFetch(domain:github.com)",
-      "WebFetch(domain:stackoverflow.com)",
-      "WebFetch(domain:npmjs.com)",
-      "WebFetch(domain:developer.mozilla.org)"
-    ],
-    "deny": [
-      "Read(./.env)",
-      "Read(./.env.*)",
-      "Read(./secrets/**)",
-      "Read(./config/credentials.*)",
-      "Read(./**/*.key)",
-      "Read(./**/*.pem)",
-      "Read(./**/*.p12)",
-      "Edit(./config/production/**)",
-      "Bash(rm -rf:*)",
-      "Bash(sudo:*)",
-      "Bash(chmod 777:*)"
-    ],
-    "defaultMode": "normal"
-  },
-  "env": {
-    "NODE_ENV": "development"
+      "WebFetch(domain:react.dev)",
+      "WebFetch(domain:vitejs.dev)",
+      "WebFetch(domain:vitest.dev)",
+      "WebFetch(domain:testing-library.com)"
+    ]
   },
   "hooks": {
     "PostToolUse": [
-      {
-        "matcher": "Write(*.ts)",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "npx prettier --write \"$CLAUDE_FILE_PATH\""
-          }
-        ]
-      },
       {
         "matcher": "Write(*.tsx)",
         "hooks": [
@@ -81,7 +32,7 @@
         ]
       },
       {
-        "matcher": "Write(*.js)",
+        "matcher": "Write(*.ts)",
         "hooks": [
           {
             "type": "command",
@@ -90,6 +41,5 @@
         ]
       }
     ]
-  },
-  "includeCoAuthoredBy": true
+  }
 }

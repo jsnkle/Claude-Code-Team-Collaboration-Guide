@@ -1,44 +1,39 @@
-# Project: {{PROJECT_NAME}}
+# React Template
 
-## Overview
+This template provides React-specific configuration for Claude Code. Use with `templates/common/` for a complete setup.
 
-{{PROJECT_DESCRIPTION}}
+## Stack
 
-## Tech Stack
-
-- Backend: Node.js with Express
-- Frontend: React with TypeScript
-- Database: {{DATABASE}}
-- Infrastructure: {{INFRASTRUCTURE}}
-
-## Quick Reference Commands
-
-```bash
-npm ci               # Install dependencies (use ci for reproducible builds)
-npm run dev          # Start development server
-npm run test         # Run test suite
-npm run lint         # Run linting
-npm run build        # Production build
-```
+- React 18+ with TypeScript
+- Vite for build tooling
+- Vitest for testing
+- React Testing Library for component tests
 
 ## Key Directories
 
-- `/src/api/` - API routes and controllers
-- `/src/components/` - React components
+- `/src/components/` - Reusable UI components
+- `/src/pages/` or `/src/routes/` - Page/route components
 - `/src/hooks/` - Custom React hooks
+- `/src/context/` - React context providers
 - `/src/utils/` - Utility functions
 - `/src/types/` - TypeScript type definitions
-- `/src/auth/` - Authentication **(SECURITY CRITICAL)**
-- `/src/payments/` - Payment processing **(SECURITY CRITICAL)**
 
-## Important Notes
+## Quick Commands
 
-- See `.claude/rules/` for detailed coding standards
-- NEVER commit secrets or `.env` files to the repository
-- Always run tests before pushing
-- Security-critical code requires peer review
+```bash
+npm run dev          # Start Vite dev server
+npm run build        # Production build
+npm run preview      # Preview production build
+npm test             # Run Vitest
+```
 
-## Team Contacts
+## Usage
 
-- Tech Lead: {{TECH_LEAD}}
-- DevOps: {{DEVOPS_CONTACT}}
+Copy this template after copying `common/`:
+
+```bash
+cp -r templates/common/.claude ./
+cp -r templates/react/.claude ./
+```
+
+Then customize the rules and settings for your project.

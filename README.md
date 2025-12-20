@@ -4,32 +4,45 @@ A practical template repository for deploying Claude Code across development tea
 
 **Compatible with Claude Code v2.0.74**
 
+## Who This Guide Is For
+
+Claude Code uses a [hierarchical configuration system](docs/01-feature-overview.md) with four levels: Enterprise → User → Project → Project Local. This guide focuses on **project-level configuration** — the `.claude/` directory and files you commit to git.
+
+| Your Situation | How This Guide Helps |
+|----------------|---------------------|
+| **Team without Enterprise tier** | This is your *primary mechanism* for standardizing Claude Code across your team. Use these templates to establish shared rules, commands, and workflows. |
+| **Team with Enterprise tier** | Your organization's `managed-settings.json` handles org-wide policies. Use this guide for *project-specific* context, commands, and agents that sit beneath those guardrails. |
+
+Both scenarios benefit from project-level configuration — the difference is whether you have an additional enterprise layer above it.
+
 ## Documentation
 
-- **[Full Guide](docs/full-guide.md)** - Comprehensive reference with all Claude Code features
 - **[Claude Code Docs](https://code.claude.com/docs)** - Official documentation
 - **[Changelog](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)** - Latest features
 
-### Full Guide Contents
+### Guide Contents
 
 | Part | Section | Description |
 |------|---------|-------------|
-| 1 | [Feature Overview](docs/full-guide.md#part-1-claude-code-feature-overview-v2073) | Core features, v2.0+ additions, memory hierarchy |
-| 2 | [Project Rules System](docs/full-guide.md#part-2-project-rules-system) | Modular rules, path-scoped activation |
-| 3 | [Directory Structure](docs/full-guide.md#part-3-recommended-directory-structure) | Complete project layout |
-| 4 | [Configuration Files](docs/full-guide.md#part-4-essential-configuration-files) | CLAUDE.md, rules, settings.json, commands, agents |
-| 5 | [Agent Skills](docs/full-guide.md#part-5-agent-skills) | Model-invoked capabilities, SKILL.md format, examples |
-| 6 | [CLAUDE.md Imports](docs/full-guide.md#part-6-claudemd-imports) | Import syntax, recursive imports, viewing loaded memories |
-| 7 | [Team Onboarding](docs/full-guide.md#part-7-team-onboarding-checklist) | Pre-onboarding setup, developer steps, verification |
-| 8 | [Best Practices](docs/full-guide.md#part-8-best-practices-for-team-collaboration) | Rules strategy, permissions, commands, hooks |
-| 9 | [Security](docs/full-guide.md#part-9-security-considerations) | Permission deny rules, security best practices |
-| 10 | [Troubleshooting](docs/full-guide.md#part-10-troubleshooting) | Common issues, useful commands |
-| 11 | [Checkpoints & Recovery](docs/full-guide.md#part-11-checkpoints--recovery) | Brief overview of checkpoint feature |
-| 12 | [Plugin System](docs/full-guide.md#part-12-plugin-system) | Installing, configuring, distributing team plugins |
-| 13 | [Custom Output Styles](docs/full-guide.md#part-13-custom-output-styles) | Team-distributed output styles |
-| 14 | [VS Code Extension](docs/full-guide.md#part-14-vs-code-extension) | Brief note on extension compatibility |
-| 15 | [Team-Configurable Features](docs/full-guide.md#part-15-additional-team-configurable-features) | Sandbox mode, environment variables, model override |
-| 16 | [Quick Reference](docs/full-guide.md#part-16-quick-reference-card) | Keyboard shortcuts, locations, permission patterns |
+| 1 | [Feature Overview](docs/01-feature-overview.md) | Core features, v2.0+ additions, memory hierarchy |
+| 2 | [Project Rules System](docs/02-project-rules.md) | Modular rules, path-scoped activation |
+| 3 | [Directory Structure](docs/03-directory-structure.md) | Complete project layout |
+| 4 | [Configuration Files](docs/04-configuration.md) | CLAUDE.md, rules, settings.json examples |
+| 5 | [Slash Commands](docs/05-slash-commands.md) | Team slash commands for common workflows |
+| 6 | [Subagents](docs/06-subagents.md) | Specialized AI assistants for delegation |
+| 7 | [Agent Skills](docs/07-skills.md) | Model-invoked capabilities, SKILL.md format, examples |
+| 8 | [CLAUDE.md Imports](docs/08-imports.md) | Import syntax, recursive imports, viewing loaded memories |
+| 9 | [Team Onboarding](docs/09-onboarding.md) | Pre-onboarding setup, developer steps, verification |
+| 10 | [Best Practices](docs/10-best-practices.md) | Rules strategy, permissions, commands, hooks |
+| 11 | [Security](docs/11-security.md) | Permission deny rules, security best practices |
+| 12 | [Troubleshooting](docs/12-troubleshooting.md) | Common issues, useful commands |
+| 13 | [Checkpoints & Recovery](docs/13-checkpoints.md) | Brief overview of checkpoint feature |
+| 14 | [Plugin System](docs/14-plugins.md) | Installing, configuring, distributing team plugins |
+| 15 | [Custom Output Styles](docs/15-output-styles.md) | Team-distributed output styles |
+| 16 | [VS Code Extension](docs/16-vscode-extension.md) | Brief note on extension compatibility |
+| 17 | [Team-Configurable Features](docs/17-additional-features.md) | Sandbox mode, environment variables, model override |
+| 18 | [Quick Reference](docs/18-quick-reference.md) | Keyboard shortcuts, locations, permission patterns |
+| 19 | [Resources](docs/19-resources.md) | Official docs, best practices, community resources |
 
 ## Quick Start
 
@@ -82,7 +95,25 @@ claude-code-guide/
 ├── TODO.md                   # Track refinements needed
 │
 ├── docs/
-│   └── full-guide.md         # Comprehensive reference guide
+│   ├── 01-feature-overview.md    # Core features & memory hierarchy
+│   ├── 02-project-rules.md       # Modular rules system
+│   ├── 03-directory-structure.md # Project layout
+│   ├── 04-configuration.md       # CLAUDE.md & settings.json
+│   ├── 05-slash-commands.md      # Team commands
+│   ├── 06-subagents.md           # AI assistants
+│   ├── 07-skills.md              # Model-invoked capabilities
+│   ├── 08-imports.md             # CLAUDE.md imports
+│   ├── 09-onboarding.md          # Team onboarding
+│   ├── 10-best-practices.md      # Collaboration strategies
+│   ├── 11-security.md            # Security considerations
+│   ├── 12-troubleshooting.md     # Common issues
+│   ├── 13-checkpoints.md         # Code recovery
+│   ├── 14-plugins.md             # Plugin system
+│   ├── 15-output-styles.md       # Custom output styles
+│   ├── 16-vscode-extension.md    # IDE integration
+│   ├── 17-additional-features.md # Sandbox, env vars
+│   ├── 18-quick-reference.md     # Shortcuts & patterns
+│   └── 19-resources.md           # Links & resources
 │
 ├── templates/
 │   └── react/                # React/TypeScript stack template

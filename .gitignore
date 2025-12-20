@@ -1,6 +1,9 @@
 # macOS
 .DS_Store
 
+# Obsidian
+.obsidian/
+
 # Local Claude Code settings (personal overrides)
 .claude/settings.local.json
 .claude/commands/

@@ -51,7 +51,6 @@ Both scenarios benefit from project-level configuration — the difference is wh
 ```bash
 # Copy the React template to your project
 cp -r templates/react/.claude /path/to/your-project/
-cp templates/react/CLAUDE.md /path/to/your-project/  # Optional: root-level CLAUDE.md
 ```
 
 ### 2. Customize Placeholders
@@ -148,7 +147,6 @@ claude-code-guide/
 │       │       ├── code-reviewer.md
 │       │       ├── test-writer.md
 │       │       └── security-scanner.md
-│       ├── CLAUDE.md               # Root-level alternative
 │       └── CLAUDE.local.md.example # Personal overrides template
 ```
 

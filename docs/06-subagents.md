@@ -93,8 +93,8 @@ You are a testing specialist focused on writing comprehensive, maintainable test
 2. Identify all code paths and edge cases
 3. Write tests for happy path first
 4. Add tests for error conditions
-5. Verify all tests pass: `npm run test`
-6. Check coverage: `npm run test:coverage`
+5. Verify all tests pass: `pnpm test`
+6. Check coverage: `pnpm test:coverage`
 ```
 
 ## Security Scanner Agent

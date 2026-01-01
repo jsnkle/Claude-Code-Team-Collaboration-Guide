@@ -18,11 +18,11 @@ Brief description of what this project does and its architecture.
 
 ## Quick Reference Commands
 ```bash
-npm install          # Install dependencies
-npm run dev          # Start development server
-npm run test         # Run test suite
-npm run lint         # Run linting
-npm run build        # Production build
+pnpm install         # Install dependencies
+pnpm dev             # Start development server
+pnpm test            # Run test suite
+pnpm lint            # Run linting
+pnpm build           # Production build
 ```
 
 ## Key Directories
@@ -94,7 +94,7 @@ Follow Conventional Commits format:
 ## Workflow
 1. Create branch from `main`
 2. Make changes with atomic commits
-3. Run `npm run lint` and `npm run test`
+3. Run `pnpm lint` and `pnpm test`
 4. Push and create PR
 5. Request review from at least 1 team member
 6. Squash merge after approval
@@ -128,10 +128,10 @@ Follow Conventional Commits format:
 
 ## Running Tests
 ```bash
-npm run test              # Run all tests
-npm run test:unit         # Unit tests only
-npm run test:integration  # Integration tests
-npm run test:coverage     # With coverage report
+pnpm test                 # Run all tests
+pnpm test:unit            # Unit tests only
+pnpm test:integration     # Integration tests
+pnpm test:coverage        # With coverage report
 ```
 
 ## Before Committing
@@ -178,8 +178,8 @@ paths:
 - Never log request bodies containing credentials
 
 ## Before Committing Security Code
-1. Run security scan: `npm run security:check`
-2. Verify no secrets in code: `npm run scan:secrets`
+1. Run security scan: `pnpm security:check`
+2. Verify no secrets in code: `pnpm scan:secrets`
 3. Check for SQL injection: review all database queries
 4. Peer review required for ALL security changes
 ```
@@ -288,10 +288,10 @@ paths:
 {
   "permissions": {
     "allow": [
-      "Bash(npm run:*)",
-      "Bash(npm test:*)",
-      "Bash(npm install)",
-      "Bash(npx:*)",
+      "Bash(pnpm:*)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm install)",
+      "Bash(pnpm exec:*)",
       "Bash(git:*)",
       "Bash(gh:*)",
       "Bash(docker:*)",
@@ -336,29 +336,11 @@ paths:
   "hooks": {
     "PostToolUse": [
       {
-        "matcher": "Write(*.ts)",
+        "matcher": "Write|Edit",
         "hooks": [
           {
             "type": "command",
-            "command": "npx prettier --write \"$CLAUDE_FILE_PATH\""
-          }
-        ]
-      },
-      {
-        "matcher": "Write(*.tsx)",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "npx prettier --write \"$CLAUDE_FILE_PATH\""
-          }
-        ]
-      },
-      {
-        "matcher": "Write(*.js)",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "npx prettier --write \"$CLAUDE_FILE_PATH\""
+            "command": "jq -r '.tool_input.file_path' | { read file_path; if echo \"$file_path\" | grep -qE '\\.(ts|tsx|js)$'; then pnpm exec prettier --write \"$file_path\"; fi; }"
           }
         ]
       }

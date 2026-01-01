@@ -81,7 +81,7 @@ For the complete list of built-in slash commands and CLI flags, see the [officia
 
 ## Permission Patterns
 
-- `Bash(npm run:*)` - All npm run commands
+- `Bash(pnpm:*)` - All pnpm commands
 - `Read(src/**)` - All files in src recursively
 - `Edit(*.ts)` - All TypeScript files
 - `WebFetch(domain:github.com)` - Specific domain

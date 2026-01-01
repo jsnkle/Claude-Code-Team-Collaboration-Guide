@@ -35,9 +35,9 @@ curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del in
 brew install --cask claude-code
 ```
 
-**NPM (Node.js 18+):**
+**pnpm (Node.js 18+):**
 ```bash
-npm install -g @anthropic-ai/claude-code
+pnpm add -g @anthropic-ai/claude-code
 ```
 
 ```bash

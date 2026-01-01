@@ -3,9 +3,9 @@
 ## Formatting
 
 - Use 2-space indentation
-- Maximum line length: 100 characters
+- Maximum line length: 80 characters
 - Use semicolons in JavaScript/TypeScript
-- Use single quotes for strings
+- Use double quotes for strings
 - Use trailing commas in multiline structures
 
 ## Naming Conventions

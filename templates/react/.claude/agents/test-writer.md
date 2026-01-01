@@ -59,5 +59,5 @@ Use queries in this order:
 2. Identify user interactions and expected outcomes
 3. Write tests for happy path first
 4. Add tests for error states and edge cases
-5. Verify all tests pass: `npm test`
-6. Check coverage: `npm test -- --coverage`
+5. Verify all tests pass: `pnpm test`
+6. Check coverage: `pnpm test -- --coverage`

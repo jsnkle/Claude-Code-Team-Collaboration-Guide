@@ -21,10 +21,10 @@ This template provides React-specific configuration for Claude Code. Use with `t
 ## Quick Commands
 
 ```bash
-npm run dev          # Start Vite dev server
-npm run build        # Production build
-npm run preview      # Preview production build
-npm test             # Run Vitest
+pnpm dev             # Start Vite dev server
+pnpm build           # Production build
+pnpm preview         # Preview production build
+pnpm test            # Run Vitest
 ```
 
 ## Usage

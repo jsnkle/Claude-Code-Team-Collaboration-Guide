@@ -2,18 +2,18 @@
   "$schema": "https://code.claude.com/settings.schema.json",
   "permissions": {
     "allow": [
-      "Bash(npm ci)",
-      "Bash(npm run dev)",
-      "Bash(npm run build)",
-      "Bash(npm run preview)",
-      "Bash(npm run lint)",
-      "Bash(npm run lint:fix)",
-      "Bash(npm test:*)",
-      "Bash(npx vite:*)",
-      "Bash(npx vitest:*)",
-      "Bash(npx prettier:*)",
-      "Bash(npx eslint:*)",
-      "Bash(npx tsc:*)",
+      "Bash(pnpm install)",
+      "Bash(pnpm dev)",
+      "Bash(pnpm build)",
+      "Bash(pnpm preview)",
+      "Bash(pnpm lint)",
+      "Bash(pnpm lint:fix)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm exec vite:*)",
+      "Bash(pnpm exec vitest:*)",
+      "Bash(pnpm exec prettier:*)",
+      "Bash(pnpm exec eslint:*)",
+      "Bash(pnpm exec tsc:*)",
       "WebFetch(domain:react.dev)",
       "WebFetch(domain:vitejs.dev)",
       "WebFetch(domain:vitest.dev)",
@@ -23,20 +23,11 @@
   "hooks": {
     "PostToolUse": [
       {
-        "matcher": "Write(*.tsx)",
+        "matcher": "Write|Edit",
         "hooks": [
           {
             "type": "command",
-            "command": "npx prettier --write \"$CLAUDE_FILE_PATH\""
-          }
-        ]
-      },
-      {
-        "matcher": "Write(*.ts)",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "npx prettier --write \"$CLAUDE_FILE_PATH\""
+            "command": "jq -r '.tool_input.file_path' | { read file_path; if echo \"$file_path\" | grep -qE '\\.tsx?$'; then pnpm exec prettier --write \"$file_path\"; fi; }"
           }
         ]
       }

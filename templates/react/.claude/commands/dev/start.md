@@ -10,5 +10,5 @@ Initialize a React development session:
 4. Check for TypeScript errors
 5. Provide a summary of the project state
 
-Start dev server with: `npm run dev`
-Check types with: `npx tsc --noEmit`
+Start dev server with: `pnpm dev`
+Check types with: `pnpm exec tsc --noEmit`

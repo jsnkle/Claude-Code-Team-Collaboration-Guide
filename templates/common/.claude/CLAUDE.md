@@ -11,11 +11,11 @@
 ## Quick Reference Commands
 
 ```bash
-npm ci               # Install dependencies
-npm run dev          # Start development server
-npm test             # Run test suite
-npm run lint         # Run linting
-npm run build        # Production build
+pnpm install         # Install dependencies
+pnpm dev             # Start development server
+pnpm test            # Run test suite
+pnpm lint            # Run linting
+pnpm build           # Production build
 ```
 
 ## Key Directories

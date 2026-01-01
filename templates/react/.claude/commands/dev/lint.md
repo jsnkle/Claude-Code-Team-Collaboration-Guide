@@ -9,7 +9,7 @@ Run linting and type checking: $ARGUMENTS
 3. Run TypeScript compiler for type errors
 4. Report issues and auto-fix what's possible
 
-Lint: `npm run lint` or `npx eslint src/`
-Fix: `npm run lint:fix` or `npx eslint src/ --fix`
-Types: `npx tsc --noEmit`
-Format: `npx prettier --check src/`
+Lint: `pnpm lint` or `pnpm exec eslint src/`
+Fix: `pnpm lint:fix` or `pnpm exec eslint src/ --fix`
+Types: `pnpm exec tsc --noEmit`
+Format: `pnpm exec prettier --check src/`

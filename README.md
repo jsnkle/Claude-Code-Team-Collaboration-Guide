@@ -2,7 +2,7 @@
 
 A practical template repository for deploying Claude Code across development teams. Templates are **composable** — mix and match common foundations with stack-specific configurations.
 
-**Compatible with Claude Code v2.0.74**
+**Compatible with Claude Code v2.1.4**
 
 ## Who This Guide Is For
 
@@ -177,6 +177,6 @@ templates/react/.claude/
 
 ---
 
-*Template Version: 2.0 | Compatible with Claude Code v2.0.74*
+*Template Version: 2.1 | Compatible with Claude Code v2.1.4*
 
 **Created by Jason Kellie | MIT License**

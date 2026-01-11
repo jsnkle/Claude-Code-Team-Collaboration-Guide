@@ -23,6 +23,43 @@
 }
 ```
 
+## Wildcard Bash Permissions (v2.1+)
+
+You can use wildcard patterns for Bash tool permissions:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm *)",
+      "Bash(pnpm *)",
+      "Bash(git *)"
+    ]
+  }
+}
+```
+
+This allows any command starting with `npm`, `pnpm`, or `git` without individual permission prompts.
+
+## Unreachable Rule Detection (v2.1+)
+
+Claude Code now detects and warns about permission rules that can never be reached. For example:
+
+```json
+{
+  "permissions": {
+    "deny": [
+      "Bash(rm:*)"
+    ],
+    "allow": [
+      "Bash(rm -rf:*)"
+    ]
+  }
+}
+```
+
+The `allow` rule for `rm -rf` is unreachable because the `deny` rule for `rm` blocks all `rm` commands first. Claude Code will warn you about these configuration issues.
+
 ## Security Best Practices
 
 1. **Never allow** `.env` file access in settings
@@ -32,6 +69,7 @@
 5. **Review MCP servers** - Only use trusted sources
 6. **Monitor usage** - Check for unexpected behavior
 7. **Regular audits** - Review rule files periodically
+8. **Check for warnings** - Review unreachable rule warnings in `/permissions`
 
 ---
 

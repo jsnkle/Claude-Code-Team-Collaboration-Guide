@@ -1,4 +1,4 @@
-# Part 1: Claude Code Feature Overview (v2.0.74)
+# Part 1: Claude Code Feature Overview (v2.1.4)
 
 ## Core Features
 
@@ -22,11 +22,22 @@
 
 | Feature | Description | Team Relevance |
 |---------|-------------|----------------|
-| **Plan Mode** | Toggle with `Shift+Tab`. Claude creates a plan before executing, allowing review and feedback. | Encourages thoughtful changes |
+| **Plan Mode** | Toggle with `Shift+Tab` or `/plan`. Claude creates a plan before executing, allowing review and feedback. | Encourages thoughtful changes |
 | **Plugin System** | `/plugin install`, `/plugin marketplace` - Extend with custom commands, agents, hooks, MCP servers. | Distribute team plugins |
 | **Sandbox Mode** | Bash sandboxing on Linux/Mac for safer command execution. | Configurable in project settings.json |
 | **Output Styles** | Custom output styles can be distributed in `.claude/output-styles/`. | Team-wide behavior customization |
 | **Checkpoints & /rewind** | Automatically saves code state before each edit. Developers can restore to any checkpoint. | Safety net for team members |
+
+## Key v2.1+ Features
+
+| Feature | Description | Team Relevance |
+|---------|-------------|----------------|
+| **Unified Commands & Skills** | Slash commands and skills now share a unified model. Both support `context: fork` for isolated execution. | Simpler mental model |
+| **Skill Hot-Reload** | Skills in `~/.claude/skills` or `.claude/skills` automatically reload when files change. | Faster iteration on team skills |
+| **Language Setting** | Configure Claude's response language via `language` setting (e.g., `"ja"` for Japanese). | Multilingual team support |
+| **Wildcard Bash Permissions** | Support for patterns like `Bash(npm *)` for flexible command permissions. | Easier permission management |
+| **Release Channels** | Toggle between `stable` and `latest` release channels in `/config`. | Control update timing |
+| **Unreachable Rule Warnings** | Claude Code detects and warns about permission rules that can never be reached. | Catch config mistakes |
 
 **Note:** Claude Code includes many individual productivity features (extended thinking, background commands, vim mode, etc.) documented in the [official docs](https://code.claude.com/docs). This guide focuses on team-configurable features.
 

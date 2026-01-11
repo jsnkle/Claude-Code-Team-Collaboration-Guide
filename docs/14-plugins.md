@@ -65,6 +65,12 @@ When team members trust the folder, they'll be prompted to install the marketpla
 - **Sharing workflows**: Distribute debugging setups, deployment pipelines
 - **Connecting tools**: Package MCP server configurations
 
+## Environment Variables
+
+| Variable | Purpose |
+|----------|---------|
+| `FORCE_AUTOUPDATE_PLUGINS` | Force plugins to auto-update (v2.1.2+) |
+
 ---
 
 [← Previous: Checkpoints](13-checkpoints.md) | [Back to Guide](../README.md) | [Next: Output Styles →](15-output-styles.md)

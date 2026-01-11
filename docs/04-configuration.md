@@ -362,6 +362,8 @@ paths:
 | `hooks` | Custom commands before/after tool executions | See hooks section |
 | `disableAllHooks` | Disable all hooks | `true` |
 | `model` | Override default model | `"claude-sonnet-4-5-20250929"` |
+| `language` | Configure Claude's response language (v2.1+) | `"ja"` (Japanese), `"es"` (Spanish) |
+| `respectGitignore` | Control whether file picker respects .gitignore (v2.1+) | `true` |
 | `statusLine` | Configure custom status line | `{"type": "command", "command": "..."}` |
 | `fileSuggestion` | Custom script for `@` file autocomplete | `{"type": "command", "command": "..."}` |
 | `outputStyle` | Configure output style | `"Explanatory"` |

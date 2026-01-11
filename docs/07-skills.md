@@ -4,6 +4,8 @@
 
 **Agent Skills** are modular capabilities that extend Claude's functionality through organized folders. Unlike slash commands (which you invoke explicitly with `/command`), skills are **model-invoked** — Claude autonomously decides when to use them based on context and your request.
 
+> **Note (v2.1+):** Slash commands and skills now share a unified model. Skills support **automatic hot-reload** — changes to skill files in `~/.claude/skills` or `.claude/skills` take effect immediately without restarting Claude Code.
+
 ## Skills vs Other Features
 
 | Feature | Invocation | Trigger | Use Case |
@@ -77,6 +79,7 @@ Show concrete examples of using this Skill.
 | Field | Purpose | Example |
 |-------|---------|---------|
 | `allowed-tools` | Restrict which tools Claude can use | `Read, Grep, Glob` |
+| `context` | Execution context: `fork` runs in isolated sub-agent (v2.1+) | `fork` |
 
 ## Writing Effective Descriptions
 

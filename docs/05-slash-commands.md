@@ -2,6 +2,8 @@
 
 Slash commands are reusable prompt templates triggered with `/`. They live in `.claude/commands/` and can include shell commands, model selection, and dynamic arguments.
 
+> **Note (v2.1+):** Slash commands and skills now share a unified model. Both support the same frontmatter options including `context: fork` for isolated execution.
+
 ## `/dev/start` - Initialize Development Session
 
 **File:** `.claude/commands/dev/start.md`
@@ -183,6 +185,27 @@ List possible causes ranked by likelihood:
 - How can we prevent similar issues?
 ```
 
+## Frontmatter Options
+
+| Field | Description | Example |
+|-------|-------------|---------|
+| `model` | Model to use: `haiku`, `sonnet`, `opus` | `model: sonnet` |
+| `context` | Execution context: `fork` runs in isolated sub-agent | `context: fork` |
+| `argument-hint` | Hint text for command arguments | `argument-hint: "branch name"` |
+
+### Forked Execution (v2.1+)
+
+Use `context: fork` to run commands in an isolated sub-agent context. This is useful for long-running tasks that shouldn't block the main conversation:
+
+```markdown
+---
+model: haiku
+context: fork
+---
+
+Analyze dependencies and create a report...
+```
+
 ## Command Guidelines
 
 1. **Namespace commands** - Use folders (`/dev/`, `/git/`, etc.)
@@ -190,6 +213,7 @@ List possible causes ranked by likelihood:
 3. **Include `!` commands** - Pre-load context with bash output
 4. **Document in the file** - Commands are self-documenting
 5. **Use `$ARGUMENTS`** - Make commands flexible
+6. **Use `context: fork`** - For long-running or isolated tasks
 
 ---
 

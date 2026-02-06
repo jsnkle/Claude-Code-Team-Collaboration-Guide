@@ -97,6 +97,20 @@ echo "# My local settings" > CLAUDE.local.md
 /review src/api/users.ts        # Code review
 ```
 
+## Passive Feature Discovery
+
+The common template includes a "what's-new" notification pattern that helps developers stay current with Claude Code features without meetings or email blasts.
+
+**How it works:**
+1. A `SessionStart` hook in `settings.json` runs `.claude/scripts/whats-new-check.sh` each time a developer opens Claude Code
+2. The script checks whether the developer has already seen the latest update (tracked in `~/.claude/.whats-new-seen`)
+3. If the content is new, it prints a one-liner: *"New Claude Code features available — run /whats-new to see what's changed"*
+4. Running `/whats-new` shows the full feature highlights with "try it" tips
+
+**Maintaining it:** When you update the highlights in `.claude/commands/whats-new.md`, bump the version marker in the HTML comment at the top (e.g., `<!-- Update: 2025-03 -->`). This causes the hook to re-notify all developers on their next session.
+
+**Platform support:** The `SessionStart` hook script requires bash, so it works on macOS, Linux, and Windows via WSL or Git Bash. Native Windows (PowerShell/CMD) support is coming soon. The `/whats-new` command itself works on all platforms.
+
 ## Post-Onboarding Verification
 
 - [ ] Developer can run Claude Code successfully

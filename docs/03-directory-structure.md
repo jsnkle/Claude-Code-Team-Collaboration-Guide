@@ -34,7 +34,11 @@ your-project/
 │   │   │   └── lint.md
 │   │   ├── review.md                # Code review (from common/)
 │   │   ├── debug.md                 # Debugging (from common/)
-│   │   └── docs.md                  # Documentation (from common/)
+│   │   ├── docs.md                  # Documentation (from common/)
+│   │   └── whats-new.md             # Latest feature highlights (from common/)
+│   │
+│   ├── scripts/                     # Hook scripts (from common/)
+│   │   └── whats-new-check.sh       # SessionStart version-check hook
 │   │
 │   └── agents/                      # Subagents
 │       ├── code-reviewer.md         # Generic reviewer (from common/)

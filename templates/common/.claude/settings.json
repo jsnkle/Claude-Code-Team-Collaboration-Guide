@@ -31,5 +31,18 @@
       "Bash(chmod 777:*)"
     ]
   },
-  "includeCoAuthoredBy": true
+  "includeCoAuthoredBy": true,
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/scripts/whats-new-check.sh"
+          }
+        ]
+      }
+    ]
+  }
 }

@@ -52,7 +52,7 @@ Track refinements and improvements needed for this template repository.
 - [x] **Skills examples** - Add example skill files (commit-helper)
 - [ ] **Plugin pinning example** - Add example of pinned plugin configuration for reproducible team setups (v2.1.14+)
 - [ ] **Agent teams example** - Add agent team configuration example when feature stabilizes (currently research preview)
-- [ ] **What's-new rule** - Add a `.claude/rules/whats-new.md` template that teams can maintain with recent feature highlights (passive discovery)
+- [x] **What's-new rule** - Added `/whats-new` command + `SessionStart` hook for passive feature discovery
 
 ## Documentation
 
@@ -66,7 +66,7 @@ Track refinements and improvements needed for this template repository.
 
 - [ ] **Changelog digest automation** - Script or CI workflow that fetches upstream changelog, diffs against current documented version, and posts a team-friendly summary
 - [ ] **Onboarding validation command** - Add a `/team/verify` command that checks whether a developer's environment has all expected rules, skills, and settings loaded correctly
-- [ ] **What's-new passive discovery** - Maintain a rotating `whats-new.md` rule file so developers learn about features in context rather than through meetings
+- [x] **What's-new passive discovery** - Implemented via `SessionStart` hook + `/whats-new` command with version-gated notifications
 
 ---
 

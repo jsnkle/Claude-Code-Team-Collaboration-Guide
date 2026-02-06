@@ -21,7 +21,7 @@
 5. Commits the `.claude/` directory to the project
 6. Team members pull and immediately have Claude Code configured
 
-**Current status:** Composable structure complete with `common/` and `react/` templates.
+**Current status:** Composable structure complete with `common/` and `react/` templates. Documentation synced to v2.1.33.
 
 ---
 
@@ -34,6 +34,7 @@ Track refinements and improvements needed for this template repository.
 - [ ] **Test composability** - Verify templates merge correctly in real projects
 - [ ] **Refine common rules** - Validate universal rules work across stacks
 - [ ] **Refine React template** - Test with real React projects
+- [ ] **Automate changelog monitoring** - Set up CI/scheduled job to diff upstream changelog and post summaries to Slack/Teams (reduces manual `/sync-upstream` runs)
 
 ## Additional Stack Templates
 
@@ -45,17 +46,28 @@ Track refinements and improvements needed for this template repository.
 
 ## Enhancements
 
-- [ ] **MCP server examples** - Add .mcp.json examples for common integrations
-- [ ] **Output styles** - Add custom output style examples
-- [ ] **Hooks examples** - More hook examples for different scenarios
+- [ ] **MCP server examples** - Add .mcp.json examples for common integrations (GitHub, Linear, Sentry, etc.)
+- [ ] **Output style examples** - Add example `.claude/output-styles/` files to common template (e.g., security-auditor.md, strict-review.md)
+- [ ] **Hooks examples** - Add example hook configurations to common template (e.g., auto-format on write, lint on commit, setup bootstrap)
 - [x] **Skills examples** - Add example skill files (commit-helper)
+- [ ] **Plugin pinning example** - Add example of pinned plugin configuration for reproducible team setups (v2.1.14+)
+- [ ] **Agent teams example** - Add agent team configuration example when feature stabilizes (currently research preview)
+- [ ] **What's-new rule** - Add a `.claude/rules/whats-new.md` template that teams can maintain with recent feature highlights (passive discovery)
 
 ## Documentation
 
+- [x] **Sync to v2.1.33** - Documentation updated to cover v2.1.5 through v2.1.33
 - [ ] **Update docs** - Ensure all 19 guide parts reflect composable templates
 - [ ] **Video walkthrough** - Create setup video
 - [ ] **FAQ section** - Add common questions and answers
+- [ ] **User-level examples** - Add `examples/user-level/` with personal config examples (~/.claude/ patterns)
+
+## Team Adoption
+
+- [ ] **Changelog digest automation** - Script or CI workflow that fetches upstream changelog, diffs against current documented version, and posts a team-friendly summary
+- [ ] **Onboarding validation command** - Add a `/team/verify` command that checks whether a developer's environment has all expected rules, skills, and settings loaded correctly
+- [ ] **What's-new passive discovery** - Maintain a rotating `whats-new.md` rule file so developers learn about features in context rather than through meetings
 
 ---
 
-*Last updated: December 2025*
+*Last updated: February 2026*

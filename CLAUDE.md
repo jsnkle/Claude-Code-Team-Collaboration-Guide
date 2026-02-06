@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A template repository providing ready-to-use Claude Code configurations for development teams. Contains composable templates (common + stack-specific) and comprehensive documentation.
 
-**Compatible with Claude Code v2.1.4**
+**Compatible with Claude Code v2.1.33**
 
 ## Repository Structure
 

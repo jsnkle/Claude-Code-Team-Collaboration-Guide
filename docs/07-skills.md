@@ -263,6 +263,38 @@ Can you help me extract text from this PDF?
 Help me write a commit message for these changes
 ```
 
+## Skill Enhancements (v2.1.6+)
+
+### Nested Skill Discovery (v2.1.6+)
+
+Skills are automatically discovered from nested `.claude/skills` directories, not just top-level ones.
+
+### Session ID Substitution (v2.1.9+)
+
+Use `${CLAUDE_SESSION_ID}` in skill content for session-aware behavior:
+
+```markdown
+---
+name: session-logger
+description: Log actions with session context. Use when tracking work across a session.
+---
+
+Log this action to the session audit trail.
+Current session: ${CLAUDE_SESSION_ID}
+```
+
+### Skills from Additional Directories (v2.1.32+)
+
+Skills auto-load from directories added with `--add-dir`, enabling shared skill libraries across projects:
+
+```bash
+claude --add-dir /path/to/shared-skills
+```
+
+### Skill Character Budget (v2.1.32+)
+
+Skill content scales with the context window at 2% of total capacity, allowing larger skills on models with bigger context windows.
+
 ## Best Practices
 
 1. **Keep skills focused** - One capability per skill, not "utility functions"

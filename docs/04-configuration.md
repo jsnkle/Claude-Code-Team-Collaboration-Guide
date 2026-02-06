@@ -350,6 +350,44 @@ paths:
 }
 ```
 
+### Hook Events Reference (v2.1.9+)
+
+The hooks system supports the following event types:
+
+| Event | Trigger | Notes |
+|-------|---------|-------|
+| `PreToolUse` | Before a tool executes | Can return `additionalContext` to inject info into the model's context (v2.1.9+) |
+| `PostToolUse` | After a tool executes | Matcher supports `Write\|Edit`, tool names, etc. |
+| `Setup` | On `--init`, `--init-only`, or `--maintenance` (v2.1.10+) | Useful for environment bootstrap |
+| `TeammateIdle` | Agent team member becomes idle (v2.1.33+) | Requires `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` |
+| `TaskCompleted` | Agent team task finishes (v2.1.33+) | Requires `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` |
+
+**Note:** Hook execution timeout increased from 60 seconds to 10 minutes in v2.1.3.
+
+### MCP Tool Auto-Enable (v2.1.7+)
+
+MCP tool search auto mode is enabled by default with a 10% confidence threshold. Use the `auto:N` syntax to customize:
+
+```json
+{
+  "mcpServers": {
+    "my-server": {
+      "command": "my-mcp-server",
+      "toolSearch": "auto:25"
+    }
+  }
+}
+```
+
+The `auto:N` value (0-100) sets the confidence threshold for automatically enabling MCP tools.
+
+### Status Line Variables (v2.1.6+)
+
+Custom status lines can use these context window variables:
+
+- `context_window.used_percentage` — percentage of context window consumed
+- `context_window.remaining_percentage` — percentage of context window remaining
+
 ## Complete Settings Reference
 
 | Setting | Description | Example |
@@ -376,6 +414,10 @@ paths:
 | `awsAuthRefresh` | Custom script to refresh AWS credentials | `"aws sso login --profile myprofile"` |
 | `awsCredentialExport` | Script outputting AWS credentials as JSON | `"/bin/generate_aws_grant.sh"` |
 | `includeCoAuthoredBy` | Include co-author line in commits | `true` |
+| `spinnerVerbs` | Customize spinner verb text (v2.1.23+) | `["Thinking", "Working"]` |
+| `showTurnDuration` | Show/hide turn duration messages (v2.1.7+) | `false` |
+| `plansDirectory` | Custom directory for plan file storage (v2.1.9+) | `".claude/plans"` |
+| `reducedMotion` | Enable reduced motion mode (v2.1.30+) | `true` |
 
 ### Attribution Settings
 

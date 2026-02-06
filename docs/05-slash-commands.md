@@ -206,13 +206,29 @@ context: fork
 Analyze dependencies and create a report...
 ```
 
+### Indexed Arguments (v2.1.19+)
+
+Use bracket syntax for positional arguments:
+
+```markdown
+---
+argument-hint: "source-branch target-branch"
+---
+
+Cherry-pick from $ARGUMENTS[0] into $ARGUMENTS[1]
+
+!git log --oneline $ARGUMENTS[0]..HEAD
+```
+
+This allows commands to accept multiple distinct arguments. `$ARGUMENTS` still provides the full argument string.
+
 ## Command Guidelines
 
 1. **Namespace commands** - Use folders (`/dev/`, `/git/`, etc.)
 2. **Use appropriate models** - `haiku` for simple, `sonnet` for complex, `opus` for critical
 3. **Include `!` commands** - Pre-load context with bash output
 4. **Document in the file** - Commands are self-documenting
-5. **Use `$ARGUMENTS`** - Make commands flexible
+5. **Use `$ARGUMENTS`** - Make commands flexible (or `$ARGUMENTS[N]` for positional args)
 6. **Use `context: fork`** - For long-running or isolated tasks
 
 ---

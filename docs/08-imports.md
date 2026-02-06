@@ -29,6 +29,29 @@ See @docs/contributing.md for contribution guidelines.
 @~/.claude/my-preferences.md         # Home directory
 ```
 
+## CLAUDE.md from Additional Directories (v2.1.20+)
+
+Load CLAUDE.md files from directories added with `--add-dir`:
+
+```bash
+export CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=1
+claude --add-dir /path/to/shared-config
+```
+
+This allows teams to maintain shared CLAUDE.md files in separate repositories.
+
+## Agent Memory (v2.1.32+)
+
+Claude Code now supports automatic memory recording and recall. Agent memory has three scopes:
+
+| Scope | Persists Across | Use Case |
+|-------|-----------------|----------|
+| `user` | All sessions, all projects | Personal preferences and patterns |
+| `project` | All sessions in this project | Project-specific knowledge |
+| `local` | Current machine only | Machine-specific configuration |
+
+Claude automatically records and recalls relevant memories during work, building knowledge across sessions.
+
 ## View Loaded Memories
 
 Run `/memory` command to see all loaded memory files.

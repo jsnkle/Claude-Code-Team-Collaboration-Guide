@@ -38,5 +38,4 @@
 
 ---
 
-*Document Version: 2.5 | Compatible with Claude Code v2.0.74*
-*Includes: Project Rules, Path-Scoped Rules, Memory Imports, Checkpoints/Rewind, Output Styles, Plugins, VS Code Extension, Background Agents, Named Sessions, Sandbox Mode, Chrome Extension, Prompt Suggestions, Complete Configuration Examples*
+*Document Version: 3.0 | Compatible with Claude Code v2.1.33*

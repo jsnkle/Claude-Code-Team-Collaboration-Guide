@@ -58,6 +58,28 @@ Add `extraKnownMarketplaces` to your project's `.claude/settings.json` to ensure
 
 When team members trust the folder, they'll be prompted to install the marketplace and plugins.
 
+## Plugin Pinning (v2.1.14+)
+
+Pin plugins to specific git commit SHAs for reproducible team setups:
+
+```bash
+/plugin install <plugin-name>@<commit-sha>
+```
+
+This ensures all team members use the exact same plugin version, preventing unexpected behavior from upstream changes.
+
+## Plugin Search (v2.1.14+)
+
+Filter installed plugins with the search feature:
+
+```bash
+/plugin list    # Filterable search for installed plugins
+```
+
+## VS Code Plugin Management (v2.1.16+)
+
+The VS Code extension provides native plugin management — browse, install, and manage plugins directly from the IDE without using CLI commands.
+
 ## Use Cases
 
 - **Enforcing standards**: Ensure specific hooks run for code reviews

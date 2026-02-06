@@ -60,11 +60,29 @@ Team members can toggle between `stable` and `latest` release channels via `/con
 - **Stable**: Production-ready features
 - **Latest**: Early access to new features
 
+## New Settings (v2.1.7+)
+
+| Setting | Purpose | Version |
+|---------|---------|---------|
+| `spinnerVerbs` | Customize spinner verb text displayed during processing | v2.1.23+ |
+| `showTurnDuration` | Show or hide turn duration messages | v2.1.7+ |
+| `plansDirectory` | Custom directory for plan file storage | v2.1.9+ |
+| `reducedMotion` | Enable reduced motion mode for accessibility | v2.1.30+ |
+
+## Config Backups (v2.1.20+)
+
+Configuration files are automatically backed up with timestamps. The 5 most recent backups are rotated, preventing accidental configuration loss.
+
 ## Useful Environment Variables
 
 | Variable | Purpose |
 |----------|---------|
 | `CLAUDE_CODE_DISABLE_BACKGROUND_TASKS` | Disable background task functionality (v2.1.4+) |
+| `CLAUDE_CODE_TMPDIR` | Override temp directory location (v2.1.5+) |
+| `CLAUDE_CODE_ENABLE_TASKS` | Set `false` to disable task management system (v2.1.19+) |
+| `CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD` | Set `1` to load CLAUDE.md from `--add-dir` directories (v2.1.20+) |
+| `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS` | Set `1` to enable agent teams research preview (v2.1.32+) |
+| `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS` | Set `1` to disable experimental beta features (v2.1.25+) |
 | `CLAUDE_CODE_FILE_READ_MAX_OUTPUT_TOKENS` | Limit file read output tokens (v2.1+) |
 | `BASH_DEFAULT_TIMEOUT_MS` | Default bash command timeout |
 | `BASH_MAX_TIMEOUT_MS` | Maximum bash command timeout |

@@ -1,4 +1,4 @@
-# Part 1: Claude Code Feature Overview (v2.1.4)
+# Part 1: Claude Code Feature Overview (v2.1.33)
 
 ## Core Features
 
@@ -15,6 +15,7 @@
 | **MCP Servers** | External tool integrations (GitHub, Jira, etc.) | Project/User |
 | **Checkpoints** | Automatic code state snapshots for `/rewind` recovery | Session |
 | **Output Styles** | Modify Claude's behavior (Default, Explanatory, Learning) | Project/User |
+| **Task Management** | Built-in task tracking with dependency support (v2.1.16+) | Session |
 | **VS Code Extension** | Native IDE integration with inline diffs and plan mode | IDE |
 | **LSP Code Intelligence** | Go-to-definition, find references, hover documentation | IDE |
 
@@ -38,6 +39,21 @@
 | **Wildcard Bash Permissions** | Support for patterns like `Bash(npm *)` for flexible command permissions. | Easier permission management |
 | **Release Channels** | Toggle between `stable` and `latest` release channels in `/config`. | Control update timing |
 | **Unreachable Rule Warnings** | Claude Code detects and warns about permission rules that can never be reached. | Catch config mistakes |
+| **Task Management** | Built-in task tracking with dependency support via `TaskCreate`/`TaskUpdate` tools. | Structured work tracking |
+| **Customizable Keybindings** | Remap keyboard shortcuts with chord sequence support via `/keybindings`. | Team-standard shortcuts |
+
+## Key v2.1.16+ Features
+
+| Feature | Description | Team Relevance |
+|---------|-------------|----------------|
+| **Agent Teams (Preview)** | Multi-agent collaboration with `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`. Includes `TeammateIdle` and `TaskCompleted` hook events. | Parallel agent workflows |
+| **Agent Memory** | Automatic memory recording/recall with `user`, `project`, or `local` scope. Claude builds knowledge across sessions. | Persistent project context |
+| **New Hook Events** | `Setup` event (via `--init`), `PreToolUse` returns `additionalContext`, `TeammateIdle`, `TaskCompleted`. | Richer automation triggers |
+| **Indexed Command Arguments** | `$ARGUMENTS[0]` bracket syntax for positional arguments in slash commands. | More flexible team commands |
+| **MCP Auto-Enable** | `auto:N` syntax for MCP tool search threshold (0-100%). Default 10%. | Smoother MCP tool adoption |
+| **Plugin Pinning** | Pin plugins to specific git commit SHAs for reproducible setups. | Version-locked team plugins |
+| **PR Session Linking** | `--from-pr` flag and auto-linking via `gh pr create`. PR review status in prompt footer. | PR-centric workflows |
+| **Skills from --add-dir** | Skills and CLAUDE.md auto-load from `--add-dir` directories. | Shared skill libraries |
 
 **Note:** Claude Code includes many individual productivity features (extended thinking, background commands, vim mode, etc.) documented in the [official docs](https://code.claude.com/docs). This guide focuses on team-configurable features.
 

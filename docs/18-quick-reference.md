@@ -34,6 +34,8 @@
 
 **Terminal Setup:** Run `/terminal-setup` to configure your terminal for optimal Claude Code experience. Supported terminals include iTerm2, Kitty, Alacritty, Zed, Warp, WezTerm, and Ghostty.
 
+**Customizable Keybindings (v2.1.18+):** Run `/keybindings` to customize keyboard shortcuts with chord sequence support. Keybindings are context-aware and stored in `~/.claude/keybindings.json`.
+
 ## Vim Motions (v2.1+)
 
 Enhanced Vim support with additional motions:
@@ -89,11 +91,29 @@ These built-in commands help verify team configurations are loaded correctly:
 |---------|---------|
 | `/memory` | View all loaded memories and rules - verify team configs loaded |
 | `/help` | Show all commands including custom team commands |
-| `/doctor` | Diagnose configuration issues |
+| `/doctor` | Diagnose configuration issues (includes auto-update channel info) |
 | `/plan` | Enter plan mode directly (v2.1+) |
-| `/stats` | View usage metrics and trends |
+| `/stats` | View usage metrics and trends (supports date range filtering v2.1.6+) |
+| `/config` | Search and filter settings (v2.1.6+) |
+| `/debug` | Session troubleshooting (v2.1.30+) |
+| `/context` | Display context token count with colored output (v2.1.27+) |
+| `/keybindings` | Customize keyboard shortcuts with chord support (v2.1.18+) |
+| `/sandbox` | Show sandbox dependency status with install instructions (v2.1.20+) |
 | `/teleport` | Remote session management (v2.1+) |
 | `/remote-env` | Remote environment management (v2.1+) |
+
+## CLI Flags (v2.1.20+)
+
+| Flag | Purpose |
+|------|---------|
+| `--from-pr <number\|url>` | Resume session linked to a GitHub PR (v2.1.27+) |
+| `--add-dir <path>` | Add directory for skills and CLAUDE.md loading (v2.1.32+) |
+
+## PR Integration (v2.1.20+)
+
+- PR review status indicator in prompt footer (approved/changes requested/pending/draft)
+- Sessions auto-linked to PRs when created via `gh pr create` (v2.1.27+)
+- Merged PRs display purple status indicator (v2.1.23+)
 
 For the complete list of built-in slash commands and CLI flags, see the [official CLI reference](https://code.claude.com/docs/en/cli-reference).
 

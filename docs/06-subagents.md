@@ -156,6 +156,21 @@ Subagents can be resumed to continue previous work:
 
 Each execution gets a unique `agentId` stored in `agent-{agentId}.jsonl`. Full context is preserved when resumed, making this useful for long-running research or analysis tasks.
 
+## Agent Teams (Research Preview, v2.1.32+)
+
+Claude Code supports multi-agent collaboration where agents work together as a team. Enable with:
+
+```bash
+export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
+```
+
+Key features:
+- Agents can send messages to and receive messages from teammates
+- `--resume` reuses previous `--agent` values by default
+- New hook events: `TeammateIdle` (agent becomes idle) and `TaskCompleted` (task finishes)
+
+This is a research preview feature and may change in future releases.
+
 ## Subagent Strategy
 
 - **Read-only agents** for review tasks (limit tools to Read, Grep, Glob)

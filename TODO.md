@@ -46,28 +46,22 @@ The templates work identically in both scenarios. The difference is what sits ab
 
 ## Enhancements
 
-- [ ] **MCP server configurations** - Add .mcp.json to common template for common integrations (GitHub, Linear, Sentry, etc.)
+- [ ] **MCP server configurations** - Add `.mcp.json` skeleton to common template with commented patterns for common integration categories (issue tracking, CI, monitoring) that teams uncomment and configure
 - [ ] **Output style configurations** - Add `.claude/output-styles/` files to common template (e.g., security-auditor.md, strict-review.md)
-- [x] **Hook configurations** - Add hook configurations to common template (auto-format on write, lint on commit)
-- [x] **Skill configurations** - Add skill files to common template (commit-helper)
-- [ ] **Plugin pinning configuration** - Add pinned plugin configuration to common template for reproducible team setups (v2.1.14+)
-- [ ] **Agent teams configuration** - Add agent team configuration to common template when feature stabilizes (currently research preview)
-- [x] **What's-new rule** - Added `/whats-new` command + `SessionStart` hook for passive feature discovery
+- [ ] **Agent teams configuration** - Add agent team configuration to common template (blocked on upstream — currently research preview behind `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`)
+- [ ] **Setup script** - Create an `init.sh` script (e.g., `./init.sh react`) that copies common + stack template, warns about existing `.claude/` directories, and runs placeholder validation
+- [ ] **Template validation** - Add a `/validate` slash command to common template that checks for leftover `{{PLACEHOLDER}}` strings, missing required files, or misconfigured settings
+- [ ] **"Create your own template" guide** - Document how to create a custom stack template that composes with `common/`, so adopters can extend the pattern to any stack
 
 ## Documentation
 
-- [x] **Sync to v2.1.33** - Documentation updated to cover v2.1.5 through v2.1.33
 - [ ] **Update docs** - Ensure all 19 guide parts reflect composable templates
-- [ ] **Video walkthrough** - Create setup video
-- [ ] **FAQ section** - Add common questions and answers
-- [ ] **User-level examples** - Add `examples/user-level/` with personal config examples (~/.claude/ patterns)
+- [ ] **Version migration notes** - Lightweight migration guide when template versions bump, so adopters know what changed in their config files
 
 ## Team Adoption
 
 - [ ] **Changelog digest automation** - Script or CI workflow that fetches upstream changelog, diffs against current documented version, and posts a team-friendly summary
 - [ ] **Onboarding validation command** - Add a `/team/verify` command that checks whether a developer's environment has all expected rules, skills, and settings loaded correctly
-- [x] **What's-new passive discovery** - Implemented via `SessionStart` hook + `/whats-new` command with version-gated notifications
-- [x] **Plan-specific guidance** - Documented Team Plan vs. Individual Plan setup differences across README, onboarding, hierarchy, and security docs
 
 ---
 

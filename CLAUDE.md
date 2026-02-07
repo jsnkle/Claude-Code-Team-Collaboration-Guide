@@ -42,5 +42,5 @@ Templates are **composable** - `common/` provides universal rules/commands, stac
 Use `/sync-upstream` to check for Claude Code updates. This fetches the changelog from `https://raw.githubusercontent.com/anthropics/claude-code/refs/heads/main/CHANGELOG.md` and compares against our docs.
 
 When updating documentation:
-- Update version number in README.md and docs/01-feature-overview.md
+- Update version number in README.md, CLAUDE.md, TODO.md, and docs/01-feature-overview.md
 - Reference official docs at `https://code.claude.com/docs/en/` (not docs.anthropic.com)

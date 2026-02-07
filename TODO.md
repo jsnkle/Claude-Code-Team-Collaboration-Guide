@@ -48,7 +48,7 @@ The templates work identically in both scenarios. The difference is what sits ab
 
 - [ ] **MCP server examples** - Add .mcp.json examples for common integrations (GitHub, Linear, Sentry, etc.)
 - [ ] **Output style examples** - Add example `.claude/output-styles/` files to common template (e.g., security-auditor.md, strict-review.md)
-- [ ] **Hooks examples** - Add example hook configurations to common template (e.g., auto-format on write, lint on commit, setup bootstrap)
+- [x] **Hook configurations** - Add hook configurations to common template (auto-format on write, lint on commit)
 - [x] **Skills examples** - Add example skill files (commit-helper)
 - [ ] **Plugin pinning example** - Add example of pinned plugin configuration for reproducible team setups (v2.1.14+)
 - [ ] **Agent teams example** - Add agent team configuration example when feature stabilizes (currently research preview)

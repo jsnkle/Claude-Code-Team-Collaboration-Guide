@@ -4,9 +4,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-A template repository providing ready-to-use Claude Code configurations for development teams. Contains composable templates (common + stack-specific) and comprehensive documentation.
+A template repository and 19-part reference guide for standardizing Claude Code across development teams. Serves two audiences equally:
+
+- **Team Plan** users — who have an admin layer (`managed-settings.json`) above project config
+- **Individual Plan** users (Pro/Max) — where the `.claude/` directory committed to git is the only shared governance
+
+Contains composable templates (common + stack-specific) and comprehensive documentation. The templates work identically for both audiences.
 
 **Compatible with Claude Code v2.1.33**
+
+## Terminology & Framing
+
+- Use **"Admin"** (not "Enterprise") when referring to the top level of the config hierarchy (`managed-settings.json`). Anthropic's docs call this "Enterprise" but it's available on any Team Plan.
+- When writing guidance that differs by plan type, address both scenarios (Team Plan and Individual Plans) rather than assuming one or the other.
 
 ## Repository Structure
 

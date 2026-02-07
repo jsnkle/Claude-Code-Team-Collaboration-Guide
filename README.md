@@ -1,6 +1,6 @@
-# Claude Code Team Collaboration Templates
+# Claude Code for Teams
 
-A practical template repository for deploying Claude Code across development teams. Templates are **composable** — mix and match common foundations with stack-specific configurations.
+Composable configuration templates and a 19-part reference guide for standardizing Claude Code across your development team — whether you're on a Team Plan or a group of developers on individual subscriptions.
 
 **Compatible with Claude Code v2.1.33**
 
@@ -161,19 +161,9 @@ templates/react/.claude/
 
 ## Team Onboarding
 
-### For DevOps/Team Leads
+**Setting up:** Follow the [Quick Start](#quick-start) above, then see the detailed [Team Onboarding Checklist](docs/09-onboarding.md) for plan-specific setup steps and developer walkthrough.
 
-1. Copy `common/` + stack template(s) to your project
-2. Customize `.claude/CLAUDE.md` with project details
-3. Review and adjust rules for your team's standards
-4. Test with `claude` and verify with `/memory`
-5. Commit and share with team
-
-### For Developers
-
-1. Pull the project (includes `.claude/` directory)
-2. Run `claude` in the project
-3. Verify with `/memory` and `/help`
+**Already set up:** Developers pull the project (which includes the `.claude/` directory), run `claude`, and verify with `/memory` and `/help`.
 
 ---
 

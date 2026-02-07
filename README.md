@@ -2,7 +2,7 @@
 
 Composable configuration templates and a 19-part reference guide for standardizing Claude Code across your development team — whether you're on a Team Plan or a group of developers on individual subscriptions.
 
-**Compatible with Claude Code v2.1.34**
+**Compatible with Claude Code v2.1.36**
 
 ## Who This Guide Is For
 

@@ -4,9 +4,9 @@
 
 | Feature | Purpose | Scope |
 |---------|---------|-------|
-| **CLAUDE.md** | Project context & instructions loaded at startup | Project/User/Enterprise |
+| **CLAUDE.md** | Project context & instructions loaded at startup | Project/User/Admin |
 | **Project Rules** | Modular, path-scoped instruction files in `.claude/rules/` | Project/User |
-| **settings.json** | Permissions, environment variables, tool behavior | Project/User/Enterprise |
+| **settings.json** | Permissions, environment variables, tool behavior | Project/User/Admin |
 | **Slash Commands** | Reusable prompt templates triggered with `/` | Project/User |
 | **Subagents** | Specialized AI assistants with isolated context | Project/User |
 | **Skills** | Auto-loading procedural knowledge based on task context | Project/User |
@@ -63,10 +63,17 @@ Claude Code uses a hierarchical system where higher levels take precedence:
 
 | Level | Memory Location | Settings Location | Shared With |
 |-------|-----------------|-------------------|-------------|
-| **1. Enterprise** | `/Library/Application Support/ClaudeCode/CLAUDE.md` (macOS) | `managed-settings.json` | All org users |
+| **1. Admin** | `/Library/Application Support/ClaudeCode/CLAUDE.md` (macOS) | `managed-settings.json` | All org users |
 | **2. User** | `~/.claude/CLAUDE.md` | `~/.claude/settings.json` | Just you (all projects) |
 | **3. Project** | `./CLAUDE.md` or `./.claude/CLAUDE.md` | `./.claude/settings.json` | Team via git |
 | **4. Project Local** | `./CLAUDE.local.md` | `./.claude/settings.local.json` | Just you (this project) |
+
+> **Which levels apply to you?**
+>
+> - **Team Plan** ($25–$125/seat, min 5) — All four levels. Admin deploys `managed-settings.json` at Level 1 to enforce org-wide policies.
+> - **Individual Plans** (Pro $20/mo or Max $100–$200/mo each) — Levels 2–4 only. No Level 1. Project-level `.claude/` is the primary shared governance.
+
+**Note:** Anthropic's docs refer to Level 1 as "Enterprise" but `managed-settings.json` is available on any Team Plan.
 
 **Note:** Project rules (`.claude/rules/`) load with the same priority as `.claude/CLAUDE.md`.
 

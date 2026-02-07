@@ -22,7 +22,7 @@
 |-------------|----------|
 | Development | More permissive, allow common dev tools |
 | Staging | Moderate, restrict production configs |
-| Production | Restrictive, use enterprise policies |
+| Production | Restrictive — Team Plan: enforce via `managed-settings.json`; Individual Plans: use strict project-level deny rules |
 
 ## Slash Command Guidelines
 

@@ -67,6 +67,7 @@ Track refinements and improvements needed for this template repository.
 - [ ] **Changelog digest automation** - Script or CI workflow that fetches upstream changelog, diffs against current documented version, and posts a team-friendly summary
 - [ ] **Onboarding validation command** - Add a `/team/verify` command that checks whether a developer's environment has all expected rules, skills, and settings loaded correctly
 - [x] **What's-new passive discovery** - Implemented via `SessionStart` hook + `/whats-new` command with version-gated notifications
+- [x] **Plan-specific guidance** - Documented Team Plan vs. Individual Plan setup differences across README, onboarding, hierarchy, and security docs
 
 ---
 

@@ -65,7 +65,7 @@ The `allow` rule for `rm -rf` is unreachable because the `deny` rule for `rm` bl
 1. **Never allow** `.env` file access in settings
 2. **Use path-scoped security rules** for auth/payment code
 3. **Audit hooks** - Ensure they don't expose sensitive data
-4. **Use enterprise policies** for organization-wide restrictions
+4. **Use admin policies** for organization-wide restrictions (Team Plan: configure via `managed-settings.json`; Individual Plans: use strict project-level deny rules)
 5. **Review MCP servers** - Only use trusted sources
 6. **Monitor usage** - Check for unexpected behavior
 7. **Regular audits** - Review rule files periodically

@@ -6,14 +6,14 @@ A practical template repository for deploying Claude Code across development tea
 
 ## Who This Guide Is For
 
-Claude Code uses a [hierarchical configuration system](docs/01-feature-overview.md) with four levels: Enterprise → User → Project → Project Local. This guide focuses on **project-level configuration** — the `.claude/` directory and files you commit to git.
+Claude Code uses a [hierarchical configuration system](docs/01-feature-overview.md) with four levels: Admin → User → Project → Project Local. This guide focuses on **project-level configuration** — the `.claude/` directory and files you commit to git.
 
-| Your Situation | How This Guide Helps |
-|----------------|---------------------|
-| **Team without Enterprise tier** | This is your *primary mechanism* for standardizing Claude Code across your team. Use these templates to establish shared rules, commands, and workflows. |
-| **Team with Enterprise tier** | Your organization's `managed-settings.json` handles org-wide policies. Use this guide for *project-specific* context, commands, and agents that sit beneath those guardrails. |
+| Your Situation | What You Get | How This Guide Helps |
+|---|---|---|
+| **Team Plan** ($25–$125/seat, min 5) | Admin console, `managed-settings.json` enforcement, SSO, spend caps, usage analytics | Admin policies handle guardrails. Use these templates for project-specific context, commands, and agents beneath those guardrails. |
+| **Individual Plans** (Pro $20/mo or Max $100–$200/mo each) | Each dev manages their own subscription. No centralized admin. | This is your *primary governance mechanism*. The `.claude/` directory committed to git is the only way to standardize Claude Code across your team. |
 
-Both scenarios benefit from project-level configuration — the difference is whether you have an additional enterprise layer above it.
+Both scenarios benefit equally from project-level configuration. The difference is whether you have an admin layer above it.
 
 ## Quick Start
 

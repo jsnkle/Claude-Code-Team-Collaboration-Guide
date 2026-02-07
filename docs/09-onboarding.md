@@ -2,7 +2,21 @@
 
 ## Pre-Onboarding (DevOps/Lead - You)
 
-- [ ] Ensure all developers have Claude Pro/Max subscription or premium seats
+### Confirm developer access (pick one)
+
+**Team Plan ($25–$125/seat, min 5):**
+- [ ] Provision seats in admin console (standard or premium)
+- [ ] Configure `managed-settings.json` for org-wide policies
+- [ ] Set per-member spend caps if needed
+- [ ] Share SSO login instructions
+
+**Individual Plans (each dev on Pro $20/mo or Max $100–$200/mo):**
+- [ ] Confirm each developer has an active subscription
+- [ ] Note: Max recommended for heavy agentic workflows (5x–20x more usage than Pro)
+- [ ] Note: No centralized admin — the `.claude/` project config committed to git is your only shared governance mechanism
+
+### Set up project configuration (all plans)
+
 - [ ] Create project repository with `.claude/` directory structure
 - [ ] Create lean `CLAUDE.md` with project overview
 - [ ] Set up `.claude/rules/` with modular rule files
@@ -50,9 +64,8 @@ claude --version
 # Start Claude Code and follow authentication prompts
 claude
 
-# If using team/enterprise account:
-# Select "Claude account with subscription" when prompted
-# Choose your organization if prompted
+# Team Plan: Select "Claude account with subscription", choose your organization
+# Individual Plans: Sign in with your personal Anthropic account
 ```
 
 ### Step 3: Clone Project & Initialize

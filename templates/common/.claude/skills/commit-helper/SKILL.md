@@ -34,6 +34,13 @@ description: Generates clear commit messages from git diffs following Convention
 | `test` | Adding missing tests |
 | `chore` | Maintenance tasks, dependency updates |
 
+## Atomic Commits
+
+Each commit must represent exactly one logical change:
+- Don't mix unrelated changes (e.g., a bug fix + a refactor) in a single commit
+- Each commit should leave the codebase buildable and testable
+- If staged changes span multiple concerns, recommend splitting them into separate commits before proceeding
+
 ## Best Practices
 
 - Keep subject line under 50 characters

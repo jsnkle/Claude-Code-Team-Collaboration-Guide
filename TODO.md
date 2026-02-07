@@ -46,12 +46,12 @@ The templates work identically in both scenarios. The difference is what sits ab
 
 ## Enhancements
 
-- [ ] **MCP server examples** - Add .mcp.json examples for common integrations (GitHub, Linear, Sentry, etc.)
-- [ ] **Output style examples** - Add example `.claude/output-styles/` files to common template (e.g., security-auditor.md, strict-review.md)
+- [ ] **MCP server configurations** - Add .mcp.json to common template for common integrations (GitHub, Linear, Sentry, etc.)
+- [ ] **Output style configurations** - Add `.claude/output-styles/` files to common template (e.g., security-auditor.md, strict-review.md)
 - [x] **Hook configurations** - Add hook configurations to common template (auto-format on write, lint on commit)
-- [x] **Skills examples** - Add example skill files (commit-helper)
-- [ ] **Plugin pinning example** - Add example of pinned plugin configuration for reproducible team setups (v2.1.14+)
-- [ ] **Agent teams example** - Add agent team configuration example when feature stabilizes (currently research preview)
+- [x] **Skill configurations** - Add skill files to common template (commit-helper)
+- [ ] **Plugin pinning configuration** - Add pinned plugin configuration to common template for reproducible team setups (v2.1.14+)
+- [ ] **Agent teams configuration** - Add agent team configuration to common template when feature stabilizes (currently research preview)
 - [x] **What's-new rule** - Added `/whats-new` command + `SessionStart` hook for passive feature discovery
 
 ## Documentation

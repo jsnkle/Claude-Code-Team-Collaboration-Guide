@@ -281,6 +281,17 @@ Values must follow W3C Baggage specification: no spaces, comma-separated `key=va
 | **Suggestion accept rate** | Percentage of Edit/Write/NotebookEdit suggestions accepted |
 | **Lines of code accepted** | Total accepted lines (excludes rejected) |
 
+### Dashboard Charts
+
+| Chart | Description |
+|-------|-------------|
+| **Adoption** | Daily active users and sessions |
+| **PRs per user** | PRs merged per day / daily active users |
+| **Pull requests breakdown** | Daily merged PRs split into "with CC" vs "without CC"; toggleable to Lines of code view |
+| **Leaderboard** | Top 10 users by contribution volume; toggleable between PRs and lines of code |
+
+Use **Export all users** to download CSV with complete contribution data for all users (not just the top 10).
+
 ### Enable Contribution Metrics
 
 1. GitHub admin installs the [Claude GitHub App](https://github.com/apps/claude)
@@ -302,13 +313,19 @@ PRs are tagged as "with Claude Code" if they contain at least one line written d
 - Auto-generated files (lock files, build output) are excluded
 - Lines over 1,000 characters are excluded
 
-### Console Metrics
+### Console Metrics (API Customers)
 
 The Console dashboard (`platform.claude.com/claude-code`) shows:
 - Lines of code accepted / suggestion accept rate
 - Daily active users and sessions
 - Daily API costs
 - Per-user spend and lines this month
+
+> Contribution metrics with GitHub integration are **not** currently available for API customers. The Console dashboard shows usage and spend metrics only.
+
+### Programmatic Access
+
+Query attribution data programmatically by searching for PRs labeled `claude-code-assisted` in GitHub.
 
 ---
 

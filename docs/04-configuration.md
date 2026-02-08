@@ -624,7 +624,7 @@ Settings files support a JSON schema for editor autocompletion:
 
 | Setting | Description | Example |
 |---------|-------------|---------|
-| `apiKeyHelper` | Custom script to generate auth value | `"/bin/generate_temp_api_key.sh"` |
+| `apiKeyHelper` | Custom script to generate auth value (called after 5 min or on 401; customize interval with `CLAUDE_CODE_API_KEY_HELPER_TTL_MS`) | `"/bin/generate_temp_api_key.sh"` |
 | `cleanupPeriodDays` | Days before inactive sessions are deleted (default: 30) | `20` |
 | `companyAnnouncements` | Announcements displayed at startup (managed only) | `["Upgrade by Friday"]` |
 | `env` | Environment variables for every session | `{"NODE_ENV": "development"}` |

@@ -8,10 +8,11 @@ Subagents are specialized AI assistants with isolated context. Claude can delega
 |-------|----------|-------------|
 | `name` | Yes | Unique identifier (lowercase, hyphens) |
 | `description` | Yes | Natural language purpose - helps Claude decide when to use |
-| `tools` | No | Comma-separated tool list (inherits all if omitted) |
+| `tools` | No | Comma-separated tool list (inherits all if omitted). Use `Task(agent-name)` to restrict which sub-agents this agent can spawn |
 | `model` | No | Model alias: `sonnet`, `opus`, `haiku`, or `inherit` |
 | `permissionMode` | No | Permission handling: `default`, `acceptEdits`, `bypassPermissions`, `plan`, `ignore` |
 | `skills` | No | Comma-separated skill names to auto-load |
+| `memory` | No | Memory scope: `user`, `project`, or `local` (v2.1.33+) |
 
 ## Code Reviewer Agent
 
@@ -171,12 +172,50 @@ Key features:
 
 This is a research preview feature and may change in future releases.
 
+## Agent Memory (v2.1.33+)
+
+The `memory` frontmatter field gives an agent persistent memory that Claude automatically records and recalls across sessions. This is useful for agents that build up project knowledge over time.
+
+| Scope | Persists Across | Storage |
+|-------|-----------------|---------|
+| `user` | All projects for this user | `~/.claude/` |
+| `project` | All sessions in this project | `.claude/` |
+| `local` | All sessions in this project (not shared) | `.claude/` (local) |
+
+```markdown
+---
+name: code-reviewer
+description: Reviews code changes with persistent knowledge of past review decisions.
+tools: Read, Grep, Glob
+memory: project
+---
+```
+
+With `memory: project`, the agent remembers patterns it's seen, decisions made in past reviews, and project-specific conventions — without being re-told each session.
+
+## Restricting Sub-Agent Access (v2.1.33+)
+
+Use `Task(agent-name)` syntax in the `tools` field to control which sub-agents an agent can spawn. This prevents agents from delegating to agents they shouldn't have access to.
+
+```markdown
+---
+name: orchestrator
+description: Coordinates code changes by delegating to specialized agents.
+tools: Read, Write, Bash, Task(code-reviewer), Task(test-writer)
+---
+```
+
+This agent can only spawn `code-reviewer` and `test-writer` sub-agents — it cannot invoke `security-scanner` or any other agent. Without `Task(...)` restrictions, agents inherit access to all available sub-agents.
+
+You can also disable sub-agent access entirely by omitting `Task` from the tools list while specifying other tools explicitly.
+
 ## Subagent Strategy
 
 - **Read-only agents** for review tasks (limit tools to Read, Grep, Glob)
 - **Full-access agents** only when necessary
 - **Descriptive names** so Claude auto-delegates appropriately
 - **Concise prompts** - Under 500 lines performs better
+- **Scope memory appropriately** - Use `project` for team-shared knowledge, `local` for individual preferences
 
 ---
 

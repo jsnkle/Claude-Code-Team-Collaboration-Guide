@@ -305,6 +305,41 @@ Skill(review-pr *)
 
 Permission syntax: `Skill(name)` for exact match, `Skill(name *)` for prefix match with any arguments. Built-in commands like `/compact` and `/init` are not available through the Skill tool.
 
+## Dynamic Context Injection
+
+The `` !`command` `` syntax runs shell commands before the skill content is sent to Claude. The command output replaces the placeholder, giving Claude live data instead of the command itself.
+
+```yaml
+---
+name: pr-summary
+description: Summarize changes in a pull request
+context: fork
+agent: Explore
+---
+
+## Pull request context
+- PR diff: !`gh pr diff`
+- PR comments: !`gh pr view --comments`
+- Changed files: !`gh pr diff --name-only`
+
+## Your task
+Summarize this pull request...
+```
+
+Each `` !`command` `` executes before Claude sees the skill content. The output replaces the placeholder, so Claude receives the fully-rendered prompt with actual data.
+
+## Skill Location Priority
+
+When skills share the same name across levels, higher-priority locations win:
+
+| Location | Path | Priority |
+|----------|------|----------|
+| Enterprise | Managed settings | Highest |
+| Personal | `~/.claude/skills/<name>/SKILL.md` | — |
+| Project | `.claude/skills/<name>/SKILL.md` | Lowest |
+
+Plugin skills use a `plugin-name:skill-name` namespace, so they cannot conflict with other levels.
+
 ## Skill Enhancements (v2.1.6+)
 
 ### Nested Skill Discovery (v2.1.6+)

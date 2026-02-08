@@ -2,7 +2,25 @@
 
 ## Sandbox Mode
 
-Enable bash sandboxing for safer command execution in your project's `settings.json`:
+Native OS-level sandboxing provides filesystem and network isolation for Bash commands.
+
+### OS-Level Enforcement
+
+| Platform | Technology | Prerequisites |
+|----------|-----------|---------------|
+| macOS | Seatbelt | Works out of the box |
+| Linux / WSL2 | bubblewrap | `sudo apt-get install bubblewrap socat` |
+
+WSL1 is not supported.
+
+### Sandbox Modes
+
+| Mode | Behavior |
+|------|----------|
+| **Auto-allow** | Sandboxed bash commands auto-approved; non-sandboxable commands fall back to regular permission flow |
+| **Regular permissions** | All bash commands go through standard permission flow even when sandboxed |
+
+Enable sandboxing with `/sandbox` or via `settings.json`:
 
 ```json
 {
@@ -10,14 +28,42 @@ Enable bash sandboxing for safer command execution in your project's `settings.j
     "enabled": true,
     "autoAllowBashIfSandboxed": true,
     "excludedCommands": ["git", "docker"],
+    "allowUnsandboxedCommands": true,
     "network": {
-      "allowLocalBinding": true
+      "allowLocalBinding": true,
+      "allowedDomains": ["github.com", "*.npmjs.org"]
     }
   }
 }
 ```
 
-This provides an additional layer of security for team environments.
+### Key Settings
+
+| Key | Type | Description |
+|-----|------|-------------|
+| `enabled` | boolean | Enable bash sandboxing (default: false) |
+| `autoAllowBashIfSandboxed` | boolean | Auto-approve sandboxed bash (default: true) |
+| `excludedCommands` | array | Commands that run outside the sandbox |
+| `allowUnsandboxedCommands` | boolean | Allow `dangerouslyDisableSandbox` escape hatch (default: true) |
+| `network.allowedDomains` | array | Outbound domain allowlist (supports wildcards) |
+| `network.allowLocalBinding` | boolean | Bind to localhost ports, macOS only (default: false) |
+| `network.allowUnixSockets` | array | Accessible Unix socket paths |
+| `enableWeakerNestedSandbox` | boolean | Weaker sandbox for unprivileged Docker (default: false) |
+
+### Security Limitations
+
+- Network filtering operates by domain restriction, does not inspect traffic
+- Domain fronting may bypass filtering
+- `allowUnixSockets` can grant access to Docker socket (privilege escalation risk)
+- `enableWeakerNestedSandbox` considerably weakens security
+
+### Open Source
+
+The sandbox runtime is available as an npm package:
+
+```bash
+npx @anthropic-ai/sandbox-runtime <command-to-sandbox>
+```
 
 ## Environment Variables
 

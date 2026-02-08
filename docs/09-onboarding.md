@@ -124,6 +124,36 @@ The common template includes a "what's-new" notification pattern that helps deve
 
 **Platform support:** The `SessionStart` hook script requires bash, so it works on macOS, Linux, and Windows via WSL or Git Bash. Native Windows (PowerShell/CMD) support is coming soon. The `/whats-new` command itself works on all platforms.
 
+## Development Containers
+
+DevContainers provide a standardized, sandboxed environment for Claude Code — especially useful for teams that want consistent setups and the ability to run with `--dangerously-skip-permissions`.
+
+### Key Features
+
+- Production-ready Node.js 20 environment
+- Default-deny firewall restricting network access to whitelisted domains
+- Pre-configured VS Code extensions
+- Session persistence across container rebuilds
+
+### Setup
+
+1. Install VS Code and the Remote - Containers extension
+2. Clone the [reference devcontainer implementation](https://code.claude.com/docs/en/devcontainer)
+3. Open the repository in VS Code
+4. Run "Reopen in Container" (`Cmd+Shift+P`)
+
+### Components
+
+| File | Purpose |
+|------|---------|
+| `devcontainer.json` | Container settings, extensions, volume mounts |
+| `Dockerfile` | Container image and installed tools |
+| `init-firewall.sh` | Network security rules (default-deny policy) |
+
+The container's default-deny firewall allows running `claude --dangerously-skip-permissions` to bypass permission prompts for unattended operation.
+
+> **Warning**: Devcontainers don't prevent a malicious project from exfiltrating anything accessible in the container, including Claude Code credentials. Only use with trusted repositories.
+
 ## Post-Onboarding Verification
 
 - [ ] Developer can run Claude Code successfully

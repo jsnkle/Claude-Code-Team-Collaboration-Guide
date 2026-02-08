@@ -41,20 +41,24 @@
 
 ## Hook Usage
 
-### Available Hook Events
+### Available Hook Events (14 Events)
 
-| Event | Purpose |
-|-------|---------|
-| `PreToolUse` | Before tool execution; can allow/deny/ask permission |
-| `PostToolUse` | After tool completes; provide feedback to Claude |
-| `PermissionRequest` | When permission dialog shown; allow/deny on behalf of user |
-| `UserPromptSubmit` | Before Claude processes user prompt; validate/add context |
-| `Stop` | When main agent finishes; control continuation |
-| `SubagentStop` | When subagent finishes; control continuation |
-| `Notification` | When notifications sent; filter by type |
-| `PreCompact` | Before compacting context (manual/auto) |
-| `SessionStart` | Session begins; load context/setup environment |
-| `SessionEnd` | Session ends; cleanup tasks |
+| Event | Purpose | Can block? |
+|-------|---------|-----------|
+| `SessionStart` | Session begins; load context/setup environment | No |
+| `UserPromptSubmit` | Before Claude processes user prompt; validate/add context | Yes |
+| `PreToolUse` | Before tool execution; can allow/deny/ask permission | Yes |
+| `PermissionRequest` | When permission dialog shown; allow/deny on behalf of user | Yes |
+| `PostToolUse` | After tool completes; provide feedback to Claude | No |
+| `PostToolUseFailure` | After a tool call fails; provide error feedback | No |
+| `Notification` | When notifications sent; filter by type | No |
+| `SubagentStart` | When a subagent is spawned | No |
+| `SubagentStop` | When subagent finishes; control continuation | Yes |
+| `Stop` | When main agent finishes; control continuation | Yes |
+| `TeammateIdle` | Agent team member becomes idle | Yes |
+| `TaskCompleted` | Task is being marked completed | Yes |
+| `PreCompact` | Before compacting context (manual/auto) | No |
+| `SessionEnd` | Session ends; cleanup tasks | No |
 
 ### Command Hooks (Bash)
 
@@ -79,7 +83,7 @@
 
 ### Prompt-Based Hooks (LLM)
 
-For events: `Stop`, `SubagentStop`, `UserPromptSubmit`, `PreToolUse`, `PermissionRequest`
+Single-turn LLM evaluation. Returns a yes/no JSON decision.
 
 ```json
 {
@@ -98,13 +102,36 @@ For events: `Stop`, `SubagentStop`, `UserPromptSubmit`, `PreToolUse`, `Permissio
 }
 ```
 
+### Agent-Based Hooks
+
+Multi-turn subagent with tools (Read, Grep, Glob) to verify conditions. Up to 50 tool-use turns.
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [{
+          "type": "agent",
+          "prompt": "Verify the edited file follows project conventions: $ARGUMENTS",
+          "timeout": 60
+        }]
+      }
+    ]
+  }
+}
+```
+
 ### Environment Variables in Hooks
 
 - `CLAUDE_PROJECT_DIR`: Project root directory
 - `CLAUDE_FILE_PATH`: Path of file being operated on
 - `CLAUDE_CODE_REMOTE`: Whether running in remote environment
-- `CLAUDE_ENV_FILE`: (SessionStart only) Path to persist environment variables
+- `CLAUDE_ENV_FILE`: (SessionStart only) Path to persist environment variables for subsequent Bash commands
 - `CLAUDE_PLUGIN_ROOT`: (Plugin hooks) Root directory of the plugin
+
+Use `/hooks` to browse and configure hooks interactively.
 
 ### MCP Tool Matching in Hooks
 

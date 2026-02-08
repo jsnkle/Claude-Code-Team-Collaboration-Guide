@@ -48,7 +48,7 @@
 |---------|-------------|----------------|
 | **[Agent Teams](20-agent-teams.md) (Preview)** | Multi-agent collaboration with `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`. Includes `TeammateIdle` and `TaskCompleted` hook events. | Parallel agent workflows |
 | **Agent Memory** | Automatic memory recording/recall with `user`, `project`, or `local` scope via `memory` frontmatter. Claude builds knowledge across sessions. | Persistent project context |
-| **New Hook Events** | `Setup` event (via `--init`), `PreToolUse` returns `additionalContext`, `TeammateIdle`, `TaskCompleted`. | Richer automation triggers |
+| **New Hook Events** | `SessionStart` event with matchers, `PostToolUseFailure`, `SubagentStart`, `TeammateIdle`, `TaskCompleted`. Three handler types: command, prompt, agent. | Richer automation triggers |
 | **Indexed Command Arguments** | `$ARGUMENTS[0]` bracket syntax for positional arguments in slash commands. | More flexible team commands |
 | **MCP Auto-Enable** | `auto:N` syntax for MCP tool search threshold (0-100%). Default 10%. | Smoother MCP tool adoption |
 | **Plugin Pinning** | Pin plugins to specific git commit SHAs for reproducible setups. | Version-locked team plugins |
@@ -56,6 +56,28 @@
 | **Skills from --add-dir** | Skills and CLAUDE.md auto-load from `--add-dir` directories. | Shared skill libraries |
 
 **Note:** Claude Code includes many individual productivity features (extended thinking, background commands, vim mode, etc.) documented in the [official docs](https://code.claude.com/docs). This guide focuses on team-configurable features.
+
+## Context Cost by Feature
+
+| Feature | When it loads | Context cost |
+|---------|--------------|--------------|
+| **CLAUDE.md** | Session start | Every request (keep under ~500 lines) |
+| **Skills** | Descriptions at start; full content when invoked | Low (descriptions only until used) |
+| **MCP servers** | Session start | Every request (tool definitions/schemas). Tool search defers unused tools |
+| **Subagents** | When spawned | Isolated from main session (only summary returns) |
+| **Hooks** | On trigger | Zero (runs externally; unless hook returns `additionalContext`) |
+
+**Tips:**
+- Move reference material from CLAUDE.md to skills to reduce per-request cost
+- Use `disable-model-invocation: true` in skill frontmatter to hide from Claude until manually invoked
+- Run `/mcp` to see token costs of MCP servers
+
+## Feature Layering Rules
+
+- **CLAUDE.md**: Additive — all levels contribute simultaneously
+- **Skills and subagents**: Override by name (priority: managed > user > project)
+- **MCP servers**: Override by name (local > project > user)
+- **Hooks**: Merge — all registered hooks fire for matching events
 
 ## Memory & Configuration Hierarchy
 

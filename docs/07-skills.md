@@ -335,7 +335,20 @@ claude --add-dir /path/to/shared-skills
 
 ### Skill Character Budget (v2.1.32+)
 
-Skill content scales with the context window at 2% of total capacity, allowing larger skills on models with bigger context windows.
+Skill content scales with the context window at 2% of total capacity, with a fallback of 16,000 characters. Run `/context` to check for warnings about excluded skills.
+
+Override the limit with: `SLASH_COMMAND_TOOL_CHAR_BUDGET=<characters>`
+
+## Skills and Subagents
+
+Skills and subagents work together in two directions:
+
+| Approach | System prompt | Task | Also loads |
+|----------|--------------|------|------------|
+| Skill with `context: fork` | From agent type (`Explore`, `Plan`, etc.) | SKILL.md content | CLAUDE.md |
+| Subagent with `skills` field | Subagent's markdown body | Claude's delegation message | Preloaded skills + CLAUDE.md |
+
+With `context: fork`, you write the task in your skill and pick an agent type to execute it. For the inverse (defining a custom subagent that uses skills as reference material), see [Subagents](06-subagents.md).
 
 ## Agent Skills Open Standard
 

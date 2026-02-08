@@ -566,7 +566,7 @@ Custom status lines can use these context window variables:
 
 | Alias | Behavior |
 |-------|----------|
-| `default` | Recommended model for your account type (Opus 4.6 for Max/Teams/Pro) |
+| `default` | Recommended model for your account type (Opus 4.6 for Max/Teams/Pro; available but not default on Enterprise) |
 | `sonnet` | Latest Sonnet model for daily coding tasks |
 | `opus` | Latest Opus model for complex reasoning |
 | `haiku` | Fast, efficient Haiku model for simple tasks |
@@ -574,6 +574,8 @@ Custom status lines can use these context window variables:
 | `opusplan` | Uses `opus` during plan mode, switches to `sonnet` for execution |
 
 Aliases always point to the latest version. To pin a specific version, use the full model name (e.g., `claude-opus-4-5-20251101`).
+
+Claude Code may automatically fall back to Sonnet if you hit a usage threshold with Opus.
 
 ### Setting the Model
 
@@ -584,11 +586,13 @@ Aliases always point to the latest version. To pin a specific version, use the f
 
 ### Effort Levels
 
-Three levels: **low**, **medium**, and **high** (default). Controls Opus 4.6's adaptive reasoning.
+Three levels: **low**, **medium**, and **high** (default). Controls Opus 4.6's adaptive reasoning, which dynamically allocates thinking based on task complexity.
 
-- **In `/model`**: use left/right arrow keys to adjust the effort slider
+- **In `/model`**: use left/right arrow keys to adjust the effort slider when selecting a model
 - **Environment variable**: `CLAUDE_CODE_EFFORT_LEVEL=low|medium|high`
 - **Settings**: set `effortLevel` in your settings file
+
+The effort slider appears in `/model` when a supported model (currently Opus 4.6) is selected.
 
 ### Model Override Environment Variables
 
@@ -598,6 +602,8 @@ Three levels: **low**, **medium**, and **high** (default). Controls Opus 4.6's a
 | `ANTHROPIC_DEFAULT_SONNET_MODEL` | Model for `sonnet` alias, or `opusplan` in execution mode |
 | `ANTHROPIC_DEFAULT_HAIKU_MODEL` | Model for `haiku` alias and background functionality |
 | `CLAUDE_CODE_SUBAGENT_MODEL` | Model for subagents |
+
+**Deprecated:** `ANTHROPIC_SMALL_FAST_MODEL` — use `ANTHROPIC_DEFAULT_HAIKU_MODEL` instead.
 
 ### Prompt Caching
 

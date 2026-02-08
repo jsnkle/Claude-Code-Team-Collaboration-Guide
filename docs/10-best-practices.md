@@ -85,7 +85,7 @@ Matchers are **regex on the tool name only** — they don't filter on tool input
 
 ### Prompt-Based Hooks (LLM)
 
-Single-turn LLM evaluation. Returns a yes/no JSON decision.
+Single-turn LLM evaluation. Returns a yes/no JSON decision. Uses Haiku by default; override with the `model` field (e.g., `"model": "sonnet"`).
 
 ```json
 {

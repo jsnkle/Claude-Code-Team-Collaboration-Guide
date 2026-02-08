@@ -1,4 +1,4 @@
-# Part 20: Agent Teams
+# Part 19: Agent Teams
 
 ## Overview
 
@@ -178,4 +178,4 @@ Check in on teammates' progress, redirect approaches that aren't working, and sy
 
 ---
 
-[← Previous: Quick Reference](18-quick-reference.md) | [Back to Guide](../README.md) | [Next: CI/CD Automation →](21-cicd-automation.md)
+[← Previous: Quick Reference](18-quick-reference.md) | [Back to Guide](../README.md) | [Next: CI/CD Automation →](20-cicd-automation.md)

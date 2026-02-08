@@ -1,4 +1,4 @@
-# Part 20: Enterprise & Team Administration
+# Part 21: Enterprise & Team Administration
 
 This doc covers infrastructure topics for Team and Enterprise plan administrators: authentication, LLM gateways, network configuration, monitoring, and analytics.
 
@@ -329,4 +329,4 @@ Query attribution data programmatically by searching for PRs labeled `claude-cod
 
 ---
 
-[← Previous: CI/CD Automation](21-cicd-automation.md) | [Back to Guide](../README.md)
+[← Previous: CI/CD Automation](20-cicd-automation.md) | [Back to Guide](../README.md) | [Next: Resources →](22-resources.md)

@@ -202,7 +202,7 @@ See the [official security page](https://code.claude.com/docs/en/security) for f
 3. **Audit hooks** — ensure they don't expose sensitive data
 4. **Use admin policies** for organization-wide restrictions (Team Plan: configure via `managed-settings.json`; Individual Plans: use strict project-level deny rules)
 5. **Review MCP servers** — only use trusted sources
-6. **Monitor usage** — check for unexpected behavior with [OpenTelemetry monitoring](22-enterprise-admin.md#monitoring-opentelemetry)
+6. **Monitor usage** — check for unexpected behavior with [OpenTelemetry monitoring](21-enterprise-admin.md#monitoring-opentelemetry)
 7. **Regular audits** — review rule files periodically
 8. **Check for warnings** — review unreachable rule warnings in `/permissions`
 

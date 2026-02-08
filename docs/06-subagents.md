@@ -198,7 +198,7 @@ The `--agents` flag accepts JSON with the same frontmatter fields: `description`
 
 ## Agent Teams
 
-Agent teams are a separate concept from subagents — they coordinate multiple independent Claude Code sessions that communicate with each other, rather than child tasks that report back. See [Part 20: Agent Teams](20-agent-teams.md) for full documentation including configuration, hooks, and best practices.
+Agent teams are a separate concept from subagents — they coordinate multiple independent Claude Code sessions that communicate with each other, rather than child tasks that report back. See [Part 19: Agent Teams](19-agent-teams.md) for full documentation including configuration, hooks, and best practices.
 
 ## Agent Memory (v2.1.33+)
 

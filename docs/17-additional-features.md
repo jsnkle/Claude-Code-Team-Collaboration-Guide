@@ -274,7 +274,7 @@ When many MCP tools are configured, Tool Search automatically activates to load 
 | `CLAUDE_CODE_TMPDIR` | Override temp directory location (v2.1.5+) |
 | `CLAUDE_CODE_ENABLE_TASKS` | Set `false` to disable task management system (v2.1.19+) |
 | `CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD` | Set `1` to load CLAUDE.md from `--add-dir` directories (v2.1.20+) |
-| `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS` | Set `1` to enable agent teams research preview (v2.1.32+). See [Agent Teams](20-agent-teams.md). |
+| `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS` | Set `1` to enable agent teams research preview (v2.1.32+). See [Agent Teams](19-agent-teams.md). |
 | `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS` | Set `1` to disable experimental beta features (v2.1.25+) |
 | `CLAUDE_CODE_FILE_READ_MAX_OUTPUT_TOKENS` | Limit file read output tokens (v2.1+) |
 | `BASH_DEFAULT_TIMEOUT_MS` | Default bash command timeout |

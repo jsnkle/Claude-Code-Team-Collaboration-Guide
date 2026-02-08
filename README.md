@@ -168,6 +168,6 @@ templates/react/.claude/
 
 ---
 
-*Template Version: 2.2 | Compatible with Claude Code v2.1.34*
+*Template Version: 2.3 | Compatible with Claude Code v2.1.37*
 
 **Created by Jason Kellie | MIT License**

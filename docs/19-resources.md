@@ -50,12 +50,18 @@
 
 - [Checkpointing](https://code.claude.com/docs/en/checkpointing)
 - [Output Styles](https://code.claude.com/docs/en/output-styles)
+- [Status Line](https://code.claude.com/docs/en/statusline)
 - [Interactive Mode](https://code.claude.com/docs/en/interactive-mode)
 - [Common Workflows](https://code.claude.com/docs/en/common-workflows)
+- [How Claude Code Works](https://code.claude.com/docs/en/how-claude-code-works)
 - [Best Practices](https://code.claude.com/docs/en/best-practices)
 - [Costs](https://code.claude.com/docs/en/costs)
 - [Data Usage](https://code.claude.com/docs/en/data-usage)
+- [Legal and Compliance](https://code.claude.com/docs/en/legal-and-compliance)
 - [Troubleshooting](https://code.claude.com/docs/en/troubleshooting)
+- [Changelog](https://code.claude.com/docs/en/changelog)
+- [Third-Party Integrations](https://code.claude.com/docs/en/third-party-integrations)
+- [Claude Code on the Web](https://code.claude.com/docs/en/claude-code-on-the-web)
 
 ### IDE & Platform Integration
 
@@ -77,12 +83,6 @@
 - [Awesome Claude Code (GitHub)](https://github.com/hesreallyhim/awesome-claude-code)
 - [Claude Code Changelog](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
 - [Claude Code Issues](https://github.com/anthropics/claude-code/issues)
-
----
-
-[← Previous: Agent Teams](20-agent-teams.md) | [Back to Guide](../README.md)
-
----
 
 ---
 

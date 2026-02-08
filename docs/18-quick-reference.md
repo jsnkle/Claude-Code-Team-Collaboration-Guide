@@ -102,12 +102,43 @@ These built-in commands help verify team configurations are loaded correctly:
 | `/teleport` | Remote session management (v2.1+) |
 | `/remote-env` | Remote environment management (v2.1+) |
 
-## CLI Flags (v2.1.20+)
+## CLI Flags
 
 | Flag | Purpose |
 |------|---------|
-| `--from-pr <number\|url>` | Resume session linked to a GitHub PR (v2.1.27+) |
-| `--add-dir <path>` | Add directory for skills and CLAUDE.md loading (v2.1.32+) |
+| `-p`, `--print` | Run non-interactively (Agent SDK / headless mode) |
+| `-c`, `--continue` | Continue most recent conversation in current directory |
+| `-r`, `--resume <id\|name>` | Resume a specific session by ID or name |
+| `--model <name>` | Set model for the session (`sonnet`, `opus`, or full model ID) |
+| `--fallback-model <name>` | Auto-fallback when default model is overloaded (print mode only) |
+| `--output-format <fmt>` | Output format: `text`, `json`, `stream-json` (print mode only) |
+| `--json-schema <schema>` | Validate JSON output against schema (print mode only) |
+| `--max-turns <n>` | Limit agentic turns (print mode only) |
+| `--max-budget-usd <n>` | Spending limit before stopping (print mode only) |
+| `--allowedTools <tools>` | Tools that execute without permission prompts |
+| `--disallowedTools <tools>` | Tools removed from the model's context |
+| `--tools <tools>` | Restrict available built-in tools (`""` to disable all, `"default"` for all) |
+| `--system-prompt <text>` | Replace entire system prompt |
+| `--append-system-prompt <text>` | Append to default system prompt |
+| `--append-system-prompt-file <f>` | Append file contents to system prompt (print mode only) |
+| `--permission-mode <mode>` | Start in specified permission mode |
+| `--agents <json>` | Define custom subagents dynamically via JSON |
+| `--agent <name>` | Specify an agent for the session |
+| `--from-pr <number\|url>` | Resume session linked to a GitHub PR |
+| `--add-dir <path>` | Add directory for skills and CLAUDE.md loading |
+| `--mcp-config <path>` | Load MCP servers from JSON files |
+| `--strict-mcp-config` | Only use MCP servers from `--mcp-config` |
+| `--plugin-dir <path>` | Load plugins from directory (repeatable) |
+| `--remote <task>` | Create a web session on claude.ai |
+| `--teleport` | Resume a web session in local terminal |
+| `--setting-sources <list>` | Comma-separated setting sources: `user`, `project`, `local` |
+| `--init-only` | Run initialization hooks and exit |
+| `--maintenance` | Run maintenance hooks and exit |
+| `--fork-session` | Create new session ID when resuming |
+| `--teammate-mode <mode>` | Agent team display: `auto`, `in-process`, `tmux` |
+| `--verbose` | Enable verbose logging (shows full turn-by-turn output) |
+| `--debug [categories]` | Debug mode with optional category filtering (e.g., `"api,mcp"`) |
+| `--dangerously-skip-permissions` | Skip all permission prompts (use with caution) |
 
 ## PR Integration (v2.1.20+)
 
@@ -119,11 +150,13 @@ For the complete list of built-in slash commands and CLI flags, see the [officia
 
 ## Permission Patterns
 
-- `Bash(pnpm:*)` - All pnpm commands (colon syntax)
-- `Bash(npm *)` - All npm commands (v2.1+ wildcard syntax)
+- `Bash(npm *)` - All npm commands (space-based wildcard)
+- `Bash(pnpm *)` - All pnpm commands
 - `Read(src/**)` - All files in src recursively
 - `Edit(*.ts)` - All TypeScript files
 - `WebFetch(domain:github.com)` - Specific domain
+- `Task(code-reviewer)` - Specific subagent
+- `Skill(deploy *)` - Skill with prefix match
 - `mcp__server__*` - All tools from a specific MCP server (wildcard)
 - `mcp__github__*` - All GitHub MCP tools
 - `mcp__memory__create_entities` - Specific MCP tool

@@ -80,6 +80,12 @@ Show concrete examples of using this Skill.
 |-------|---------|---------|
 | `allowed-tools` | Restrict which tools Claude can use | `Read, Grep, Glob` |
 | `context` | Execution context: `fork` runs in isolated sub-agent (v2.1+) | `fork` |
+| `agent` | Which subagent type to use when `context: fork` is set | `Explore`, `Plan`, or custom agent name |
+| `model` | Model to use when this skill is active | `sonnet`, `opus`, `haiku` |
+| `argument-hint` | Hint shown during autocomplete for expected arguments | `[issue-number]`, `[filename] [format]` |
+| `user-invocable` | Set to `false` to hide from the `/` menu (default: `true`) | `false` |
+| `disable-model-invocation` | Set to `true` to prevent automatic loading (default: `false`) | `true` |
+| `hooks` | Hooks scoped to this skill's lifecycle | See hooks documentation |
 
 ## Writing Effective Descriptions
 
@@ -263,6 +269,42 @@ Can you help me extract text from this PDF?
 Help me write a commit message for these changes
 ```
 
+## Argument Syntax
+
+| Variable | Description |
+|----------|-------------|
+| `$ARGUMENTS` | All arguments passed when invoking the skill. If not present in content, arguments are appended as `ARGUMENTS: <value>` |
+| `$ARGUMENTS[N]` | Access a specific argument by 0-based index (e.g., `$ARGUMENTS[0]` for the first) |
+| `$N` | Shorthand for `$ARGUMENTS[N]` (e.g., `$0` for the first argument, `$1` for the second) |
+| `${CLAUDE_SESSION_ID}` | The current session ID, useful for logging or session-specific files |
+
+## Invocation Control
+
+Control when and how skills are loaded using frontmatter combinations:
+
+| Frontmatter | User can invoke (`/name`) | Claude auto-invokes | Context cost |
+|-------------|--------------------------|--------------------|----|
+| *(default)* | Yes | Yes | Description always loaded |
+| `disable-model-invocation: true` | Yes | No | Description **not** loaded |
+| `user-invocable: false` | No | Yes | Description always loaded |
+
+Use `disable-model-invocation: true` for workflows you only want triggered manually. Use `user-invocable: false` for background knowledge that Claude applies automatically but users shouldn't invoke directly.
+
+### Skill() Deny Rules
+
+Control which skills Claude can invoke via permission rules:
+
+```
+# Deny specific skills
+Skill(deploy *)
+
+# Allow only specific skills
+Skill(commit)
+Skill(review-pr *)
+```
+
+Permission syntax: `Skill(name)` for exact match, `Skill(name *)` for prefix match with any arguments. Built-in commands like `/compact` and `/init` are not available through the Skill tool.
+
 ## Skill Enhancements (v2.1.6+)
 
 ### Nested Skill Discovery (v2.1.6+)
@@ -294,6 +336,10 @@ claude --add-dir /path/to/shared-skills
 ### Skill Character Budget (v2.1.32+)
 
 Skill content scales with the context window at 2% of total capacity, allowing larger skills on models with bigger context windows.
+
+## Agent Skills Open Standard
+
+Claude Code skills follow the [Agent Skills](https://agentskills.io) open standard, which works across multiple AI tools. Claude Code extends the standard with additional features: invocation control, subagent execution, and dynamic context injection.
 
 ## Best Practices
 

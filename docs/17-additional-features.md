@@ -135,6 +135,96 @@ Configuration files are automatically backed up with timestamps. The 5 most rece
 | `MCP_TIMEOUT` | MCP server startup timeout |
 | `MCP_TOOL_TIMEOUT` | MCP tool execution timeout |
 
+## Headless / Programmatic Mode (Agent SDK)
+
+Run Claude Code non-interactively with the `-p` (or `--print`) flag for CI/CD pipelines, scripts, and programmatic workflows.
+
+### Basic Usage
+
+```bash
+# Simple query
+claude -p "What does the auth module do?"
+
+# Piped input
+cat logs.txt | claude -p "Explain these errors"
+```
+
+### Output Formats
+
+| Format | Flag | Description |
+|--------|------|-------------|
+| Text | `--output-format text` | Plain text (default) |
+| JSON | `--output-format json` | Structured JSON with `result`, `session_id`, metadata |
+| Stream JSON | `--output-format stream-json` | Newline-delimited JSON for real-time streaming |
+
+#### JSON Output with Schema Validation
+
+```bash
+claude -p "Extract function names from auth.py" \
+  --output-format json \
+  --json-schema '{"type":"object","properties":{"functions":{"type":"array","items":{"type":"string"}}},"required":["functions"]}'
+```
+
+The response includes metadata (session ID, usage) with structured output in the `structured_output` field.
+
+#### Parsing with jq
+
+```bash
+# Extract text result
+claude -p "Summarize this project" --output-format json | jq -r '.result'
+
+# Stream text deltas
+claude -p "Write a poem" --output-format stream-json --verbose --include-partial-messages | \
+  jq -rj 'select(.type == "stream_event" and .event.delta.type? == "text_delta") | .event.delta.text'
+```
+
+### Auto-Approve Tools
+
+```bash
+claude -p "Run tests and fix failures" \
+  --allowedTools "Bash,Read,Edit"
+
+# Fine-grained: allow specific command prefixes
+claude -p "Create a commit for staged changes" \
+  --allowedTools "Bash(git diff *),Bash(git log *),Bash(git status *),Bash(git commit *)"
+```
+
+**Note:** `Bash(git diff *)` allows any command starting with `git diff ` (space before `*` matters). Without the space (`Bash(git diff*)`), it would also match `git diff-index`.
+
+### Session Continuation
+
+```bash
+# Continue most recent conversation
+claude -p "Now focus on database queries" --continue
+
+# Capture session ID for later resume
+session_id=$(claude -p "Start a review" --output-format json | jq -r '.session_id')
+claude -p "Continue that review" --resume "$session_id"
+```
+
+### System Prompt Customization
+
+| Flag | Behavior | Modes |
+|------|----------|-------|
+| `--system-prompt` | **Replaces** entire default prompt | Interactive + Print |
+| `--system-prompt-file` | **Replaces** with file contents | Print only |
+| `--append-system-prompt` | **Appends** to default prompt | Interactive + Print |
+| `--append-system-prompt-file` | **Appends** file contents | Print only |
+
+`--system-prompt` and `--system-prompt-file` are mutually exclusive. For most use cases, `--append-system-prompt` is recommended as it preserves Claude Code's built-in capabilities.
+
+### Budget and Turn Limits
+
+```bash
+# Limit spending
+claude -p --max-budget-usd 5.00 "Refactor the auth module"
+
+# Limit agentic turns
+claude -p --max-turns 3 "Fix lint errors"
+```
+
+**Note:** User-invocable skills (`/commit`, `/review`) are only available in interactive mode. In `-p` mode, describe the task instead.
+
 **Note:** Claude Code includes many individual productivity features (background commands, vim mode, session management, etc.) documented in the [official docs](https://code.claude.com/docs).
 
 ---

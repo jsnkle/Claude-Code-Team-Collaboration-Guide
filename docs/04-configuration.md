@@ -403,7 +403,98 @@ Use `/hooks` to browse and configure hooks interactively.
 
 ### MCP Configuration
 
-**Tool search auto mode** is enabled by default with a 10% confidence threshold. Customize with `auto:N`:
+#### Installing MCP Servers
+
+```bash
+# Remote HTTP server (recommended)
+claude mcp add --transport http <name> <url>
+claude mcp add --transport http notion https://mcp.notion.com/mcp
+claude mcp add --transport http secure-api https://api.example.com/mcp \
+  --header "Authorization: Bearer your-token"
+
+# Local stdio server
+claude mcp add --transport stdio --env API_KEY=YOUR_KEY my-server \
+  -- npx -y my-mcp-server
+
+# Add from JSON
+claude mcp add-json weather '{"type":"http","url":"https://api.weather.com/mcp"}'
+
+# Import from Claude Desktop
+claude mcp add-from-claude-desktop
+
+# Manage servers
+claude mcp list
+claude mcp get <name>
+claude mcp remove <name>
+/mcp  # Check server status and token costs
+```
+
+All options (`--transport`, `--env`, `--scope`, `--header`) must come before the server name. Use `--` to separate from command/args.
+
+#### Installation Scopes
+
+| Scope | Storage | Description |
+|-------|---------|-------------|
+| `local` | `~/.claude.json` (per-project) | Default. Private to you, current project only |
+| `project` | `.mcp.json` in project root | Shared via version control |
+| `user` | `~/.claude.json` | Available across all projects |
+
+```bash
+claude mcp add --transport http stripe --scope project https://mcp.stripe.com
+```
+
+#### Environment Variable Expansion in `.mcp.json`
+
+Supports `${VAR}` and `${VAR:-default}` syntax in `command`, `args`, `env`, `url`, and `headers`:
+
+```json
+{
+  "mcpServers": {
+    "api-server": {
+      "type": "http",
+      "url": "${API_BASE_URL:-https://api.example.com}/mcp",
+      "headers": {
+        "Authorization": "Bearer ${API_KEY}"
+      }
+    }
+  }
+}
+```
+
+#### OAuth Authentication
+
+```bash
+claude mcp add --transport http sentry https://mcp.sentry.dev/mcp
+# Then use /mcp to authenticate
+
+# Pre-configured OAuth credentials
+claude mcp add --transport http \
+  --client-id your-client-id --client-secret --callback-port 8080 \
+  my-server https://mcp.example.com/mcp
+```
+
+#### MCP Resources and Prompts
+
+Reference MCP resources with `@` mentions:
+```
+> Analyze @github:issue://123 and suggest a fix
+> Compare @postgres:schema://users with @docs:file://database/user-model
+```
+
+MCP prompts are discovered dynamically as commands: `/mcp__server__prompt`
+
+#### Tool Search
+
+Auto-enabled when MCP tool descriptions exceed 10% of context window. Customize globally via `ENABLE_TOOL_SEARCH`:
+
+| Value | Behavior |
+|-------|----------|
+| `auto` | Activates when tools exceed 10% of context (default) |
+| `auto:N` | Custom threshold (e.g., `auto:5` for 5%) |
+| `true` | Always enabled |
+| `false` | Disabled, all tools loaded upfront |
+
+Per-server configuration:
 
 ```json
 {
@@ -416,29 +507,51 @@ Use `/hooks` to browse and configure hooks interactively.
 }
 ```
 
-Control tool search globally via `ENABLE_TOOL_SEARCH`: `auto` (default, 10%), `auto:N`, `true`, `false`.
+#### Output Limits
 
-**MCP server management in managed settings:**
+MCP tool responses are limited to 25,000 tokens (warning at 10,000). Override with `MAX_MCP_OUTPUT_TOKENS`.
+
+#### Managed MCP
+
+**Option 1: Exclusive control** via `managed-mcp.json` at system paths:
+- **macOS**: `/Library/Application Support/ClaudeCode/managed-mcp.json`
+- **Linux/WSL**: `/etc/claude-code/managed-mcp.json`
+- **Windows**: `C:\Program Files\ClaudeCode\managed-mcp.json`
+
+**Option 2: Policy-based control** via managed settings:
+
+```json
+{
+  "allowedMcpServers": [
+    { "serverName": "github" },
+    { "serverCommand": ["npx", "-y", "@modelcontextprotocol/server-filesystem"] },
+    { "serverUrl": "https://mcp.company.com/*" },
+    { "serverUrl": "https://*.internal.corp/*" }
+  ],
+  "deniedMcpServers": [
+    { "serverName": "dangerous-server" },
+    { "serverUrl": "https://*.untrusted.com/*" }
+  ]
+}
+```
+
+Allowlist behavior: `undefined` = no restrictions, `[]` = complete lockdown, list = only matching servers allowed. **Denylist takes absolute precedence.**
+
+**Additional MCP settings:**
 
 ```json
 {
   "enableAllProjectMcpServers": false,
   "enabledMcpjsonServers": ["github", "memory"],
-  "disabledMcpjsonServers": ["filesystem"],
-  "allowedMcpServers": ["github"],
-  "deniedMcpServers": ["filesystem"]
+  "disabledMcpjsonServers": ["filesystem"]
 }
 ```
 
-`allowedMcpServers`/`deniedMcpServers` are managed-only settings for organization-wide MCP policies.
-
-**Managed MCP servers** can be deployed at system-level paths:
-- **macOS**: `/Library/Application Support/ClaudeCode/managed-mcp.json`
-- **Linux/WSL**: `/etc/claude-code/managed-mcp.json`
-
-**OAuth 2.0 authentication** is supported for MCP servers that require it.
-
 **Claude as MCP server**: Run `claude mcp serve` to expose Claude Code as an MCP server for other tools.
+
+**Strict mode**: Use `--strict-mcp-config` to only load MCP servers from `--mcp-config` files.
+
+**Windows note**: Use `cmd /c` wrapper for npx commands: `claude mcp add --transport stdio my-server -- cmd /c npx -y @some/package`
 
 ### Status Line Variables (v2.1.6+)
 
@@ -539,6 +652,10 @@ Settings files support a JSON schema for editor autocompletion:
 | `showTurnDuration` | Show/hide turn duration messages (v2.1.7+) | `false` |
 | `plansDirectory` | Custom directory for plan file storage (v2.1.9+) | `".claude/plans"` |
 | `prefersReducedMotion` | Disable UI animations (v2.1.30+) | `true` |
+| `terminalProgressBarEnabled` | Enable terminal progress bar (default: true) | `false` |
+| `spinnerTipsEnabled` | Show tips in spinner (default: true) | `false` |
+| `autoUpdatesChannel` | Release channel: `stable` or `latest` (default: `latest`) | `"stable"` |
+| `teammateMode` | Agent team display: `auto`, `in-process`, or `tmux` | `"tmux"` |
 
 ### Attribution Settings
 

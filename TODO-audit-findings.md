@@ -116,8 +116,76 @@ After implementing, run `/audit-docs` again to confirm:
 
 ---
 
+## Phase 4: Verification Audit Findings (Second Pass)
+
+### 4A. MCP Section Expansion (`04-configuration.md`) — DONE
+
+- [x] Add full `claude mcp add` CLI syntax (HTTP, SSE, stdio)
+- [x] Add installation scopes table
+- [x] Add environment variable expansion in `.mcp.json`
+- [x] Add OAuth authentication section
+- [x] Add MCP resources and prompts
+- [x] Add tool search configuration table
+- [x] Add output limits documentation
+- [x] Add full managed MCP schema with `serverName`/`serverCommand`/`serverUrl` patterns
+- [x] Add `--strict-mcp-config` flag
+- [x] Add Windows `cmd /c` note
+
+### 4B. Headless/Programmatic Mode (`17-additional-features.md`) — DONE
+
+- [x] Add basic usage with `-p` flag
+- [x] Add output formats table (`text`, `json`, `stream-json`)
+- [x] Add JSON schema validation (`--json-schema`)
+- [x] Add jq parsing patterns
+- [x] Add auto-approve tools (`--allowedTools`) with fine-grained examples
+- [x] Add session continuation (`--continue`, `--resume`)
+- [x] Add system prompt customization flags table
+- [x] Add budget and turn limits
+
+### 4C. Plugin Catalog and Marketplace Creation (`14-plugins.md`) — DONE
+
+- [x] Expand LSP catalog from 3 to 11 languages
+- [x] Add external integration plugins (12 MCP server plugins)
+- [x] Add development workflow plugins (4 plugins)
+- [x] Add output style plugins (2 plugins)
+- [x] Add marketplace creation schema (`marketplace.json` format)
+- [x] Add reserved marketplace names
+- [x] Add plugin entry fields and source types
+- [x] Add private repository authentication
+- [x] Add marketplace management commands
+
+### 4D. Subagents Update (`06-subagents.md`) — DONE
+
+- [x] Add `disallowedTools`, `maxTurns`, `mcpServers`, `hooks` frontmatter fields
+- [x] Fix `permissionMode` values (replace `ignore` with `delegate`, `dontAsk`)
+- [x] Expand built-in subagents table (add `Bash`, `statusline-setup`, `Claude Code Guide`)
+- [x] Add foreground vs background behavior section
+- [x] Add `--agents` CLI flag with JSON format
+
+### 4E. Skills Update (`07-skills.md`) — DONE
+
+- [x] Add `argument-hint`, `model`, `user-invocable`, `disable-model-invocation`, `hooks`, `agent` to optional fields
+- [x] Add argument syntax table (`$ARGUMENTS`, `$ARGUMENTS[N]`, `$N`)
+- [x] Add invocation control table
+- [x] Add `Skill()` deny rules
+- [x] Add agentskills.io reference
+
+### 4F. CLI Flags Reference (`18-quick-reference.md`) — DONE
+
+- [x] Expand CLI flags from 2 to 30+ key flags
+- [x] Fix permission patterns (remove stale `pnpm:*` syntax, add `Task()`, `Skill()`)
+
+### 4G. Settings and Links — DONE
+
+- [x] Add `terminalProgressBarEnabled`, `spinnerTipsEnabled`, `autoUpdatesChannel`, `teammateMode` to `04-configuration.md`
+- [x] Add 6 missing peripheral links to `19-resources.md`
+- [x] Fix duplicate navigation footer in `19-resources.md`
+
+---
+
 ## Already Completed
 
 - [x] Phase 1: Update `19-resources.md` with all missing links (43 links across 7 categories)
 - [x] Phase 2: New documentation (2 new docs + 2 folds + hooks expansion)
 - [x] Phase 3: Staleness fixes across 7 existing docs
+- [x] Phase 4: Verification audit findings (MCP, headless, plugins, subagents, skills, CLI, settings, links)

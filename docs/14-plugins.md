@@ -176,11 +176,163 @@ Plugins can include LSP (Language Server Protocol) servers for go-to-definition,
 
 ### Available LSP Plugins
 
-| Plugin | Language server | Install command |
-|--------|----------------|-----------------|
-| `pyright-lsp` | Pyright (Python) | `pip install pyright` or `npm install -g pyright` |
-| `typescript-lsp` | TypeScript Language Server | `npm install -g typescript-language-server typescript` |
-| `rust-lsp` | rust-analyzer | See rust-analyzer docs |
+Install from the official marketplace: `/plugin install <plugin-name>@claude-plugins-official`
+
+| Plugin | Language | Binary Required |
+|--------|----------|-----------------|
+| `clangd-lsp` | C/C++ | `clangd` |
+| `csharp-lsp` | C# | `csharp-ls` |
+| `gopls-lsp` | Go | `gopls` |
+| `jdtls-lsp` | Java | `jdtls` |
+| `kotlin-lsp` | Kotlin | `kotlin-language-server` |
+| `lua-lsp` | Lua | `lua-language-server` |
+| `php-lsp` | PHP | `intelephense` |
+| `pyright-lsp` | Python | `pyright-langserver` |
+| `rust-analyzer-lsp` | Rust | `rust-analyzer` |
+| `swift-lsp` | Swift | `sourcekit-lsp` |
+| `typescript-lsp` | TypeScript | `typescript-language-server` |
+
+**What code intelligence provides:**
+- **Automatic diagnostics**: After every file edit, the language server reports errors/warnings automatically. Claude sees type errors, missing imports, and syntax issues without running a compiler.
+- **Code navigation**: Jump to definitions, find references, get type info on hover, list symbols, find implementations, trace call hierarchies.
+
+## External Integration Plugins (MCP Servers)
+
+Pre-configured MCP server plugins available from the official marketplace:
+
+| Category | Plugins |
+|----------|---------|
+| Source control | `github`, `gitlab` |
+| Project management | `atlassian` (Jira/Confluence), `asana`, `linear`, `notion` |
+| Design | `figma` |
+| Infrastructure | `vercel`, `firebase`, `supabase` |
+| Communication | `slack` |
+| Monitoring | `sentry` |
+
+## Development Workflow Plugins
+
+| Plugin | Description |
+|--------|-------------|
+| `commit-commands` | Git commit workflows including commit, push, and PR creation |
+| `pr-review-toolkit` | Specialized agents for reviewing pull requests |
+| `agent-sdk-dev` | Tools for building with the Claude Agent SDK |
+| `plugin-dev` | Toolkit for creating your own plugins |
+
+## Output Style Plugins
+
+| Plugin | Description |
+|--------|-------------|
+| `explanatory-output-style` | Educational insights about implementation choices |
+| `learning-output-style` | Interactive learning mode for skill building |
+
+## Creating a Marketplace
+
+A marketplace is a catalog of plugins hosted as a git repository.
+
+### Marketplace Schema (`marketplace.json`)
+
+```json
+{
+  "name": "my-marketplace",
+  "owner": { "name": "Your Name", "email": "you@example.com" },
+  "metadata": {
+    "description": "Team plugins for our org",
+    "version": "1.0.0",
+    "pluginRoot": "./plugins"
+  },
+  "plugins": [
+    {
+      "name": "my-plugin",
+      "source": "./plugins/my-plugin",
+      "description": "What this plugin does",
+      "version": "1.0.0",
+      "category": "productivity",
+      "tags": ["workflow", "automation"]
+    }
+  ]
+}
+```
+
+### Required Fields
+
+| Field | Description |
+|-------|-------------|
+| `name` | Marketplace identifier (kebab-case). Users see this when installing plugins |
+| `owner.name` | Maintainer name |
+| `plugins` | Array of plugin entries (each needs `name` and `source`) |
+
+### Reserved Marketplace Names
+
+These names are reserved for official Anthropic use: `claude-code-marketplace`, `claude-code-plugins`, `claude-plugins-official`, `anthropic-marketplace`, `anthropic-plugins`, `agent-skills`, `life-sciences`. Names that impersonate official marketplaces are also blocked.
+
+### Plugin Entry Fields
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `name` | Yes | Plugin identifier (kebab-case) |
+| `source` | Yes | Where to fetch: relative path, GitHub `{source: "github", repo: "owner/repo"}`, or git URL |
+| `description` | No | Brief plugin description |
+| `version` | No | Plugin version |
+| `category` | No | Category for organization |
+| `tags` | No | Tags for searchability |
+| `strict` | No | When `true` (default), marketplace fields merge with `plugin.json`. When `false`, marketplace entry defines the plugin entirely |
+| `commands`, `agents`, `hooks`, `mcpServers`, `lspServers` | No | Custom component paths or inline configurations |
+
+### Plugin Sources
+
+| Source Type | Format |
+|-------------|--------|
+| Relative path | `"source": "./plugins/my-plugin"` |
+| GitHub | `{"source": "github", "repo": "owner/repo", "ref": "v2.0", "sha": "abc123..."}` |
+| Git URL | `{"source": "url", "url": "https://gitlab.com/team/plugin.git"}` |
+
+### Private Repository Authentication
+
+For manual installs, Claude Code uses existing git credential helpers. For background auto-updates:
+
+| Provider | Environment Variable |
+|----------|---------------------|
+| GitHub | `GITHUB_TOKEN` or `GH_TOKEN` |
+| GitLab | `GITLAB_TOKEN` or `GL_TOKEN` |
+| Bitbucket | `BITBUCKET_TOKEN` |
+
+### Adding Marketplaces
+
+```bash
+# GitHub repositories
+/plugin marketplace add your-org/claude-plugins
+
+# Git URLs (HTTPS or SSH)
+/plugin marketplace add https://gitlab.com/company/plugins.git
+/plugin marketplace add git@gitlab.com:company/plugins.git
+
+# Specific branch/tag
+/plugin marketplace add https://gitlab.com/company/plugins.git#v1.0.0
+
+# Local paths
+/plugin marketplace add ./my-marketplace
+
+# Remote URLs
+/plugin marketplace add https://example.com/marketplace.json
+```
+
+### Marketplace Management
+
+| Command | Action |
+|---------|--------|
+| `/plugin marketplace list` | List configured marketplaces |
+| `/plugin marketplace update <name>` | Refresh plugin listings |
+| `/plugin marketplace remove <name>` | Remove marketplace (uninstalls its plugins) |
+
+### Marketplace Validation
+
+```bash
+# From terminal
+claude plugin validate .
+
+# From within Claude Code
+/plugin validate .
+```
 
 ## VS Code Plugin Management (v2.1.16+)
 

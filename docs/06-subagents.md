@@ -7,11 +7,15 @@ Subagents are specialized AI assistants with isolated context. Claude can delega
 | Field | Required | Description |
 |-------|----------|-------------|
 | `name` | Yes | Unique identifier (lowercase, hyphens) |
-| `description` | Yes | Natural language purpose - helps Claude decide when to use |
+| `description` | Yes | Natural language purpose — helps Claude decide when to use |
 | `tools` | No | Comma-separated tool list (inherits all if omitted). Use `Task(agent-name)` to restrict which sub-agents this agent can spawn |
-| `model` | No | Model alias: `sonnet`, `opus`, `haiku`, or `inherit` |
-| `permissionMode` | No | Permission handling: `default`, `acceptEdits`, `bypassPermissions`, `plan`, `ignore` |
-| `skills` | No | Comma-separated skill names to auto-load |
+| `disallowedTools` | No | Tools to deny, removed from inherited or specified list |
+| `model` | No | Model alias: `sonnet`, `opus`, `haiku`, or `inherit` (default: `inherit`) |
+| `permissionMode` | No | Permission mode: `default`, `acceptEdits`, `delegate`, `dontAsk`, `bypassPermissions`, or `plan` |
+| `maxTurns` | No | Maximum number of agentic turns before the subagent stops |
+| `skills` | No | Comma-separated skill names to auto-load. Full skill content is injected; subagents don't inherit skills from parent |
+| `mcpServers` | No | MCP servers available to this subagent. Either a server name referencing an already-configured server or an inline `{name: config}` definition |
+| `hooks` | No | Lifecycle hooks scoped to this subagent (supports `PreToolUse`, `PostToolUse`, `Stop`) |
 | `memory` | No | Memory scope: `user`, `project`, or `local` (v2.1.33+) |
 
 ## Code Reviewer Agent
@@ -141,11 +145,14 @@ Report findings with:
 
 Claude Code includes several built-in subagents:
 
-| Subagent | Model | Purpose |
-|----------|-------|---------|
-| **General-Purpose** | Sonnet | Complex multi-step tasks requiring exploration and modification |
-| **Plan** | Sonnet | Research codebase in plan mode (read-only) |
-| **Explore** | Haiku | Fast codebase exploration with thoroughness levels: quick, medium, very thorough |
+| Subagent | Model | Tools | Purpose |
+|----------|-------|-------|---------|
+| **General-Purpose** | Inherits | All tools | Complex research, multi-step operations, code modifications |
+| **Plan** | Inherits | Read-only (denied Write/Edit) | Codebase research for planning (used during plan mode) |
+| **Explore** | Haiku | Read-only (denied Write/Edit) | Fast codebase exploration with thoroughness levels: quick, medium, very thorough |
+| **Bash** | Inherits | Terminal commands | Running terminal commands in a separate context |
+| **statusline-setup** | Sonnet | — | Configuring the status line (triggered via `/statusline`) |
+| **Claude Code Guide** | Haiku | — | Answering questions about Claude Code features |
 
 ## Resumable Subagents
 
@@ -156,6 +163,38 @@ Subagents can be resumed to continue previous work:
 ```
 
 Each execution gets a unique `agentId` stored in `agent-{agentId}.jsonl`. Full context is preserved when resumed, making this useful for long-running research or analysis tasks.
+
+## Foreground vs Background Behavior
+
+- **Foreground subagents**: Block the main conversation until complete. Permission prompts and `AskUserQuestion` are passed through to you.
+- **Background subagents**: Run concurrently. Before launching, Claude Code prompts for any tool permissions the subagent will need upfront. Once running, the subagent inherits these permissions and auto-denies anything not pre-approved. MCP tools are **not** available in background subagents.
+
+Claude decides foreground vs background based on the task. You can also:
+- Ask Claude to "run this in the background"
+- Press **Ctrl+B** to background a running task
+
+To disable all background task functionality: set `CLAUDE_CODE_DISABLE_BACKGROUND_TASKS=1`.
+
+## `--agents` CLI Flag
+
+Define subagents dynamically via JSON for a single session (not saved to disk):
+
+```bash
+claude --agents '{
+  "code-reviewer": {
+    "description": "Expert code reviewer. Use proactively after code changes.",
+    "prompt": "You are a senior code reviewer. Focus on quality, security, and best practices.",
+    "tools": ["Read", "Grep", "Glob", "Bash"],
+    "model": "sonnet"
+  },
+  "debugger": {
+    "description": "Debugging specialist for errors and test failures.",
+    "prompt": "You are an expert debugger. Analyze errors, identify root causes, and provide fixes."
+  }
+}'
+```
+
+The `--agents` flag accepts JSON with the same frontmatter fields: `description`, `prompt`, `tools`, `disallowedTools`, `model`, `permissionMode`, `mcpServers`, `hooks`, `maxTurns`, `skills`, and `memory`.
 
 ## Agent Teams
 

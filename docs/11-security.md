@@ -17,7 +17,27 @@ Admins can disable bypass mode: set `disableBypassPermissionsMode` to `"disable"
 
 ## Permission Rule Syntax
 
-Rules use the format `Tool` or `Tool(specifier)`.
+Rules use the format `Tool` or `Tool(specifier)`. Rules support three levels: `allow`, `ask`, and `deny`.
+
+### Permission Levels
+
+| Level | Behavior |
+|-------|----------|
+| `allow` | Tool executes without prompting |
+| `ask` | User is prompted for approval (default for most tools) |
+| `deny` | Tool is blocked unconditionally |
+
+### Additional Directories
+
+Use `permissions.additionalDirectories` to grant Claude access to directories outside the working directory:
+
+```json
+{
+  "permissions": {
+    "additionalDirectories": ["../docs/", "../shared-lib/"]
+  }
+}
+```
 
 ### Basic Rules
 

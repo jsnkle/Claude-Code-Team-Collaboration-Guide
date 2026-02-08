@@ -48,6 +48,9 @@ Enable sandboxing with `/sandbox` or via `settings.json`:
 | `network.allowedDomains` | array | Outbound domain allowlist (supports wildcards) |
 | `network.allowLocalBinding` | boolean | Bind to localhost ports, macOS only (default: false) |
 | `network.allowUnixSockets` | array | Accessible Unix socket paths |
+| `network.allowAllUnixSockets` | boolean | Allow all Unix socket connections (default: false) |
+| `network.httpProxyPort` | number | HTTP proxy port for custom proxy configuration |
+| `network.socksProxyPort` | number | SOCKS5 proxy port for custom proxy configuration |
 | `enableWeakerNestedSandbox` | boolean | Weaker sandbox for unprivileged Docker (default: false) |
 
 ### Security Limitations
@@ -134,6 +137,24 @@ Configuration files are automatically backed up with timestamps. The 5 most rece
 | `BASH_MAX_TIMEOUT_MS` | Maximum bash command timeout |
 | `MCP_TIMEOUT` | MCP server startup timeout |
 | `MCP_TOOL_TIMEOUT` | MCP tool execution timeout |
+
+## Team-Relevant CLI Flags
+
+| Flag | Description | Use Case |
+|------|-------------|----------|
+| `--agent` | Specify a subagent for the session | Override `agent` setting |
+| `--mcp-config` | Load MCP servers from JSON files | CI/CD and shared configs |
+| `--strict-mcp-config` | Only use MCP from `--mcp-config` | Locked-down environments |
+| `--settings` | Load additional settings from JSON file or string | Override defaults per session |
+| `--setting-sources` | Filter which setting sources load (`user,project,local`) | Debugging config issues |
+| `--plugin-dir` | Load plugins from directories (repeatable) | Testing plugins locally |
+| `--tools` | Restrict available tools (`""` for none, `"default"` for all, or tool names) | Limit tool access per session |
+| `--init` / `--init-only` | Run initialization hooks (and optionally exit) | Automated environment setup |
+| `--maintenance` | Run maintenance hooks and exit | Scheduled cleanup tasks |
+| `--fallback-model` | Auto-fallback model when default is overloaded (print mode) | CI/CD reliability |
+| `--no-session-persistence` | Disable session saving (print mode) | Ephemeral CI runs |
+| `--disable-slash-commands` | Disable all skills and slash commands | Restricted sessions |
+| `--permission-prompt-tool` | MCP tool for permission prompts in non-interactive mode | Automated permission handling |
 
 ## Headless / Programmatic Mode (Agent SDK)
 

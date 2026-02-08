@@ -38,7 +38,7 @@ pnpm build           # Production build
 - Always run tests before pushing
 
 ## Individual Developer Preferences
-@~/.claude/va-project-preferences.md
+@~/.claude/my-project-preferences.md
 ```
 
 ## Project Rules Examples

@@ -11,7 +11,7 @@ See @docs/architecture.md for system design.
 See @docs/contributing.md for contribution guidelines.
 
 # Individual Developer Preferences (each dev creates their own)
-@~/.claude/va-project-preferences.md
+@~/.claude/my-project-preferences.md
 ```
 
 ## Import Features

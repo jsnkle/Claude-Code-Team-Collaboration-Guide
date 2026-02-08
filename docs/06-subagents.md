@@ -162,7 +162,7 @@ Subagents can be resumed to continue previous work:
 > Resume agent abc123 and now analyze the authorization logic as well
 ```
 
-Each execution gets a unique `agentId` stored in `agent-{agentId}.jsonl`. Full context is preserved when resumed, making this useful for long-running research or analysis tasks.
+Each execution gets a unique `agentId`. The full transcript is stored at `~/.claude/projects/{project}/{sessionId}/subagents/agent-{agentId}.jsonl`. Full context is preserved when resumed, making this useful for long-running research or analysis tasks.
 
 ## Foreground vs Background Behavior
 
@@ -204,11 +204,11 @@ Agent teams are a separate concept from subagents — they coordinate multiple i
 
 The `memory` frontmatter field gives an agent persistent memory that Claude automatically records and recalls across sessions. This is useful for agents that build up project knowledge over time.
 
-| Scope | Persists Across | Storage |
-|-------|-----------------|---------|
-| `user` | All projects for this user | `~/.claude/` |
-| `project` | All sessions in this project | `.claude/` |
-| `local` | All sessions in this project (not shared) | `.claude/` (local) |
+| Scope | Persists Across | Storage Path |
+|-------|-----------------|--------------|
+| `user` | All projects for this user | `~/.claude/agent-memory/<name>/` |
+| `project` | All sessions in this project | `.claude/agent-memory/<name>/` |
+| `local` | All sessions in this project (not shared) | `.claude/agent-memory-local/<name>/` |
 
 ```markdown
 ---

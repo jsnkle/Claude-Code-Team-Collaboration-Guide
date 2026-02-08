@@ -1,6 +1,6 @@
 # Part 19: CI/CD Automation
 
-Claude Code integrates with GitHub Actions and GitLab CI/CD to bring AI-powered automation to pull requests, issues, and merge requests.
+Claude Code integrates with GitHub Actions and GitLab CI/CD to bring AI-powered automation to pull requests, issues, and merge requests. Both platforms use the **Agent SDK** (`claude -p`) under the hood — the same CLI, Python, and TypeScript interface for running Claude Code programmatically. See the [Agent SDK section](17-additional-features.md#headless--programmatic-mode-agent-sdk) for `-p` flags and options, or the [full Agent SDK documentation](https://platform.claude.com/docs/en/agent-sdk/overview) for the Python/TypeScript packages.
 
 ## GitHub Actions
 

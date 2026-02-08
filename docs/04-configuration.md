@@ -359,8 +359,8 @@ The hooks system supports the following event types:
 | `PreToolUse` | Before a tool executes | Can return `additionalContext` to inject info into the model's context (v2.1.9+) |
 | `PostToolUse` | After a tool executes | Matcher supports `Write\|Edit`, tool names, etc. |
 | `Setup` | On `--init`, `--init-only`, or `--maintenance` (v2.1.10+) | Useful for environment bootstrap |
-| `TeammateIdle` | Agent team member becomes idle (v2.1.33+) | Requires `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` |
-| `TaskCompleted` | Agent team task finishes (v2.1.33+) | Requires `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` |
+| `TeammateIdle` | Agent team member becomes idle (v2.1.33+) | Requires `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`. See [Agent Teams](20-agent-teams.md#quality-gate-hooks). |
+| `TaskCompleted` | Agent team task finishes (v2.1.33+) | Requires `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`. See [Agent Teams](20-agent-teams.md#quality-gate-hooks). |
 
 **Note:** Hook execution timeout increased from 60 seconds to 10 minutes in v2.1.3.
 

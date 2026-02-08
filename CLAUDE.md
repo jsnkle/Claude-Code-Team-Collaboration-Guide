@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-A template repository and 19-part reference guide for standardizing Claude Code across development teams. Serves two audiences equally:
+A template repository and 20-part reference guide for standardizing Claude Code across development teams. Serves two audiences equally:
 
 - **Team Plan** users — who have an admin layer (`managed-settings.json`) above project config
 - **Individual Plan** users (Pro/Max) — where the `.claude/` directory committed to git is the only shared governance
@@ -21,7 +21,7 @@ Contains composable templates (common + stack-specific) and comprehensive docume
 ## Repository Structure
 
 ```
-docs/              # 19-part reference guide (01-feature-overview.md through 19-resources.md)
+docs/              # 20-part reference guide (01-feature-overview.md through 20-agent-teams.md)
 templates/
   common/          # Universal best practices - always copy first
   react/           # React-specific - merges with common

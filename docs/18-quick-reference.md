@@ -130,4 +130,4 @@ For the complete list of built-in slash commands and CLI flags, see the [officia
 
 ---
 
-[← Previous: Additional Features](17-additional-features.md) | [Back to Guide](../README.md) | [Next: Resources →](19-resources.md)
+[← Previous: Additional Features](17-additional-features.md) | [Back to Guide](../README.md) | [Next: Agent Teams →](20-agent-teams.md)

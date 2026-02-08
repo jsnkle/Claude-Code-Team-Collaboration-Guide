@@ -19,6 +19,7 @@
 - [Sandboxing](https://code.claude.com/docs/en/sandboxing)
 - [Common Workflows](https://code.claude.com/docs/en/common-workflows)
 - [Headless Mode](https://code.claude.com/docs/en/headless)
+- [Agent Teams](https://code.claude.com/docs/en/agent-teams)
 
 ## Best Practices & Guides
 
@@ -34,7 +35,7 @@
 
 ---
 
-[← Previous: Quick Reference](18-quick-reference.md) | [Back to Guide](../README.md)
+[← Previous: Agent Teams](20-agent-teams.md) | [Back to Guide](../README.md)
 
 ---
 

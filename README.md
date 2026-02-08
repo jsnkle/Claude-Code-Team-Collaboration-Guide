@@ -1,6 +1,6 @@
 # Claude Code for Teams
 
-Composable configuration templates and a 19-part reference guide for standardizing Claude Code across your development team — whether you're on a Team Plan or a group of developers on individual subscriptions.
+Composable configuration templates and a 20-part reference guide for standardizing Claude Code across your development team — whether you're on a Team Plan or a group of developers on individual subscriptions.
 
 **Compatible with Claude Code v2.1.37**
 
@@ -157,6 +157,7 @@ templates/react/.claude/
 | 16 | [VS Code Extension](docs/16-vscode-extension.md) | IDE integration |
 | 17 | [Team-Configurable Features](docs/17-additional-features.md) | Sandbox mode, env vars |
 | 18 | [Quick Reference](docs/18-quick-reference.md) | Keyboard shortcuts, patterns |
+| 20 | [Agent Teams](docs/20-agent-teams.md) | Multi-agent collaboration and coordination |
 | 19 | [Resources](docs/19-resources.md) | Official docs, community resources |
 
 ## Team Onboarding

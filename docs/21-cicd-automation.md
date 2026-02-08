@@ -276,11 +276,29 @@ Your `CLAUDE.md` and `.claude/` configuration apply in CI just like local develo
 | Trigger | Native event triggers | `AI_FLOW_*` variables via webhook/API |
 | MCP server | Optional via `--mcp-config` | `/bin/gitlab-mcp-server` (GitLab MCP) |
 
+## Migrating from Beta to v1 (GitHub Actions)
+
+If you previously used `anthropics/claude-code-action@beta`, update to `@v1` with these input changes:
+
+| Old Beta Input | New v1 Input |
+|---|---|
+| `mode` | Removed (auto-detected from event context) |
+| `direct_prompt` | `prompt` |
+| `override_prompt` | `prompt` with GitHub context variables |
+| `custom_instructions` | `claude_args: --append-system-prompt "..."` |
+| `max_turns` | `claude_args: --max-turns N` |
+| `model` | `claude_args: --model <name>` |
+| `allowed_tools` | `claude_args: --allowedTools "..."` |
+| `disallowed_tools` | `claude_args: --disallowedTools "..."` |
+| `claude_env` | `settings` JSON format |
+
 ## Cost & Security Best Practices
 
 - **Never commit API keys** — use repository/CI secrets
 - **Use OIDC** where possible (no long-lived credentials)
 - **Set `--max-turns`** to control API costs per invocation
+- **Set `--max-budget-usd`** to cap spending per run (e.g., `claude -p --max-budget-usd 5.00 "..."`)
+- **Use `--fallback-model`** for reliability when the default model is overloaded
 - **Configure workflow timeouts** to prevent runaway runs
 - **Review AI-generated PRs/MRs** like any other contributor
 - **Use concurrency controls** to limit parallel runs

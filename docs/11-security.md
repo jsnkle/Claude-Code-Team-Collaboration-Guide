@@ -29,7 +29,7 @@ Rules use the format `Tool` or `Tool(specifier)`. Rules support three levels: `a
 
 ### Additional Directories
 
-Use `permissions.additionalDirectories` to grant Claude access to directories outside the working directory:
+Grant Claude access to directories outside the working directory via settings or CLI:
 
 ```json
 {
@@ -38,6 +38,8 @@ Use `permissions.additionalDirectories` to grant Claude access to directories ou
   }
 }
 ```
+
+Also available via `--add-dir <path>` flag at startup or `/add-dir <path>` interactively.
 
 ### Basic Rules
 
@@ -149,6 +151,21 @@ Claude Code includes built-in protections against prompt injection:
 ## Credential Storage
 
 On macOS, API keys, OAuth tokens, and other credentials are stored in the encrypted **macOS Keychain**. No credentials are stored in plaintext on disk.
+
+## Managed Permission Settings (Team Plan)
+
+These settings are only available in `managed-settings.json`:
+
+| Setting | Purpose |
+|---------|---------|
+| `allowManagedPermissionRulesOnly` | Block user/project permission rules — only managed rules apply |
+| `allowManagedHooksOnly` | Block user, project, and plugin hooks |
+| `strictKnownMarketplaces` | Restrict plugin marketplaces to an admin-approved list |
+| `disableBypassPermissionsMode` | Set to `"disable"` to prevent bypass mode |
+
+### Permissions + Sandboxing (Defense in Depth)
+
+Permissions and [sandboxing](17-additional-features.md#sandbox-mode) are complementary layers. Permissions control which tools Claude can invoke and what specifiers are allowed. Sandboxing provides OS-level isolation for Bash commands that are permitted. Together they form a defense-in-depth strategy: permissions prevent unwanted actions; the sandbox limits damage if something unexpected executes.
 
 ## MCP Security
 

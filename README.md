@@ -157,10 +157,10 @@ templates/react/.claude/
 | 16 | [VS Code Extension](docs/16-vscode-extension.md) | IDE integration |
 | 17 | [Team-Configurable Features](docs/17-additional-features.md) | Sandbox mode, env vars |
 | 18 | [Quick Reference](docs/18-quick-reference.md) | Keyboard shortcuts, patterns |
-| 20 | [Agent Teams](docs/20-agent-teams.md) | Multi-agent collaboration and coordination |
-| 21 | [CI/CD Automation](docs/21-cicd-automation.md) | GitHub Actions and GitLab CI/CD integration |
-| 22 | [Enterprise Admin](docs/22-enterprise-admin.md) | Authentication, LLM gateway, monitoring, analytics |
-| 19 | [Resources](docs/19-resources.md) | Official docs, community resources |
+| 19 | [Agent Teams](docs/19-agent-teams.md) | Multi-agent collaboration and coordination |
+| 20 | [CI/CD Automation](docs/20-cicd-automation.md) | GitHub Actions and GitLab CI/CD integration |
+| 21 | [Enterprise Admin](docs/21-enterprise-admin.md) | Authentication, LLM gateway, monitoring, analytics |
+| 22 | [Resources](docs/22-resources.md) | Official docs, community resources |
 
 ## Team Onboarding
 

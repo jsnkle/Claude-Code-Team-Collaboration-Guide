@@ -7,7 +7,7 @@
 **The problem it solves:** Setting up Claude Code for a team requires creating CLAUDE.md files, rules, commands, agents, settings, and hooks. Without shared configuration, each developer reinvents the wheel. This repository provides:
 
 1. **Composable templates** — Ready-to-use `.claude/` configurations (common + stack-specific) that teams commit to git
-2. **A 20-part reference guide** — Documentation covering Claude Code's team-relevant features, onboarding checklists, security practices, and best practices
+2. **A 22-part reference guide** — Documentation covering Claude Code's team-relevant features, onboarding checklists, security practices, and best practices
 
 **Who it's for:**
 
@@ -26,7 +26,7 @@ The templates work identically in both scenarios. The difference is what sits ab
 5. Commit the `.claude/` directory to your project
 6. Team members pull and immediately have Claude Code configured
 
-**Current status:** Composable template structure complete with `common/` and `react/` templates. 20-part reference guide synced to Claude Code v2.1.37. Plan-specific guidance (Team Plan vs. Individual Plans) documented across onboarding, hierarchy, and security docs.
+**Current status:** Composable template structure complete with `common/` and `react/` templates. 22-part reference guide synced to Claude Code v2.1.37. Plan-specific guidance (Team Plan vs. Individual Plans) documented across onboarding, hierarchy, and security docs.
 
 ---
 
@@ -55,7 +55,7 @@ The templates work identically in both scenarios. The difference is what sits ab
 
 ## Documentation
 
-- [ ] **Update docs** - Ensure all 20 guide parts reflect composable templates
+- [ ] **Update docs** - Ensure all 22 guide parts reflect composable templates
 - [ ] **Version migration notes** - Lightweight migration guide when template versions bump, so adopters know what changed in their config files
 
 ## Team Adoption

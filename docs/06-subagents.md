@@ -237,6 +237,14 @@ This agent can only spawn `code-reviewer` and `test-writer` sub-agents — it ca
 
 You can also disable sub-agent access entirely by omitting `Task` from the tools list while specifying other tools explicitly.
 
+## Managing Subagents
+
+Use `/agents` interactively to view, create, edit, and delete subagents. It shows all available subagents (built-in, user, project, and plugin) and supports creating new ones with guided setup or Claude generation.
+
+## Auto-Compaction
+
+Subagents auto-compact at approximately 95% context capacity, using the same logic as the main conversation. Set `CLAUDE_AUTOCOMPACT_PCT_OVERRIDE` to trigger earlier (e.g., `50` for 50%). Compaction events are logged in subagent transcript files.
+
 ## Subagent Strategy
 
 - **Read-only agents** for review tasks (limit tools to Read, Grep, Glob)

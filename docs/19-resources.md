@@ -14,13 +14,12 @@
 
 ### Extensibility
 
-- [Skills](https://code.claude.com/docs/en/skills)
+- [Skills (includes slash commands)](https://code.claude.com/docs/en/skills)
 - [Subagents](https://code.claude.com/docs/en/sub-agents)
 - [Agent Teams](https://code.claude.com/docs/en/agent-teams)
 - [Hooks Reference](https://code.claude.com/docs/en/hooks)
 - [Hooks Guide](https://code.claude.com/docs/en/hooks-guide)
 - [MCP Integration](https://code.claude.com/docs/en/mcp)
-- [Skills (includes slash commands)](https://code.claude.com/docs/en/skills)
 - [Plugins](https://code.claude.com/docs/en/plugins)
 - [Plugins Reference](https://code.claude.com/docs/en/plugins-reference)
 - [Discover Plugins](https://code.claude.com/docs/en/discover-plugins)
@@ -52,9 +51,14 @@
 - [Output Styles](https://code.claude.com/docs/en/output-styles)
 - [Status Line](https://code.claude.com/docs/en/statusline)
 - [Interactive Mode](https://code.claude.com/docs/en/interactive-mode)
+- [Keyboard Shortcuts](https://code.claude.com/docs/en/keybindings)
+- [Fast Mode](https://code.claude.com/docs/en/fast-mode)
+- [Terminal Setup](https://code.claude.com/docs/en/terminal-config)
 - [Common Workflows](https://code.claude.com/docs/en/common-workflows)
 - [How Claude Code Works](https://code.claude.com/docs/en/how-claude-code-works)
 - [Best Practices](https://code.claude.com/docs/en/best-practices)
+- [Quickstart](https://code.claude.com/docs/en/quickstart)
+- [Setup](https://code.claude.com/docs/en/setup)
 - [Costs](https://code.claude.com/docs/en/costs)
 - [Data Usage](https://code.claude.com/docs/en/data-usage)
 - [Legal and Compliance](https://code.claude.com/docs/en/legal-and-compliance)
@@ -62,6 +66,8 @@
 - [Changelog](https://code.claude.com/docs/en/changelog)
 - [Third-Party Integrations](https://code.claude.com/docs/en/third-party-integrations)
 - [Claude Code on the Web](https://code.claude.com/docs/en/claude-code-on-the-web)
+- [Chrome Extension (Beta)](https://code.claude.com/docs/en/chrome)
+- [Slack Integration](https://code.claude.com/docs/en/slack)
 
 ### IDE & Platform Integration
 

@@ -20,7 +20,7 @@
 - [Hooks Reference](https://code.claude.com/docs/en/hooks)
 - [Hooks Guide](https://code.claude.com/docs/en/hooks-guide)
 - [MCP Integration](https://code.claude.com/docs/en/mcp)
-- [Slash Commands](https://code.claude.com/docs/en/slash-commands)
+- [Skills (includes slash commands)](https://code.claude.com/docs/en/skills)
 - [Plugins](https://code.claude.com/docs/en/plugins)
 - [Plugins Reference](https://code.claude.com/docs/en/plugins-reference)
 - [Discover Plugins](https://code.claude.com/docs/en/discover-plugins)

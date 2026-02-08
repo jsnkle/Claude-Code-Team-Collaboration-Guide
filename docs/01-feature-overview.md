@@ -1,4 +1,4 @@
-# Part 1: Claude Code Feature Overview (v2.1.36)
+# Part 1: Claude Code Feature Overview (v2.1.37)
 
 ## Core Features
 
@@ -47,7 +47,7 @@
 | Feature | Description | Team Relevance |
 |---------|-------------|----------------|
 | **Agent Teams (Preview)** | Multi-agent collaboration with `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`. Includes `TeammateIdle` and `TaskCompleted` hook events. | Parallel agent workflows |
-| **Agent Memory** | Automatic memory recording/recall with `user`, `project`, or `local` scope. Claude builds knowledge across sessions. | Persistent project context |
+| **Agent Memory** | Automatic memory recording/recall with `user`, `project`, or `local` scope via `memory` frontmatter. Claude builds knowledge across sessions. | Persistent project context |
 | **New Hook Events** | `Setup` event (via `--init`), `PreToolUse` returns `additionalContext`, `TeammateIdle`, `TaskCompleted`. | Richer automation triggers |
 | **Indexed Command Arguments** | `$ARGUMENTS[0]` bracket syntax for positional arguments in slash commands. | More flexible team commands |
 | **MCP Auto-Enable** | `auto:N` syntax for MCP tool search threshold (0-100%). Default 10%. | Smoother MCP tool adoption |

@@ -11,7 +11,7 @@ A template repository and 19-part reference guide for standardizing Claude Code 
 
 Contains composable templates (common + stack-specific) and comprehensive documentation. The templates work identically for both audiences.
 
-**Compatible with Claude Code v2.1.36**
+**Compatible with Claude Code v2.1.37**
 
 ## Terminology & Framing
 

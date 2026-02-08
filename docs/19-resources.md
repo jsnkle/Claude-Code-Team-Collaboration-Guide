@@ -38,4 +38,4 @@
 
 ---
 
-*Document Version: 3.0 | Compatible with Claude Code v2.1.36*
+*Document Version: 3.0 | Compatible with Claude Code v2.1.37*

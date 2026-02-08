@@ -62,19 +62,21 @@
 
 ### Command Hooks (Bash)
 
+Matchers are **regex on the tool name only** — they don't filter on tool input. Your hook script reads the full tool input from stdin as JSON and inspects file paths, commands, etc. inside the script.
+
 ```json
 {
   "hooks": {
     "PostToolUse": [
       {
-        "matcher": "Write(*.py)",
-        "hooks": [{"type": "command", "command": "black \"$CLAUDE_FILE_PATH\"", "timeout": 60}]
+        "matcher": "Write|Edit",
+        "hooks": [{"type": "command", "command": "$CLAUDE_PROJECT_DIR/.claude/scripts/lint-python.sh", "timeout": 60}]
       }
     ],
     "PreToolUse": [
       {
-        "matcher": "Bash(rm:*)",
-        "hooks": [{"type": "command", "command": "echo 'Warning: Delete operation'"}]
+        "matcher": "Bash",
+        "hooks": [{"type": "command", "command": "$CLAUDE_PROJECT_DIR/.claude/scripts/block-rm.sh"}]
       }
     ]
   }

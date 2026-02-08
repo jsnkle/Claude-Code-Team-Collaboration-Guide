@@ -144,6 +144,17 @@ MCP tools follow pattern: `mcp__<server>__<tool>`
 }
 ```
 
+### Hook Caveats
+
+**Stop hook infinite loop prevention:** Stop hooks receive a `stop_hook_active` field in their stdin JSON. If `true`, the hook is being called because a *previous* Stop hook continued the conversation. Your hook should exit 0 (allow stop) in this case to prevent infinite loops.
+
+**PermissionRequest hooks don't fire in `-p` mode:** When running Claude in non-interactive mode (`-p`), `PermissionRequest` hooks are never triggered. Use `PreToolUse` hooks instead if you need to control tool permissions in headless/CI pipelines.
+
+**Structured output varies by event:**
+- `PreToolUse`: Return `{ "decision": "allow" | "deny" | "ask", "reason": "..." }`
+- `PostToolUse` / `Stop`: Return `{ "decision": "block", "reason": "..." }` at top level to continue the conversation
+- `PermissionRequest`: Return `{ "hookSpecificOutput": { "decision": { "behavior": "allow" | "deny" | "ask" } } }`
+
 ---
 
 [← Previous: Onboarding](09-onboarding.md) | [Back to Guide](../README.md) | [Next: Security →](11-security.md)

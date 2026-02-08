@@ -180,6 +180,17 @@ Managed settings can control MCP server access:
 }
 ```
 
+## Cloud Execution Security
+
+When using Claude Code on the web, sessions run in isolated virtual machines with:
+- **Network access controls** — outbound connections restricted by default
+- **Credential protection** — secrets injected at runtime, not persisted
+- **Branch restrictions** — can be limited to non-default branches
+- **Audit logging** — all actions logged for review
+- **Automatic cleanup** — VMs destroyed after session ends
+
+See the [official security page](https://code.claude.com/docs/en/security) for full details.
+
 ## Platform Notes
 
 **Windows (WebDAV)**: Be cautious with WebDAV-mapped drives. Claude Code may follow UNC paths to remote locations, potentially exposing file contents to untrusted servers. Restrict file access with deny rules if using WebDAV.

@@ -163,6 +163,10 @@ If you're new to agent teams, start with tasks that have clear boundaries and do
 
 Check in on teammates' progress, redirect approaches that aren't working, and synthesize findings as they come in. Letting a team run unattended for too long increases the risk of wasted effort.
 
+## Cloud Provider Support (v2.1.45+)
+
+Agent teams work on Bedrock, Vertex AI, and Microsoft Foundry. Environment variables are propagated to teammates automatically, so cloud credentials work without extra configuration. Custom agent `model` fields are respected when spawning teammates (v2.1.47+).
+
 ## Key Limitations
 
 | Limitation | Detail |

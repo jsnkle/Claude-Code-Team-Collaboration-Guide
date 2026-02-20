@@ -12,6 +12,7 @@
 | `Ctrl+L` | Clear terminal screen (keeps conversation) |
 | `Ctrl+Z` | Suspend Claude Code (resume with `fg`) |
 | `Ctrl+B` | Run bash command or agent in background (unified in v2.1+) |
+| `Ctrl+F` | Kill background agents (two-press confirmation, v2.1.49+) |
 | `Ctrl+G` | Edit prompt in system text editor |
 | `Ctrl+J` | Insert newline (control sequence) |
 | `Ctrl+Y` | Paste deleted text (readline-style yank) |
@@ -34,7 +35,7 @@
 
 **Terminal Setup:** Run `/terminal-setup` to configure your terminal for optimal Claude Code experience. Supported terminals include iTerm2, Kitty, Alacritty, Zed, Warp, WezTerm, and Ghostty.
 
-**Customizable Keybindings (v2.1.18+):** Run `/keybindings` to customize keyboard shortcuts with chord sequence support. Keybindings are context-aware and stored in `~/.claude/keybindings.json`.
+**Customizable Keybindings (v2.1.18+):** Run `/keybindings` to customize keyboard shortcuts with chord sequence support. Keybindings are context-aware and stored in `~/.claude/keybindings.json`. The `chat:newline` keybinding can be customized for multi-line input (v2.1.47+).
 
 ## Vim Motions (v2.1+)
 
@@ -81,6 +82,7 @@ paths:
 @README.md                           # Relative path
 @docs/architecture.md                # Subdirectory
 @~/.claude/my-preferences.md         # Home directory
+@README.md#installation              # File with anchor fragment (v2.1.41+)
 ```
 
 ## Useful Verification Commands
@@ -122,6 +124,7 @@ These built-in commands help verify team configurations are loaded correctly:
 | `--append-system-prompt <text>` | Append to default system prompt |
 | `--append-system-prompt-file <f>` | Append file contents to system prompt (print mode only) |
 | `--permission-mode <mode>` | Start in specified permission mode |
+| `-w`, `--worktree` | Launch Claude in an isolated git worktree (v2.1.49+) |
 | `--agents <json>` | Define custom subagents dynamically via JSON |
 | `--agent <name>` | Specify an agent for the session |
 | `--from-pr <number\|url>` | Resume session linked to a GitHub PR |

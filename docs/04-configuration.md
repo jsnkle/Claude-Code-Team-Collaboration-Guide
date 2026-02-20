@@ -354,7 +354,7 @@ paths:
 
 ### Hook Events Reference
 
-The hooks system supports 14 event types:
+The hooks system supports 15 event types:
 
 | Event | Trigger | Can block? |
 |-------|---------|-----------|
@@ -371,6 +371,7 @@ The hooks system supports 14 event types:
 | `TeammateIdle` | Agent team member becomes idle | Yes |
 | `TaskCompleted` | Task is being marked completed | Yes |
 | `PreCompact` | Before context compaction | No |
+| `ConfigChange` | When settings are modified (v2.1.49+) | No |
 | `SessionEnd` | Session terminates | No |
 
 ### Hook Handler Types
@@ -547,6 +548,8 @@ Allowlist behavior: `undefined` = no restrictions, `[]` = complete lockdown, lis
 }
 ```
 
+**MCP connectors from claude.ai**: MCP servers configured in your claude.ai account are automatically available in Claude Code (v2.1.46+).
+
 **Claude as MCP server**: Run `claude mcp serve` to expose Claude Code as an MCP server for other tools.
 
 **Strict mode**: Use `--strict-mcp-config` to only load MCP servers from `--mcp-config` files.
@@ -660,6 +663,7 @@ Settings files support a JSON schema for editor autocompletion:
 | `prefersReducedMotion` | Disable UI animations (v2.1.30+) | `true` |
 | `terminalProgressBarEnabled` | Enable terminal progress bar (default: true) | `false` |
 | `spinnerTipsEnabled` | Show tips in spinner (default: true) | `false` |
+| `spinnerTipsOverride` | Custom spinner tips with optional `excludeDefault: true` (v2.1.45+) | `{"tips": ["Tip 1"], "excludeDefault": true}` |
 | `autoUpdatesChannel` | Release channel: `stable` or `latest` (default: `latest`) | `"stable"` |
 | `teammateMode` | Agent team display: `auto`, `in-process`, or `tmux` | `"tmux"` |
 

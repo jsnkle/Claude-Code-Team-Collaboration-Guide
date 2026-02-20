@@ -42,6 +42,7 @@
 - [Analytics](https://code.claude.com/docs/en/analytics)
 - [Monitoring (OpenTelemetry)](https://code.claude.com/docs/en/monitoring-usage)
 - [LLM Gateway Configuration](https://code.claude.com/docs/en/llm-gateway)
+- [Server-Managed Settings (Beta)](https://code.claude.com/docs/en/server-managed-settings)
 - [Network Configuration](https://code.claude.com/docs/en/network-config)
 - [Development Containers](https://code.claude.com/docs/en/devcontainer)
 
@@ -74,6 +75,7 @@
 - [VS Code](https://code.claude.com/docs/en/vs-code)
 - [JetBrains](https://code.claude.com/docs/en/jetbrains)
 - [Desktop](https://code.claude.com/docs/en/desktop)
+- [Desktop Quickstart](https://code.claude.com/docs/en/desktop-quickstart)
 - [Amazon Bedrock](https://code.claude.com/docs/en/amazon-bedrock)
 - [Google Vertex AI](https://code.claude.com/docs/en/google-vertex-ai)
 - [Microsoft Foundry](https://code.claude.com/docs/en/microsoft-foundry)

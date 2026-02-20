@@ -23,6 +23,7 @@
 /login           # Re-authenticate
 /agents          # Manage subagents
 /init            # Bootstrap/update CLAUDE.md
+/debug           # Session troubleshooting and diagnostics (v2.1.41+)
 ```
 
 ---

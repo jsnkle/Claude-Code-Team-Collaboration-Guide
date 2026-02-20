@@ -2,7 +2,7 @@
 
 Composable configuration templates and a 22-part reference guide for standardizing Claude Code across your development team — whether you're on a Team Plan or a group of developers on individual subscriptions.
 
-**Compatible with Claude Code v2.1.37**
+**Compatible with Claude Code v2.1.49**
 
 ## Who This Guide Is For
 
@@ -170,6 +170,6 @@ templates/react/.claude/
 
 ---
 
-*Template Version: 2.3 | Compatible with Claude Code v2.1.37*
+*Template Version: 2.4 | Compatible with Claude Code v2.1.49*
 
 **Created by Jason Kellie | MIT License**

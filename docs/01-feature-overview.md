@@ -1,4 +1,4 @@
-# Part 1: Claude Code Feature Overview (v2.1.37)
+# Part 1: Claude Code Feature Overview (v2.1.49)
 
 ## Core Features
 

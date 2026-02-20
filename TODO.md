@@ -26,7 +26,7 @@ The templates work identically in both scenarios. The difference is what sits ab
 5. Commit the `.claude/` directory to your project
 6. Team members pull and immediately have Claude Code configured
 
-**Current status:** Composable template structure complete with `common/` and `react/` templates. 22-part reference guide synced to Claude Code v2.1.37. Plan-specific guidance (Team Plan vs. Individual Plans) documented across onboarding, hierarchy, and security docs.
+**Current status:** Composable template structure complete with `common/` and `react/` templates. 22-part reference guide synced to Claude Code v2.1.49. Plan-specific guidance (Team Plan vs. Individual Plans) documented across onboarding, hierarchy, and security docs.
 
 ---
 

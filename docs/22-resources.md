@@ -94,4 +94,4 @@
 
 [← Previous: Enterprise Admin](21-enterprise-admin.md) | [Back to Guide](../README.md)
 
-*Document Version: 3.0 | Compatible with Claude Code v2.1.37*
+*Document Version: 3.1 | Compatible with Claude Code v2.1.49*

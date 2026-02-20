@@ -55,6 +55,19 @@
 | **PR Session Linking** | `--from-pr` flag and auto-linking via `gh pr create`. PR review status in prompt footer. | PR-centric workflows |
 | **Skills from --add-dir** | Skills and CLAUDE.md auto-load from `--add-dir` directories. | Shared skill libraries |
 
+## Key v2.1.38+ Features
+
+| Feature | Description | Team Relevance |
+|---------|-------------|----------------|
+| **Worktree Isolation** | `--worktree` flag and `isolation: "worktree"` in subagent frontmatter. Agents work in isolated git worktrees. | Parallel work without conflicts |
+| **Background Agents** | `background: true` in agent definitions for always-running tasks. Results return final answers, not raw transcripts. | Persistent monitoring agents |
+| **ConfigChange Hook** | New hook event fires on settings changes for enterprise security auditing. | Admin audit logging |
+| **Plugin Default Settings** | Plugins can ship a `settings.json` with default configuration. | Simpler plugin onboarding |
+| **Server-Managed Settings** | Push configuration to Claude Code installations remotely (public beta). | Centralized team config |
+| **`/debug` Command** | Session troubleshooting and diagnostics. | Faster issue resolution |
+| **Anchor Fragment Refs** | `@README.md#installation` syntax for file references with anchors. | More precise context |
+| **MCP Client Auth** | `--client-id` and `--client-secret` for MCP servers without Dynamic Client Registration. | Self-hosted MCP servers |
+
 **Note:** Claude Code includes many individual productivity features (extended thinking, background commands, vim mode, etc.) documented in the [official docs](https://code.claude.com/docs). This guide focuses on team-configurable features.
 
 ## Context Cost by Feature

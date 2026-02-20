@@ -13,6 +13,7 @@ my-plugin/
   skills/                # Agent Skills with SKILL.md files
   hooks/
     hooks.json           # Event handlers
+  settings.json          # Default configuration shipped with plugin (v2.1.49+)
   .mcp.json              # MCP server configurations
   .lsp.json              # LSP server configurations
 ```
@@ -38,8 +39,8 @@ Only `name` is required (kebab-case, no spaces):
 |---------|-------------|
 | `claude plugin install <plugin> [-s scope]` | Install from marketplace |
 | `claude plugin uninstall <plugin> [-s scope]` | Remove plugin |
-| `claude plugin enable <plugin> [-s scope]` | Enable disabled plugin |
-| `claude plugin disable <plugin> [-s scope]` | Disable without removing |
+| `claude plugin enable <plugin> [-s scope]` | Enable disabled plugin (auto-detects scope if `-s` omitted, v2.1.49+) |
+| `claude plugin disable <plugin> [-s scope]` | Disable without removing (auto-detects scope if `-s` omitted, v2.1.49+) |
 | `claude plugin update <plugin> [-s scope]` | Update to latest version |
 
 ### Interactive Commands
@@ -102,6 +103,8 @@ Add `extraKnownMarketplaces` to your project's `.claude/settings.json` to ensure
 ```
 
 When team members trust the folder, they'll be prompted to install the marketplace and plugins.
+
+Directories added via `--add-dir` also read `enabledPlugins` and `extraKnownMarketplaces` from their `.claude/settings.json` (v2.1.45+), so shared plugin libraries can live outside the main project.
 
 ### Marketplace Source Types
 

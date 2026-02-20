@@ -17,6 +17,8 @@ Subagents are specialized AI assistants with isolated context. Claude can delega
 | `mcpServers` | No | MCP servers available to this subagent. Either a server name referencing an already-configured server or an inline `{name: config}` definition |
 | `hooks` | No | Lifecycle hooks scoped to this subagent (supports `PreToolUse`, `PostToolUse`, `Stop`) |
 | `memory` | No | Memory scope: `user`, `project`, or `local` (v2.1.33+) |
+| `isolation` | No | Isolation mode: `"worktree"` runs the agent in its own git worktree (v2.1.49+) |
+| `background` | No | When `true`, agent runs persistently in the background (v2.1.49+) |
 
 ## Code Reviewer Agent
 
@@ -167,13 +169,42 @@ Each execution gets a unique `agentId`. The full transcript is stored at `~/.cla
 ## Foreground vs Background Behavior
 
 - **Foreground subagents**: Block the main conversation until complete. Permission prompts and `AskUserQuestion` are passed through to you.
-- **Background subagents**: Run concurrently. Before launching, Claude Code prompts for any tool permissions the subagent will need upfront. Once running, the subagent inherits these permissions and auto-denies anything not pre-approved. MCP tools are **not** available in background subagents.
+- **Background subagents**: Run concurrently. Before launching, Claude Code prompts for any tool permissions the subagent will need upfront. Once running, the subagent inherits these permissions and auto-denies anything not pre-approved. MCP tools are **not** available in background subagents. Background agents return a final answer summary rather than the raw transcript (v2.1.47+).
 
 Claude decides foreground vs background based on the task. You can also:
 - Ask Claude to "run this in the background"
 - Press **Ctrl+B** to background a running task
+- Press **Ctrl+F** (two-press confirmation) to kill background agents (v2.1.49+)
 
 To disable all background task functionality: set `CLAUDE_CODE_DISABLE_BACKGROUND_TASKS=1`.
+
+### Always-On Background Agents (v2.1.49+)
+
+Set `background: true` in agent frontmatter to create an agent that runs persistently in the background:
+
+```markdown
+---
+name: watcher
+description: Monitors test output and reports failures.
+background: true
+tools: Bash, Read
+---
+```
+
+### Worktree Isolation (v2.1.49+)
+
+Set `isolation: "worktree"` to run the agent in its own git worktree, preventing file conflicts with the main session:
+
+```markdown
+---
+name: parallel-worker
+description: Works on a separate feature in isolation.
+isolation: worktree
+tools: Read, Write, Edit, Bash, Grep, Glob
+---
+```
+
+Also available via the `--worktree` (`-w`) CLI flag to launch an entire Claude session in an isolated worktree.
 
 ## `--agents` CLI Flag
 
@@ -194,7 +225,7 @@ claude --agents '{
 }'
 ```
 
-The `--agents` flag accepts JSON with the same frontmatter fields: `description`, `prompt`, `tools`, `disallowedTools`, `model`, `permissionMode`, `mcpServers`, `hooks`, `maxTurns`, `skills`, and `memory`.
+The `--agents` flag accepts JSON with the same frontmatter fields: `description`, `prompt`, `tools`, `disallowedTools`, `model`, `permissionMode`, `mcpServers`, `hooks`, `maxTurns`, `skills`, `memory`, `isolation`, and `background`.
 
 ## Agent Teams
 

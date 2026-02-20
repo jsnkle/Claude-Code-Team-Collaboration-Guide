@@ -147,6 +147,7 @@ Claude Code includes built-in protections against prompt injection:
 - **Command blocklist**: `curl` and `wget` are blocked by default in Bash deny rules
 - **Context-aware analysis**: Claude evaluates tool inputs for potential injection
 - **Shell operator awareness**: Permission rules understand `&&`, `||`, and pipes — `Bash(safe-cmd *)` won't match `safe-cmd && malicious-cmd`
+- **Permission match validation**: The Bash permission classifier validates match descriptions to prevent hallucinated permission grants (v2.1.45+)
 
 ## Credential Storage
 
@@ -160,8 +161,26 @@ These settings are only available in `managed-settings.json`:
 |---------|---------|
 | `allowManagedPermissionRulesOnly` | Block user/project permission rules — only managed rules apply |
 | `allowManagedHooksOnly` | Block user, project, and plugin hooks |
+| `disableAllHooks` | Disable all hooks including managed hooks. Respects the managed settings hierarchy — if set at managed level, user/project settings cannot override (v2.1.49+) |
 | `strictKnownMarketplaces` | Restrict plugin marketplaces to an admin-approved list |
 | `disableBypassPermissionsMode` | Set to `"disable"` to prevent bypass mode |
+
+## ConfigChange Hook (v2.1.49+)
+
+The `ConfigChange` hook event fires when settings are modified, enabling enterprise security auditing:
+
+```json
+{
+  "hooks": {
+    "ConfigChange": [{
+      "type": "command",
+      "command": "/path/to/audit-config-change.sh"
+    }]
+  }
+}
+```
+
+This allows admins to log, alert on, or block configuration changes in real time.
 
 ### Permissions + Sandboxing (Defense in Depth)
 

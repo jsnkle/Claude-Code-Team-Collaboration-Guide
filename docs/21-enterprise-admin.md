@@ -176,6 +176,27 @@ Claude Code requires access to these URLs:
 | `statsig.anthropic.com` | Telemetry and metrics |
 | `sentry.io` | Error reporting |
 
+## Server-Managed Settings (Public Beta)
+
+Server-managed settings allow admins to push configuration changes to Claude Code installations remotely, without requiring changes to local files. See the [official docs](https://code.claude.com/docs/en/server-managed-settings) for setup and configuration.
+
+## Configuration Change Auditing (v2.1.49+)
+
+The `ConfigChange` hook event fires when settings are modified, enabling centralized audit logging:
+
+```json
+{
+  "hooks": {
+    "ConfigChange": [{
+      "type": "command",
+      "command": "/path/to/audit-config-change.sh"
+    }]
+  }
+}
+```
+
+Deploy this in `managed-settings.json` to track all configuration changes across the team. See [Security: ConfigChange Hook](11-security.md#configchange-hook-v2149) for details.
+
 ## Monitoring (OpenTelemetry)
 
 Claude Code exports metrics and events via OpenTelemetry for usage tracking, cost monitoring, and observability.

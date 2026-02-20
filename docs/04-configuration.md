@@ -573,7 +573,7 @@ Custom status lines can use these context window variables:
 | `sonnet` | Latest Sonnet model for daily coding tasks |
 | `opus` | Latest Opus model for complex reasoning |
 | `haiku` | Fast, efficient Haiku model for simple tasks |
-| `sonnet[1m]` | Sonnet with 1 million token context window |
+| `sonnet[1m]` | Sonnet 4.6 with 1 million token context window |
 | `opusplan` | Uses `opus` during plan mode, switches to `sonnet` for execution |
 
 Aliases always point to the latest version. To pin a specific version, use the full model name (e.g., `claude-opus-4-5-20251101`).
